@@ -152,8 +152,15 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
 
             <div className="text-right">
-              <div className="text-sm font-medium">👨‍💻 Developed by College Hackathon Team</div>
-              <div className="mt-2 text-sm">Vijendra · Anushka · Diksha · Aman · Aman Kumar · Priyanshi</div>
+              <div className="text-sm font-medium mb-2">👨‍💻 Developed by <span className="font-semibold">College Hackathon Team</span></div>
+              <div className="flex flex-wrap justify-end gap-2">
+                {['Vijendra','Anushka','Diksha','Aman','Aman Kumar','Priyanshi'].map((n) => (
+                  <div key={n} className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/80 to-accent/70 px-3 py-1 text-white text-sm shadow-sm">
+                    <div className="h-6 w-6 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">{n.split(' ').map(s=>s[0]).slice(0,2).join('')}</div>
+                    <div className="whitespace-nowrap">{n}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
