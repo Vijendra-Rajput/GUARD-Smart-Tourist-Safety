@@ -41,6 +41,25 @@ export default function Index() {
 
   const [sharing, setSharing] = useState(false);
   const [trace, setTrace] = useState<{ x: number; y: number }[]>([]);
+  const [chatOpen, setChatOpen] = useState(false);
+
+  // simulate real-time trace when sharing is enabled
+  useEffect(() => {
+    if (!sharing) return;
+    setTrace([]);
+    let i = 0;
+    const id = setInterval(() => {
+      i++;
+      const tpos = { x: 0.1 + Math.random() * 0.8, y: 0.15 + Math.random() * 0.7 };
+      setTrace((p) => [...p, tpos].slice(-20));
+      if (i > 120) {
+        // stop after some time
+        clearInterval(id);
+        setSharing(false);
+      }
+    }, 1200);
+    return () => clearInterval(id);
+  }, [sharing]);
 
   const touristId = useMemo(() => {
     if (!tourist) return "";
