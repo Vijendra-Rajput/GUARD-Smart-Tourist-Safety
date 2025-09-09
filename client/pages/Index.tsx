@@ -171,18 +171,14 @@ export default function Index() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>{t("itinerary")}</CardTitle>
+                <div className="flex items-center justify-between w-full">
+                  <CardTitle>{t("itinerary")}</CardTitle>
+                  <div className="text-sm text-muted-foreground">Where am I?</div>
+                </div>
               </CardHeader>
-              <CardContent className="space-y-3">
-                {itinerary.map((it) => (
-                  <div key={it.time} className="flex items-center justify-between rounded-md border bg-card/60 px-3 py-2">
-                    <div>
-                      <div className="text-sm font-semibold">{it.title}</div>
-                      <div className="text-xs text-muted-foreground">{it.note}</div>
-                    </div>
-                    <div className="text-sm font-mono">{it.time}</div>
-                  </div>
-                ))}
+              <CardContent className="space-y-4">
+                {/* Location selector & info merged with itinerary */}
+                <LocationWidget itinerary={itinerary} />
               </CardContent>
             </Card>
           </div>
