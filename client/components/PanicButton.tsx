@@ -34,31 +34,47 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
     }, 400);
   };
 
+  const triggerButton = (
+    <button
+      aria-label={t("panic")}
+      className={cn(
+        "relative grid place-items-center rounded-full text-destructive-foreground shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-destructive/40",
+        placement === "bottom" ? "size-20 bg-destructive" : "h-10 w-10 bg-destructive/95"
+      )}
+    >
+      {placement === "bottom" ? (
+        <>
+          <span className="absolute inset-0 animate-ping rounded-full bg-destructive/40" />
+          <span className="relative text-lg font-extrabold tracking-wide">{t("panic")}</span>
+        </>
+      ) : (
+        <svg className="h-5 w-5 text-destructive-foreground" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="currentColor" />
+          <path d="M12 7v6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+    </button>
+  );
+
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger asChild>
-          <button
-            aria-label={t("panic")}
-            className="group relative grid size-20 place-items-center rounded-full bg-destructive text-destructive-foreground shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-destructive/40"
-          >
-            <span className="absolute inset-0 animate-ping rounded-full bg-destructive/40" />
-            <span className="relative text-lg font-extrabold tracking-wide">{t("panic")}</span>
-          </button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t("confirmPanicTitle")}</AlertDialogTitle>
-            <AlertDialogDescription>
-              <span className="text-sm font-medium">This will notify authorities and your emergency contacts immediately even if <span className="text-destructive font-semibold">OFFLINE</span></span>
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirm}>{sent ? t("sent") : t("panic")}</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+    <>
+      <div className={placement === "bottom" ? "fixed bottom-6 right-6 z-50" : "inline-block"}>
+        <AlertDialog open={open} onOpenChange={setOpen}>
+          <AlertDialogTrigger asChild>{triggerButton}</AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t("confirmPanicTitle")}</AlertDialogTitle>
+              <AlertDialogDescription>
+                <span className="text-sm font-medium">This will notify authorities and your emergency contacts immediately even if <span className="text-destructive font-semibold">OFFLINE</span></span>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+              <AlertDialogAction onClick={handleConfirm}>{sent ? t("sent") : t("panic")}</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
 
       <FeatureModal open={successOpen} title="Panic Alert Sent" onClose={() => setSuccessOpen(false)}>
         <div className="space-y-4">
@@ -73,6 +89,6 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
       <FeatureModal open={trackerOpen} title="Track Request" onClose={() => setTrackerOpen(false)}>
         <PanicTracker id={reportId} />
       </FeatureModal>
-    </div>
+    </>
   );
 };
