@@ -93,11 +93,21 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between gap-3">
           <Brand />
-          <nav className="hidden md:flex items-center gap-1">
-            <NavLink to="/" end className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>{t("touristView")}</NavLink>
-            <NavLink to="/admin" className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>{t("adminDashboard")}</NavLink>
+          <nav className="hidden md:flex items-center gap-2">
+            <NavLink to="/" end className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>
+              {t("touristView")}
+            </NavLink>
+            <NavLink to="/admin" className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>
+              {t("adminDashboard")}
+            </NavLink>
+            {/* AI Guide next to nav */}
+            <div className="ml-2">
+              <Chatbot />
+            </div>
           </nav>
+
           <div className="flex items-center gap-2">
+            <PanicButton placement="header" />
             <LanguageSelect />
             <OfflineBadge />
             <Button asChild className="md:hidden">
