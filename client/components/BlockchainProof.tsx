@@ -3,14 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useI18n } from "@/context/i18n";
 
-export const BlockchainProof: React.FC<{ id: string }> = ({ id }) => {
+export const BlockchainProof: React.FC<{ id: string; initialTx?: { hash: string; time: number } | null }> = ({ id, initialTx = null }) => {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
 
-  const txs = [
-    { hash: "0x" + Math.random().toString(16).slice(2, 18), time: Date.now() - 1000 * 60 * 60 },
+  const base = [
+    initialTx ?? { hash: "0x" + Math.random().toString(16).slice(2, 18), time: Date.now() - 1000 * 60 * 60 },
     { hash: "0x" + Math.random().toString(16).slice(2, 18), time: Date.now() - 1000 * 60 * 10 },
   ];
+
+  const [txs] = useState(base);
 
   return (
     <Card>
