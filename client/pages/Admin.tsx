@@ -84,6 +84,7 @@ export default function Admin() {
   const { t } = useI18n();
   const { alerts, acknowledge, escalate } = useLiveAlerts();
   const [query, setQuery] = useState("");
+  const [filterSelection, setFilterSelection] = useState<string>("ALL");
 
   // filter states
   const [typeFilter, setTypeFilter] = useState<"ALL" | AlertType>("ALL");
