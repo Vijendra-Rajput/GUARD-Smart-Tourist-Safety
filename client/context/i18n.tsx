@@ -125,6 +125,7 @@ interface I18nContextValue {
   lang: Lang;
   setLang: (l: Lang) => void;
   t: (key: string) => string;
+  langs: { code: string; label: string }[];
 }
 
 const I18nContext = createContext<I18nContextValue | null>(null);
@@ -132,10 +133,10 @@ const I18nContext = createContext<I18nContextValue | null>(null);
 export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<Lang>("en");
   const t = useMemo(() => {
-    const table = strings[lang];
-    return (key: string) => table[key] ?? key;
+    const table = strings[lang] ?? strings["en"];
+    return (key: string) => (table && table[key]) ?? strings["en"][key] ?? key;
   }, [lang]);
-  const value = useMemo(() => ({ lang, setLang, t }), [lang, t]);
+  const value = useMemo(() => ({ lang, setLang, t, langs: LANG_OPTIONS }), [lang, t]);
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 };
 
