@@ -31,84 +31,62 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
         </button>
       </div>
 
-      {/* Fake map base - looks like simplified Google Maps tiles */}
+      {/* simplified realistic map */}
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1200 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
         <defs>
           <linearGradient id="terrain" x1="0" x2="1">
-            <stop offset="0%" stopColor="hsl(210 20% 96%)" />
-            <stop offset="100%" stopColor="hsl(210 20% 88%)" />
+            <stop offset="0%" stopColor="#f7fbff" />
+            <stop offset="100%" stopColor="#eef6ff" />
           </linearGradient>
           <linearGradient id="water" x1="0" x2="1">
-            <stop offset="0%" stopColor="#a6dafb" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#7bc7ff" stopOpacity="0.9" />
+            <stop offset="0%" stopColor="#cfeefc" />
+            <stop offset="100%" stopColor="#9fd7ff" />
+          </linearGradient>
+          <linearGradient id="hill" x1="0" x2="0">
+            <stop offset="0%" stopColor="#e6eef7" />
+            <stop offset="100%" stopColor="#c7d6e6" />
           </linearGradient>
           <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="0.6" />
+            <feGaussianBlur stdDeviation="1" />
           </filter>
         </defs>
 
-        {/* base */}
         <rect width="100%" height="100%" fill="url(#terrain)" />
 
-        {/* mountains with contour lines */}
-        <defs>
-          <linearGradient id="mountainGrad" x1="0" x2="0">
-            <stop offset="0%" stopColor="#cbd5e1" />
-            <stop offset="100%" stopColor="#94a3b8" />
-          </linearGradient>
-        </defs>
-        <g>
-          <path d="M150 220 L210 140 L270 220 Z" fill="url(#mountainGrad)" stroke="#94a3b8" strokeWidth="1" />
-          <path d="M220 200 L260 160 L300 200 Z" fill="#e6eef7" opacity="0.6" />
-          <path d="M860 100 L940 20 L1020 100 L940 140 Z" fill="url(#mountainGrad)" stroke="#94a3b8" strokeWidth="1" />
-          {/* contour lines */}
-          <path d="M150 220 Q210 180 270 220" fill="none" stroke="#cbd5e1" strokeWidth="0.8" opacity="0.8" />
-          <path d="M860 100 Q940 60 1020 100" fill="none" stroke="#cbd5e1" strokeWidth="0.8" opacity="0.8" />
+        {/* gentle hills */}
+        <g fill="url(#hill)" opacity="0.95">
+          <path d="M100 260 C150 200 230 200 300 260 C380 320 480 320 560 260 C640 200 720 200 780 260 C860 330 960 330 1040 260 L1040 600 L0 600 Z" />
         </g>
 
-        {/* parks */}
-        <g fill="hsl(140 45% 88%)" opacity="0.95">
-          <ellipse cx="200" cy="420" rx="100" ry="40" />
-          <ellipse cx="520" cy="300" rx="60" ry="30" />
-          <ellipse cx="980" cy="480" rx="120" ry="50" />
-        </g>
+        {/* river */}
+        <path d="M60 340 C180 300 320 300 460 340 C620 380 760 360 900 380 C1040 400 1160 380 1200 360" stroke="url(#water)" strokeWidth="14" strokeLinecap="round" fill="none" opacity="0.95" />
 
-        {/* lakes and rivers */}
-        <g>
-          <path d="M0,320 C120,280 260,260 380,300 C520,350 660,320 800,340 C920,355 1060,330 1200,360" fill="none" stroke="url(#water)" strokeWidth="18" strokeLinecap="round" opacity="0.9" />
-          <ellipse cx="420" cy="420" rx="60" ry="30" fill="url(#water)" opacity="0.95" />
-        </g>
-
-        {/* major roads (two-tone with center line) */}
+        {/* main roads simple */}
         <g strokeLinecap="round" strokeLinejoin="round">
-          <path d="M40 90 C200 120 360 140 540 180 C740 220 880 200 1020 230" stroke="#374151" strokeWidth="12" opacity="0.9" />
-          <path d="M40 90 C200 120 360 140 540 180 C740 220 880 200 1020 230" stroke="#f8fafc" strokeWidth="4" opacity="0.85" />
-
-          <path d="M0 500 C200 430 420 460 600 430 C800 400 980 440 1200 410" stroke="#374151" strokeWidth="10" opacity="0.95" />
-          <path d="M0 500 C200 430 420 460 600 430 C800 400 980 440 1200 410" stroke="#f8fafc" strokeWidth="3" opacity="0.8" />
+          <path d="M40 80 C220 120 360 150 540 190 C720 230 860 210 1020 240" stroke="#3b4250" strokeWidth="8" opacity="0.9" />
+          <path d="M40 80 C220 120 360 150 540 190 C720 230 860 210 1020 240" stroke="#ffffff" strokeWidth="3" opacity="0.9" />
+          <path d="M0 520 C200 440 420 470 600 440 C800 410 980 450 1200 420" stroke="#3b4250" strokeWidth="6" opacity="0.9" />
+          <path d="M0 520 C200 440 420 470 600 440 C800 410 980 450 1200 420" stroke="#ffffff" strokeWidth="2" opacity="0.85" />
         </g>
 
-        {/* secondary streets */}
-        <g stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" opacity="0.9">
+        {/* secondary roads subtle */}
+        <g stroke="#cbd5e1" strokeWidth="1.8" strokeLinecap="round" opacity="0.9">
           <path d="M160 40 L160 200" />
           <path d="M220 20 L220 260" />
           <path d="M300 60 L300 220" />
           <path d="M840 120 L840 360" />
           <path d="M460 120 L540 180" />
-          <path d="M720 220 L780 240" />
         </g>
 
-        {/* buildings */}
-        <g fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1">
-          <rect x="560" y="80" width="120" height="80" rx="6" />
-          <rect x="640" y="220" width="90" height="60" rx="5" />
-          <rect x="240" y="320" width="140" height="90" rx="6" />
-          <rect x="940" y="60" width="180" height="120" rx="8" />
-          <rect x="300" y="420" width="60" height="40" rx="4" />
+        {/* small buildings simplified */}
+        <g fill="#ffffff" stroke="#e6eef7" strokeWidth="0.8">
+          <rect x="560" y="80" width="90" height="60" rx="6" />
+          <rect x="240" y="320" width="110" height="70" rx="6" />
+          <rect x="920" y="60" width="140" height="90" rx="6" />
         </g>
 
-        {/* location labels small fonts */}
-        <g fill="#0f172a" fontFamily="Inter, Arial, sans-serif" fontSize="12" opacity="0.95">
+        {/* labels */}
+        <g fill="#0f172a" fontFamily="Inter, Arial, sans-serif" fontSize="11" opacity="0.95">
           <text x="70" y="55">Old Town</text>
           <text x="410" y="215">City Museum</text>
           <text x="930" y="155">Harbor Pier</text>
@@ -120,35 +98,27 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
         {/* markers */}
         <g>
           <g transform="translate(300,200)">
-            <circle r="10" fill="#ef4444" stroke="#fff" strokeWidth="3" />
+            <circle r="7" fill="#ef4444" stroke="#fff" strokeWidth="2" />
           </g>
           <g transform="translate(700,260)">
-            <circle r="12" fill="#3b82f6" stroke="#fff" strokeWidth="3" />
+            <circle r="8" fill="#16a34a" stroke="#fff" strokeWidth="2" />
           </g>
         </g>
 
-        {/* subtle texture lines */}
-        <g opacity="0.04" stroke="#000" strokeWidth="0.6">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <line key={i} x1={i * 60} y1={0} x2={i * 60} y2={600} />
-          ))}
-        </g>
-
-        {/* trace polyline (real-time tracking) */}
+        {/* trace */}
         {points.length > 0 && (
           <g>
-            <polyline points={points} fill="none" stroke="rgba(59,130,246,0.95)" strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" />
-            {/* animated moving dot */}
+            <polyline points={points} fill="none" stroke="rgba(16,185,129,0.95)" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
             {last && (
-              <circle cx={last.x * 1200} cy={last.y * 600} r={9} fill="#3b82f6">
-                <animate attributeName="r" values="9;14;9" dur="1.6s" repeatCount="indefinite" />
+              <circle cx={last.x * 1200} cy={last.y * 600} r={8} fill="#16a34a">
+                <animate attributeName="r" values="8;12;8" dur="1.6s" repeatCount="indefinite" />
                 <animate attributeName="opacity" values="1;0.6;1" dur="1.6s" repeatCount="indefinite" />
               </circle>
             )}
           </g>
         )}
 
-        {/* heat overlay (visible when tab==='heat') */}
+        {/* heat overlay */}
         {tab === "heat" && (
           <g filter="url(#soft)">
             <radialGradient id="h1">
@@ -156,15 +126,8 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
               <stop offset="50%" stopColor="#ff7a45" stopOpacity="0.55" />
               <stop offset="100%" stopColor="#ffd166" stopOpacity="0" />
             </radialGradient>
-            <radialGradient id="h2">
-              <stop offset="0%" stopColor="#ff3b30" stopOpacity="0.95" />
-              <stop offset="50%" stopColor="#ff7a45" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="#ffd166" stopOpacity="0" />
-            </radialGradient>
-
             <circle cx="320" cy="220" r="120" fill="url(#h1)" />
-            <circle cx="720" cy="260" r="180" fill="url(#h2)" />
-            <circle cx="980" cy="380" r="100" fill="url(#h1)" />
+            <circle cx="720" cy="260" r="160" fill="url(#h1)" />
           </g>
         )}
       </svg>
