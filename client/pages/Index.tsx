@@ -237,7 +237,11 @@ export default function Index() {
                 <Button
                   className="h-12 w-full text-base font-semibold"
                   disabled={!name || !phone || !consent}
-                  onClick={() => setTourist({ id: crypto.randomUUID(), name, phone, consent })}
+                  onClick={() => {
+                    const newTourist = { id: crypto.randomUUID(), name, phone, consent };
+                    setTourist(newTourist);
+                    setLocationPreset(pickLocationForUser(name));
+                  }}
                 >
                   {t("generateId")}
                 </Button>
