@@ -160,23 +160,85 @@ export default function Index() {
       </div>
 
       <aside className="lg:col-span-1">
-        <Card className="sticky top-24">
-          <CardHeader>
-            <div className="flex items-baseline justify-between">
-              <CardTitle className="text-xl">{t("tagline")}</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>
-              GUARD provides proactive safety for tourists with geofencing, emergency alerts, and privacy-first tracking.
-            </p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Fast QR-based identification</li>
-              <li>Instant panic alerts</li>
-              <li>Secure blockchain-backed audit</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <div className="sticky top-24 space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-baseline justify-between">
+                <CardTitle className="text-xl">{t("tagline")}</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p>
+                GUARD provides proactive safety for tourists with geofencing, emergency alerts, and privacy-first tracking.
+              </p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Fast QR-based identification</li>
+                <li>Instant panic alerts</li>
+                <li>Secure blockchain-backed audit</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {tourist && (
+            <>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Tracking</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm">Real-time Tracking</div>
+                    <label className="inline-flex items-center">
+                      <input type="checkbox" className="accent-primary size-5" id="rt" />
+                    </label>
+                  </div>
+                  <div className="mt-3">
+                    <Button size="sm">Share Temporary Link</Button>
+                    <Button size="sm" variant="outline" className="ml-2">Privacy</Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Devices & SMS</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {/* simple inline device list */}
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-semibold">WristBand Pro</div>
+                        <div className="text-xs text-muted-foreground">Battery 78%</div>
+                      </div>
+                      <Button size="sm" variant="outline">Manage</Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Blockchain Proof</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-sm">
+                    <div className="font-mono">{touristId}</div>
+                    <div className="text-xs text-muted-foreground mt-1">Last tx: 0x{Math.random().toString(16).slice(2, 12)}</div>
+                    <div className="mt-3">
+                      <Button size="sm" onClick={() => console.log("view proof")}>View Proof</Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="flex gap-2">
+                <Button variant="default">AI Pre-Trip Chat</Button>
+                <Button variant="outline">Settings</Button>
+              </div>
+            </>
+          )}
+        </div>
       </aside>
 
       {tourist && <PanicButton onConfirm={() => console.log("panic sent for", touristId)} />}
