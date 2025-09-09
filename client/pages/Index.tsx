@@ -241,7 +241,7 @@ export default function Index() {
                         <div className="font-semibold">WristBand Pro</div>
                         <div className="text-xs text-muted-foreground">Battery 78%</div>
                       </div>
-                      <Button size="sm" variant="outline">Manage</Button>
+                      <Button size="sm" variant="outline" onClick={() => setDevicesOpen(true)}>Manage</Button>
                     </div>
                   </div>
                 </CardContent>
