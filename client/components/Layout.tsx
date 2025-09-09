@@ -39,23 +39,46 @@ function OfflineBadge() {
   );
 }
 
-function LanguageToggle() {
-  const { lang, setLang } = useI18n();
+function LanguageSelect() {
+  const { lang, setLang, langs } = useI18n();
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="flex items-center rounded-md border bg-background p-1 text-sm">
-      {["en", "es", "hi"].map((l) => (
-        <button
-          key={l}
-          onClick={() => setLang(l as any)}
-          className={cn(
-            "px-2.5 py-1.5 rounded-md",
-            lang === l ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted"
-          )}
-          aria-pressed={lang === l}
-        >
-          {l.toUpperCase()}
-        </button>
-      ))}
+    <div className="relative">
+      <button
+        onClick={() => setOpen((s) => !s)}
+        className="flex items-center gap-2 rounded-md border bg-background px-3 py-1 text-sm"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span className="font-medium">{langs.find((l) => l.code === lang)?.label ?? lang}</span>
+        <svg className="h-4 w-4" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 8L10 12L14 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="absolute right-0 z-40 mt-2 w-56 rounded-md border bg-card p-2 shadow-lg">
+          <ul role="listbox" className="max-h-60 overflow-auto">
+            {langs.map((l) => (
+              <li key={l.code} role="option">
+                <button
+                  onClick={() => {
+                    setLang(l.code);
+                    setOpen(false);
+                  }}
+                  className={cn(
+                    "w-full text-left px-3 py-2 rounded-md text-sm",
+                    lang === l.code ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                  )}
+                >
+                  {l.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
