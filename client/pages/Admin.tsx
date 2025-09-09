@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,6 +17,7 @@ interface AlertItem {
   time: number;
   acknowledged?: boolean;
   escalated?: boolean;
+  anomaly?: boolean;
 }
 
 const names = ["Amit Sharma", "Lucia Gomez", "John Doe", "Priya Singh", "Carlos Diaz", "Mia Chen"];
@@ -58,7 +60,37 @@ export default function Admin() {
   const { t } = useI18n();
   const { alerts, acknowledge, escalate } = useLiveAlerts();
   const [query, setQuery] = useState("");
-  const filtered = useMemo(() => alerts.filter((a) => a.touristId.toLowerCase().includes(query.toLowerCase())), [alerts, query]);
+
+  // filter states
+  const [typeFilter, setTypeFilter] = useState<"ALL" | AlertType>("ALL");
+  const [statusFilter, setStatusFilter] = useState<"ALL" | "OPEN" | "ACK" | "ESC">("ALL");
+  const [anomalyOnly, setAnomalyOnly] = useState(false);
+  const [timeRange, setTimeRange] = useState<"any" | "1h" | "24h" | "7d">("any");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+
+  const filtered = useMemo(() => {
+    const now = Date.now();
+    return alerts
+      .filter((a) => a.touristId.toLowerCase().includes(query.toLowerCase()))
+      .filter((a) => (typeFilter === "ALL" ? true : a.type === typeFilter))
+      .filter((a) => (anomalyOnly ? !!a.anomaly : true))
+      .filter((a) => {
+        if (timeRange === "any") return true;
+        if (timeRange === "1h") return now - a.time < 1000 * 60 * 60;
+        if (timeRange === "24h") return now - a.time < 1000 * 60 * 60 * 24;
+        if (timeRange === "7d") return now - a.time < 1000 * 60 * 60 * 24 * 7;
+        return true;
+      })
+      .filter((a) => {
+        if (statusFilter === "ALL") return true;
+        if (statusFilter === "OPEN") return !a.acknowledged && !a.escalated;
+        if (statusFilter === "ACK") return !!a.acknowledged;
+        if (statusFilter === "ESC") return !!a.escalated;
+        return true;
+      })
+      .sort((x, y) => (sortOrder === "newest" ? y.time - x.time : x.time - y.time));
+  }, [alerts, query, typeFilter, anomalyOnly, timeRange, statusFilter, sortOrder]);
+
   const selected = filtered[0];
 
   const [detailOpen, setDetailOpen] = useState(false);
@@ -69,10 +101,36 @@ export default function Admin() {
       <div className="lg:col-span-2">
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <CardTitle className="text-2xl">{t("liveAlerts")}</CardTitle>
               <div className="flex items-center gap-2">
-                <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("searchById")} className="h-11 w-64" />
+                <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("searchById")} className="h-11 w-56" />
+                <select className="rounded-md border px-2 py-2 text-sm" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value as any)}>
+                  <option value="ALL">All Types</option>
+                  <option value="PANIC">PANIC</option>
+                  <option value="GEOFENCE">GEOFENCE</option>
+                  <option value="LOW_SCORE">LOW_SCORE</option>
+                </select>
+                <select className="rounded-md border px-2 py-2 text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as any)}>
+                  <option value="ALL">All Status</option>
+                  <option value="OPEN">Open</option>
+                  <option value="ACK">Acknowledged</option>
+                  <option value="ESC">Escalated</option>
+                </select>
+                <select className="rounded-md border px-2 py-2 text-sm" value={timeRange} onChange={(e) => setTimeRange(e.target.value as any)}>
+                  <option value="any">Any time</option>
+                  <option value="1h">Last 1h</option>
+                  <option value="24h">Last 24h</option>
+                  <option value="7d">Last 7d</option>
+                </select>
+                <select className="rounded-md border px-2 py-2 text-sm" value={sortOrder} onChange={(e) => setSortOrder(e.target.value as any)}>
+                  <option value="newest">Newest</option>
+                  <option value="oldest">Oldest</option>
+                </select>
+                <label className="inline-flex items-center gap-2 text-sm">
+                  <input type="checkbox" checked={anomalyOnly} onChange={(e) => setAnomalyOnly(e.target.checked)} className="accent-accent" />
+                  AI Anomaly
+                </label>
               </div>
             </div>
           </CardHeader>
