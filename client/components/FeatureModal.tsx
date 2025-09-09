@@ -17,12 +17,12 @@ export const FeatureModal: React.FC<{
       <div
         className={cn(
           "relative z-10 w-full max-w-3xl rounded-[20px] bg-card p-4 shadow-none max-h-[90vh] overflow-hidden flex flex-col justify-center items-center",
-          !center ? "mt-40 md:mt-0" : "",
+          !center ? "mt-3 md:mt-0 mx-auto" : "",
           className
         )}
         role="dialog"
         aria-modal="true"
-        style={{ border: "1px ridge rgba(78,195,78,1)" }}
+        style={{ border: "0.8px ridge rgb(78, 195, 78)" }}
       >
         <div className="flex items-center justify-between w-full">
           <h3 className="text-lg font-semibold">{title}</h3>
