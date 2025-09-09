@@ -268,6 +268,12 @@ export default function Index() {
       </aside>
 
       {tourist && <PanicButton onConfirm={() => console.log("panic sent for", touristId)} />}
+
+      {/* Chatbot modal */}
+      <div className="fixed left-4 bottom-6 z-40">
+        <Chatbot />
+      </div>
+
     </div>
   );
 }
