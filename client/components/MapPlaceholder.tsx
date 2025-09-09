@@ -50,43 +50,71 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
         {/* base */}
         <rect width="100%" height="100%" fill="url(#terrain)" />
 
+        {/* mountains with contour lines */}
+        <defs>
+          <linearGradient id="mountainGrad" x1="0" x2="0">
+            <stop offset="0%" stopColor="#cbd5e1" />
+            <stop offset="100%" stopColor="#94a3b8" />
+          </linearGradient>
+        </defs>
+        <g>
+          <path d="M150 220 L210 140 L270 220 Z" fill="url(#mountainGrad)" stroke="#94a3b8" strokeWidth="1" />
+          <path d="M220 200 L260 160 L300 200 Z" fill="#e6eef7" opacity="0.6" />
+          <path d="M860 100 L940 20 L1020 100 L940 140 Z" fill="url(#mountainGrad)" stroke="#94a3b8" strokeWidth="1" />
+          {/* contour lines */}
+          <path d="M150 220 Q210 180 270 220" fill="none" stroke="#cbd5e1" strokeWidth="0.8" opacity="0.8" />
+          <path d="M860 100 Q940 60 1020 100" fill="none" stroke="#cbd5e1" strokeWidth="0.8" opacity="0.8" />
+        </g>
+
         {/* parks */}
-        <g fill="hsl(140 45% 88%)" opacity="0.9">
-          <ellipse cx="200" cy="120" rx="120" ry="50" />
-          <ellipse cx="420" cy="240" rx="80" ry="40" />
-          <ellipse cx="980" cy="420" rx="140" ry="60" />
+        <g fill="hsl(140 45% 88%)" opacity="0.95">
+          <ellipse cx="200" cy="420" rx="100" ry="40" />
+          <ellipse cx="520" cy="300" rx="60" ry="30" />
+          <ellipse cx="980" cy="480" rx="120" ry="50" />
         </g>
 
-        {/* water */}
-        <path d="M0,320 C120,280 260,260 380,300 C520,350 660,320 800,340 C920,355 1060,330 1200,360 L1200,600 L0,600 Z" fill="url(#water)" opacity="0.95" />
-
-        {/* roads */}
-        <g stroke="#2d3748" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" opacity="0.9">
-          <path d="M60 80 L380 120 L540 200 L760 180 L980 220" fill="none" stroke="#cbd5e1" strokeWidth="8" />
-          <path d="M0 500 L240 420 L480 460 L720 420 L960 460 L1200 420" fill="none" stroke="#e2e8f0" strokeWidth="10" />
+        {/* lakes and rivers */}
+        <g>
+          <path d="M0,320 C120,280 260,260 380,300 C520,350 660,320 800,340 C920,355 1060,330 1200,360" fill="none" stroke="url(#water)" strokeWidth="18" strokeLinecap="round" opacity="0.9" />
+          <ellipse cx="420" cy="420" rx="60" ry="30" fill="url(#water)" opacity="0.95" />
         </g>
 
-        {/* small streets */}
-        <g stroke="#cbd5e1" strokeWidth="3" strokeLinecap="round" opacity="0.85">
+        {/* major roads (two-tone with center line) */}
+        <g strokeLinecap="round" strokeLinejoin="round">
+          <path d="M40 90 C200 120 360 140 540 180 C740 220 880 200 1020 230" stroke="#374151" strokeWidth="12" opacity="0.9" />
+          <path d="M40 90 C200 120 360 140 540 180 C740 220 880 200 1020 230" stroke="#f8fafc" strokeWidth="4" opacity="0.85" />
+
+          <path d="M0 500 C200 430 420 460 600 430 C800 400 980 440 1200 410" stroke="#374151" strokeWidth="10" opacity="0.95" />
+          <path d="M0 500 C200 430 420 460 600 430 C800 400 980 440 1200 410" stroke="#f8fafc" strokeWidth="3" opacity="0.8" />
+        </g>
+
+        {/* secondary streets */}
+        <g stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" opacity="0.9">
           <path d="M160 40 L160 200" />
           <path d="M220 20 L220 260" />
           <path d="M300 60 L300 220" />
           <path d="M840 120 L840 360" />
+          <path d="M460 120 L540 180" />
+          <path d="M720 220 L780 240" />
         </g>
 
         {/* buildings */}
-        <g fill="#f1f5f9" stroke="#e2e8f0" strokeWidth="1">
+        <g fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1">
           <rect x="560" y="80" width="120" height="80" rx="6" />
           <rect x="640" y="220" width="90" height="60" rx="5" />
           <rect x="240" y="320" width="140" height="90" rx="6" />
           <rect x="940" y="60" width="180" height="120" rx="8" />
+          <rect x="300" y="420" width="60" height="40" rx="4" />
         </g>
 
-        {/* labels */}
-        <g fill="#1f2937" fontFamily="Inter, Arial, sans-serif" fontSize="18">
-          <text x="80" y="60">Old Town</text>
-          <text x="420" y="220">Museum</text>
-          <text x="940" y="160">Harbor</text>
+        {/* location labels small fonts */}
+        <g fill="#0f172a" fontFamily="Inter, Arial, sans-serif" fontSize="12" opacity="0.95">
+          <text x="70" y="55">Old Town</text>
+          <text x="410" y="215">City Museum</text>
+          <text x="930" y="155">Harbor Pier</text>
+          <text x="200" y="410">Central Park</text>
+          <text x="520" y="290">Riverside</text>
+          <text x="860" y="90">Highlands</text>
         </g>
 
         {/* markers */}
@@ -99,21 +127,21 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
           </g>
         </g>
 
-        {/* subtle grid for visual texture */}
-        <g opacity="0.06" stroke="#000" strokeWidth="1">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <line key={i} x1={i * 80} y1={0} x2={i * 80} y2={600} />
+        {/* subtle texture lines */}
+        <g opacity="0.04" stroke="#000" strokeWidth="0.6">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <line key={i} x1={i * 60} y1={0} x2={i * 60} y2={600} />
           ))}
         </g>
 
         {/* trace polyline (real-time tracking) */}
         {points.length > 0 && (
           <g>
-            <polyline points={points} fill="none" stroke="rgba(59,130,246,0.9)" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
+            <polyline points={points} fill="none" stroke="rgba(59,130,246,0.95)" strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" />
             {/* animated moving dot */}
             {last && (
-              <circle cx={last.x * 1200} cy={last.y * 600} r={8} fill="#3b82f6">
-                <animate attributeName="r" values="8;12;8" dur="1.6s" repeatCount="indefinite" />
+              <circle cx={last.x * 1200} cy={last.y * 600} r={9} fill="#3b82f6">
+                <animate attributeName="r" values="9;14;9" dur="1.6s" repeatCount="indefinite" />
                 <animate attributeName="opacity" values="1;0.6;1" dur="1.6s" repeatCount="indefinite" />
               </circle>
             )}
