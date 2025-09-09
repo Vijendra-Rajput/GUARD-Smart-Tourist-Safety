@@ -12,23 +12,32 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/context/i18n";
-import { FeatureModal } from "@/components/FeatureModal";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom" | "header" }> = ({ onConfirm, placement = "bottom" }) => {
   const { t } = useI18n();
+  const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
-  const [successOpen, setSuccessOpen] = useState(false);
   const reportId = `REP-${Math.random().toString(36).slice(2, 10).toUpperCase()}`;
 
   const handleConfirm = () => {
     setSent(true);
     onConfirm?.();
-    // show success modal
-    setSuccessOpen(true);
     // notify app of sent panic with report id
     window.dispatchEvent(new CustomEvent("panic-sent", { detail: { id: reportId } }));
+
+    // show non-modal toast notification at bottom
+    toast({
+      title: (
+        <span>
+          Panic reported <span className="text-green-600 font-semibold">successfully ✅</span>
+        </span>
+      ),
+      description: "Authorities and your emergency contacts have been notified.",
+    });
+
     setTimeout(() => {
       setSent(false);
       setOpen(false);
