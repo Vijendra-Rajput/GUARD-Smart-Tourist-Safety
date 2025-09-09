@@ -487,6 +487,24 @@ export default function Index() {
         <EmergencyAccess contacts={tourist?.id ? (tourist ? [{name: tourist.name, phone: tourist.phone}] : []) : []} />
       </FeatureModal>
 
+      <FeatureModal open={showTrackerPanel} title="Track Panic Progress" onClose={() => setShowTrackerPanel(false)} center={true}>
+        <div className="space-y-3">
+          <div className="text-sm">
+            <div className="font-semibold">Emergency Contact</div>
+            <div className="text-xs text-muted-foreground">Himachal Rescue Helpline: +91 181 123456</div>
+          </div>
+
+          <div className="text-sm">
+            <div className="font-semibold">Assigned Unit</div>
+            <div className="text-xs text-muted-foreground">Himachal Rescue 5 — Vehicle • 4 pax — ETA 15-25 mins</div>
+          </div>
+
+          <div>
+            <PanicTracker id={latestPanicId ?? undefined} />
+          </div>
+        </div>
+      </FeatureModal>
+
       <FeatureModal open={feedbackOpen} title="Feedback" onClose={() => setFeedbackOpen(false)}>
         <FeedbackForm onClose={() => setFeedbackOpen(false)} />
       </FeatureModal>
