@@ -155,6 +155,7 @@ export default function Index() {
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
   const [tourist, setTourist] = useState<Tourist | null>(null);
+  const [locationPreset, setLocationPreset] = useState<string | null>(null);
   const safety = useSafetyScore();
 
   const [sharing, setSharing] = useState(false);
