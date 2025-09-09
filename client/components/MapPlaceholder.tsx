@@ -170,6 +170,43 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
         {children}
       </div>
 
+      {/* trip stats panel (exact location, distance, destination, ETA, nearby travellers) */}
+      <div className="absolute right-4 top-4 z-40 w-72 rounded-md bg-card p-3 text-sm shadow pointer-events-auto">
+        {stats ? (
+          <div className="space-y-2">
+            <div className="font-semibold">Location</div>
+            <div className="text-xs text-muted-foreground">Lat: {stats.lat} · Lon: {stats.lon}</div>
+
+            <div className="flex items-center justify-between mt-2">
+              <div className="text-xs text-muted-foreground">Km traveled</div>
+              <div className="font-medium">{stats.kmTraveled} km</div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-muted-foreground">Destination</div>
+              <div className="font-medium">{stats.destination}</div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-muted-foreground">Distance</div>
+              <div className="font-medium">{stats.distanceToDestinationKm} km</div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-muted-foreground">ETA</div>
+              <div className="font-medium">~{stats.etaMinutes} min</div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-muted-foreground">Travellers nearby</div>
+              <div className="font-medium">{stats.nearbyCount}</div>
+            </div>
+          </div>
+        ) : (
+          <div className="text-sm text-muted-foreground">No tracking data</div>
+        )}
+      </div>
+
       {/* bottom legend for heat map */}
       {tab === "heat" && (
         <div className="absolute left-3 bottom-3 z-30 rounded-md bg-background/80 p-2 text-xs font-medium shadow backdrop-blur pointer-events-auto">
