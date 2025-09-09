@@ -96,7 +96,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <NavLink to="/admin" className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>{t("adminDashboard")}</NavLink>
           </nav>
           <div className="flex items-center gap-2">
-            <LanguageToggle />
+            <LanguageSelect />
             <OfflineBadge />
             <Button asChild className="md:hidden">
               <Link to={location.pathname === "/admin" ? "/" : "/admin"}>
