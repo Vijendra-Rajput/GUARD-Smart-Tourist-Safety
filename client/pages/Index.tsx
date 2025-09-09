@@ -273,6 +273,40 @@ export default function Index() {
 
       {tourist && <PanicButton onConfirm={() => console.log("panic sent for", touristId)} />}
 
+      {/* Feature Modals */}
+      <FeatureModal open={proofOpen} title="Blockchain Proof" onClose={() => setProofOpen(false)}>
+        {tourist ? <BlockchainProof id={tourist.id} /> : <div className="text-sm text-muted-foreground">No tourist selected</div>}
+      </FeatureModal>
+
+      <FeatureModal open={devicesOpen} title="Manage Devices & SMS" onClose={() => setDevicesOpen(false)}>
+        <DevicesPanel />
+      </FeatureModal>
+
+      <FeatureModal open={shareOpen} title="Share Temporary Link" onClose={() => setShareOpen(false)}>
+        <div className="text-sm">
+          <p className="mb-2">Share this temporary tracking link with family or emergency contacts:</p>
+          <div className="flex items-center gap-2">
+            <input readOnly value={tourist ? window.location.href + "?share=" + touristId : ""} className="flex-1 rounded-md border px-3 py-2 font-mono text-xs" />
+            <Button onClick={() => navigator.clipboard?.writeText(tourist ? window.location.href + "?share=" + touristId : "")}>Copy</Button>
+          </div>
+          <div className="mt-2 text-xs text-muted-foreground">Link expires in 2 hours (mock)</div>
+        </div>
+      </FeatureModal>
+
+      <FeatureModal open={settingsOpen} title="Privacy Settings" onClose={() => setSettingsOpen(false)}>
+        <div className="space-y-3 text-sm">
+          <div className="flex items-center justify-between">
+            <div>Share real-time location</div>
+            <input type="checkbox" className="size-5" checked={sharing} onChange={(e) => setSharing(e.target.checked)} />
+          </div>
+          <div className="flex items-center justify-between">
+            <div>Allow SMS fallback</div>
+            <input type="checkbox" className="size-5" defaultChecked />
+          </div>
+          <div className="text-xs text-muted-foreground">These are mock settings for the demo.</div>
+        </div>
+      </FeatureModal>
+
       {/* Chatbot modal */}
       <div className="fixed left-4 bottom-6 z-40">
         <Chatbot />
