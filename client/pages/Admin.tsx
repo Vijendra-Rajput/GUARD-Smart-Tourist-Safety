@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPlaceholder } from "@/components/MapPlaceholder";
 import { useI18n } from "@/context/i18n";
+import { FeatureModal } from "@/components/FeatureModal";
 
 type AlertType = "PANIC" | "GEOFENCE" | "LOW_SCORE";
 
