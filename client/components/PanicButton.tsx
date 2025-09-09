@@ -28,6 +28,8 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
     onConfirm?.();
     // show success modal
     setSuccessOpen(true);
+    // notify app of sent panic with report id
+    window.dispatchEvent(new CustomEvent("panic-sent", { detail: { id: reportId } }));
     setTimeout(() => {
       setSent(false);
       setOpen(false);
