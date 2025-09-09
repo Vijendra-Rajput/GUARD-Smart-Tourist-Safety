@@ -24,7 +24,7 @@ export const Chatbot: React.FC = () => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost">AI Pre-Trip Chat</Button>
+        <Button className="bg-accent text-accent-foreground hover:opacity-90">AI Guide</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
