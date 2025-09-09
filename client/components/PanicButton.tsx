@@ -79,14 +79,10 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
         <div className="space-y-4">
           <div className="text-sm">Panic Alert Successfully Sent to authorities.</div>
           <div className="flex gap-2">
-            <Button onClick={() => { setTrackerOpen(true); setSuccessOpen(false); }}>Track the Request</Button>
+            <Button onClick={() => { window.dispatchEvent(new Event("open-inline-tracker")); setSuccessOpen(false); }}>Track the Request</Button>
             <Button variant="outline" onClick={() => setSuccessOpen(false)}>Thanks</Button>
           </div>
         </div>
-      </FeatureModal>
-
-      <FeatureModal open={trackerOpen} title="Track Request" onClose={() => setTrackerOpen(false)}>
-        <PanicTracker id={reportId} />
       </FeatureModal>
     </>
   );
