@@ -30,16 +30,17 @@ function randomAlert(): AlertItem {
     name,
     type,
     time: Date.now(),
+    anomaly: Math.random() > 0.75,
   };
 }
 
 function useLiveAlerts() {
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
   useEffect(() => {
-    const seed = Array.from({ length: 3 }).map(() => randomAlert());
+    const seed = Array.from({ length: 6 }).map(() => randomAlert());
     setAlerts(seed);
     const id = setInterval(() => {
-      setAlerts((prev) => [randomAlert(), ...prev].slice(0, 50));
+      setAlerts((prev) => [randomAlert(), ...prev].slice(0, 200));
     }, 5500);
     return () => clearInterval(id);
   }, []);
