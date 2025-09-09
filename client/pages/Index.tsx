@@ -70,8 +70,11 @@ function pickLocationForUser(name?: string) {
   return keys[Math.abs(h) % keys.length];
 }
 
-function LocationWidget({ itinerary }: { itinerary: any[] }) {
-  const [selected, setSelected] = useState<string>(Object.keys(LOCATIONS)[0]);
+function LocationWidget({ itinerary, initial }: { itinerary: any[]; initial?: string }) {
+  const [selected, setSelected] = useState<string>(initial || Object.keys(LOCATIONS)[0]);
+  React.useEffect(() => {
+    if (initial) setSelected(initial);
+  }, [initial]);
   const info = LOCATIONS[selected];
 
   return (
