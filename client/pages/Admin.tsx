@@ -77,7 +77,7 @@ export default function Admin() {
           </CardHeader>
           <CardContent className="space-y-3">
             {filtered.map((a) => (
-              <div key={a.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border bg-card/60 p-3">
+              <div key={a.id} onClick={() => { setSelectedAlert(a); setDetailOpen(true); }} className="cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border bg-card/60 p-3">
                 <div className="flex items-center gap-3">
                   <Badge type={a.type} />
                   <div>
@@ -88,13 +88,13 @@ export default function Admin() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button className="h-10 px-4" variant={a.acknowledged ? "secondary" : "default"} onClick={() => acknowledge(a.id)} disabled={a.acknowledged}>
+                  <Button className="h-10 px-4" variant={a.acknowledged ? "secondary" : "default"} onClick={(e) => { e.stopPropagation(); acknowledge(a.id); }} disabled={a.acknowledged}>
                     {t("acknowledge")}
                   </Button>
-                  <Button className="h-10 px-4" variant={a.escalated ? "secondary" : "destructive"} onClick={() => escalate(a.id)} disabled={a.escalated}>
+                  <Button className="h-10 px-4" variant={a.escalated ? "secondary" : "destructive"} onClick={(e) => { e.stopPropagation(); escalate(a.id); }} disabled={a.escalated}>
                     {t("escalate")}
                   </Button>
-                  <Button className="h-10 px-4" variant="outline" onClick={() => alert("Auto e-FIR (mock) generated for " + a.touristId)}>
+                  <Button className="h-10 px-4" variant="outline" onClick={(e) => { e.stopPropagation(); alert("Auto e-FIR (mock) generated for " + a.touristId); }}>
                     Auto e-FIR
                   </Button>
                 </div>
@@ -140,6 +140,38 @@ export default function Admin() {
           </CardContent>
         </Card>
       </aside>
+
+      {/* Alert detail modal */}
+      <FeatureModal open={detailOpen} title={selectedAlert ? `${selectedAlert.type} · ${selectedAlert.touristId}` : "Alert Detail"} onClose={() => setDetailOpen(false)}>
+        {selectedAlert ? (
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <div className="text-sm font-semibold">{selectedAlert.name}</div>
+              <div className="text-xs text-muted-foreground">ID: {selectedAlert.touristId}</div>
+              <div className="mt-2 text-xs text-muted-foreground">Time: {new Date(selectedAlert.time).toLocaleString()}</div>
+              <div className="mt-3">
+                <div className="text-sm font-medium">AI Analysis</div>
+                <div className="text-xs text-muted-foreground">Anomaly score: {(Math.random()*100).toFixed(0)}%</div>
+                <div className="mt-2 text-xs">Suggested action: {selectedAlert.type === "PANIC" ? "Immediate dispatch" : "Investigate & contact tourist"}</div>
+              </div>
+              <div className="mt-4 flex gap-2">
+                <Button onClick={() => { acknowledge(selectedAlert.id); setDetailOpen(false); }}>Acknowledge</Button>
+                <Button variant="destructive" onClick={() => { escalate(selectedAlert.id); alert("Escalated (mock)"); }}>Escalate</Button>
+                <Button variant="outline" onClick={() => alert("Generate e-FIR (mock) for " + selectedAlert.touristId)}>Generate e-FIR</Button>
+              </div>
+            </div>
+            <div>
+              <div className="text-sm font-medium mb-2">Map Snapshot</div>
+              <MapPlaceholder height={200}>
+                <div className="absolute left-6 top-12 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary shadow outline outline-2 outline-white" />
+              </MapPlaceholder>
+            </div>
+          </div>
+        ) : (
+          <div>No alert selected</div>
+        )}
+      </FeatureModal>
+
     </div>
   );
 }
