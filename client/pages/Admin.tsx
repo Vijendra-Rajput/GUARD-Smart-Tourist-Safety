@@ -234,6 +234,7 @@ export default function Admin() {
             <div>
               <div className="text-sm font-semibold">{selectedAlert.name}</div>
               <div className="text-xs text-muted-foreground">ID: {selectedAlert.touristId}</div>
+              <div className="text-xs text-muted-foreground">Location: {selectedAlert.location ?? '—'}</div>
               <div className="mt-2 text-xs text-muted-foreground">Time: {new Date(selectedAlert.time).toLocaleString()}</div>
               <div className="mt-3">
                 <div className="text-sm font-medium">AI Analysis</div>
