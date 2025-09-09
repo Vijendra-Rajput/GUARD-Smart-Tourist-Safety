@@ -6,6 +6,7 @@ import { MockQR } from "@/components/MockQR";
 import { SafetyScore } from "@/components/SafetyScore";
 import { MapPlaceholder } from "@/components/MapPlaceholder";
 import { BreadcrumbTrail } from "@/components/BreadcrumbTrail";
+import { Chatbot } from "@/components/Chatbot";
 import { useI18n } from "@/context/i18n";
 import { DevicesPanel } from "@/components/DevicesPanel";
 import { BlockchainProof } from "@/components/BlockchainProof";
