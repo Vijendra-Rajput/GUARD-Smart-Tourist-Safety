@@ -11,6 +11,7 @@ import { useI18n } from "@/context/i18n";
 import { Chatbot } from "@/components/Chatbot";
 import { DevicesPanel } from "@/components/DevicesPanel";
 import { BlockchainProof } from "@/components/BlockchainProof";
+import { FeatureModal } from "@/components/FeatureModal";
 
 interface Tourist {
   id: string;
