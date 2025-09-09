@@ -429,10 +429,6 @@ export default function Index() {
         </div>
       </FeatureModal>
 
-      {/* Chatbot modal */}
-      <div className="fixed left-4 bottom-6 z-40">
-        <Chatbot />
-      </div>
 
     </div>
   );
