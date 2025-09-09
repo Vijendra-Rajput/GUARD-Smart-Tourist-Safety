@@ -223,8 +223,8 @@ export default function Index() {
                     </label>
                   </div>
                   <div className="mt-3">
-                    <Button size="sm" onClick={() => { navigator.clipboard?.writeText(window.location.href + "?share=" + touristId); }}>Share Temporary Link</Button>
-                    <Button size="sm" variant="outline" className="ml-2">Privacy</Button>
+                    <Button size="sm" onClick={() => setShareOpen(true)}>Share Temporary Link</Button>
+                    <Button size="sm" variant="outline" className="ml-2" onClick={() => setSettingsOpen(true)}>Privacy</Button>
                   </div>
                 </CardContent>
               </Card>
