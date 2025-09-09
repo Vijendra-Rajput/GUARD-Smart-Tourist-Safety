@@ -429,34 +429,6 @@ export default function Index() {
                 <Chatbot />
               </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Panic Tracker</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div>
-                    <Button className="w-full bg-destructive text-destructive-foreground" onClick={() => setShowTrackerPanel((s) => !s)}>Track Panic Progress</Button>
-                  </div>
-
-                  {showTrackerPanel && (
-                    <div className="mt-3 space-y-3">
-                      <div className="text-sm">
-                        <div className="font-semibold">Emergency Contact</div>
-                        <div className="text-xs text-muted-foreground">Himachal Rescue Helpline: +91 181 123456</div>
-                      </div>
-
-                      <div className="text-sm">
-                        <div className="font-semibold">Assigned Unit</div>
-                        <div className="text-xs text-muted-foreground">Himachal Rescue 5 — Vehicle • 4 pax — ETA 15-25 mins</div>
-                      </div>
-
-                      <div>
-                        <PanicTracker id={latestPanicId ?? undefined} />
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
             </>
           )}
         </div>
