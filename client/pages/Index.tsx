@@ -381,7 +381,8 @@ export default function Index() {
                 <CardContent>
                   <div className="text-sm">
                     <div className="font-mono">{touristId}</div>
-                    <div className="text-xs text-muted-foreground mt-1">Last tx: 0x{Math.random().toString(16).slice(2, 12)}</div>
+                    <div className="text-xs text-muted-foreground mt-1">Last tx: {issuedTx ? issuedTx.hash : '—'}</div>
+                    <div className="text-xs text-muted-foreground">Valid until: {validUntil ? new Date(validUntil).toLocaleString() : '—'}</div>
                     <div className="mt-3">
                       <Button size="sm" onClick={() => setProofOpen(true)}>View Proof</Button>
                     </div>
@@ -391,6 +392,8 @@ export default function Index() {
 
               <div className="flex gap-2">
                 <Chatbot />
+                <Button variant="outline" onClick={() => setKioskOpen(true)}>Issue Digital ID (Kiosk)</Button>
+                <Button variant="outline" onClick={() => setEmergencyOpen(true)}>Emergency Access</Button>
                 <Button variant="outline">Settings</Button>
               </div>
             </>
