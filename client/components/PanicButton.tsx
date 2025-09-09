@@ -32,7 +32,14 @@ export const PanicButton: React.FC<{ onConfirm?: () => void }> = ({ onConfirm })
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t("confirmPanicTitle")}</AlertDialogTitle>
-            <AlertDialogDescription>{t("confirmPanicDesc")}</AlertDialogDescription>
+            <AlertDialogDescription>
+              <div>{t("confirmPanicDesc")}</div>
+              <div className="mt-2 text-sm text-muted-foreground">
+                This will notify authorities and your emergency contacts immediately even if{' '}
+                <span className="inline-block px-1 rounded font-semibold text-white bg-gradient-to-r from-destructive to-accent">OFFLINE</span>
+                .
+              </div>
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
