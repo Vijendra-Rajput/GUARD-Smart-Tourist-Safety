@@ -107,7 +107,7 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
         </g>
 
         {/* trace polyline (real-time tracking) */}
-        {points && (
+        {points.length > 0 && (
           <g>
             <polyline points={points} fill="none" stroke="rgba(59,130,246,0.9)" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
             {/* animated moving dot */}
