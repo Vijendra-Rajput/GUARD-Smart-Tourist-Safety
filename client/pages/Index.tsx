@@ -35,6 +35,9 @@ export default function Index() {
   const [tourist, setTourist] = useState<Tourist | null>(null);
   const safety = useSafetyScore();
 
+  const [sharing, setSharing] = useState(false);
+  const [trace, setTrace] = useState<{ x: number; y: number }[]>([]);
+
   const touristId = useMemo(() => {
     if (!tourist) return "";
     return (
