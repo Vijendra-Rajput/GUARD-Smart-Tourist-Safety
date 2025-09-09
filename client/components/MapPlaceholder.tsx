@@ -106,6 +106,20 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
           ))}
         </g>
 
+        {/* trace polyline (real-time tracking) */}
+        {points && (
+          <g>
+            <polyline points={points} fill="none" stroke="rgba(59,130,246,0.9)" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
+            {/* animated moving dot */}
+            {last && (
+              <circle cx={last.x * 1200} cy={last.y * 600} r={8} fill="#3b82f6">
+                <animate attributeName="r" values="8;12;8" dur="1.6s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="1;0.6;1" dur="1.6s" repeatCount="indefinite" />
+              </circle>
+            )}
+          </g>
+        )}
+
         {/* heat overlay (visible when tab==='heat') */}
         {tab === "heat" && (
           <g filter="url(#soft)">
