@@ -13,6 +13,7 @@ import { BlockchainProof } from "@/components/BlockchainProof";
 import { KioskIssuance } from "@/components/KioskIssuance";
 import { EmergencyAccess } from "@/components/EmergencyAccess";
 import { FeatureModal } from "@/components/FeatureModal";
+import { PanicTracker } from "@/components/PanicTracker";
 import { useToast } from "@/hooks/use-toast";
 
 interface Tourist {
