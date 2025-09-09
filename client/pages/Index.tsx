@@ -304,7 +304,7 @@ export default function Index() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Location selector & info merged with itinerary */}
-                <LocationWidget itinerary={itinerary} />
+                <LocationWidget itinerary={itinerary} initial={locationPreset ?? (tourist ? pickLocationForUser(tourist.name) : undefined)} />
               </CardContent>
             </Card>
           </div>
