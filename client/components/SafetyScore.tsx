@@ -1,6 +1,8 @@
 import React from "react";
+import { useI18n } from "@/context/i18n";
 
 export const SafetyScore: React.FC<{ score: number }> = ({ score }) => {
+  const { t } = useI18n();
   const clamped = Math.max(0, Math.min(100, score));
   const radius = 54;
   const stroke = 12;
@@ -27,7 +29,7 @@ export const SafetyScore: React.FC<{ score: number }> = ({ score }) => {
         </text>
       </svg>
       <div>
-        <div className="text-sm uppercase tracking-wide text-muted-foreground">Safety Score</div>
+        <div className="text-sm uppercase tracking-wide text-muted-foreground">{t("safetyScore")}</div>
         <div className="text-2xl font-semibold">{clamped} / 100</div>
         <div className="text-xs text-muted-foreground">Calculated from recent activity and geofence risk</div>
       </div>
