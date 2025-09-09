@@ -64,6 +64,16 @@ export default function HamburgerMenu() {
             >
               Settings
             </button>
+
+            <button
+              className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
+              onClick={() => {
+                window.dispatchEvent(new Event("open-feedback"));
+                setOpen(false);
+              }}
+            >
+              Feedback
+            </button>
           </div>
         </div>
       )}
