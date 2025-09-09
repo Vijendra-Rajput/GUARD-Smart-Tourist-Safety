@@ -171,6 +171,7 @@ export default function Index() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [kioskOpen, setKioskOpen] = useState(false);
   const [emergencyOpen, setEmergencyOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [issuedTx, setIssuedTx] = useState<{ hash: string; time: number } | null>(null);
   const [validUntil, setValidUntil] = useState<string | null>(null);
 
