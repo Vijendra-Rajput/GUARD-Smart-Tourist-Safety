@@ -15,7 +15,7 @@ import { useI18n } from "@/context/i18n";
 import { FeatureModal } from "@/components/FeatureModal";
 import { PanicTracker } from "@/components/PanicTracker";
 
-export const PanicButton: React.FC<{ onConfirm?: () => void }> = ({ onConfirm }) => {
+export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom" | "header" }> = ({ onConfirm, placement = "bottom" }) => {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
