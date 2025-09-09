@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useI18n } from "@/context/i18n";
 
 export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactNode; initial?: "physical" | "heat"; trace?: { x: number; y: number }[] }> = ({ height = 220, children, initial = "physical", trace = [] }) => {
