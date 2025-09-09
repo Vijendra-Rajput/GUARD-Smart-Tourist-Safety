@@ -256,7 +256,7 @@ export default function Index() {
                     <div className="font-mono">{touristId}</div>
                     <div className="text-xs text-muted-foreground mt-1">Last tx: 0x{Math.random().toString(16).slice(2, 12)}</div>
                     <div className="mt-3">
-                      <Button size="sm" onClick={() => console.log("view proof")}>View Proof</Button>
+                      <Button size="sm" onClick={() => setProofOpen(true)}>View Proof</Button>
                     </div>
                   </div>
                 </CardContent>
