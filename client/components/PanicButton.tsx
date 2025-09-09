@@ -49,10 +49,7 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
           <span className="relative text-lg font-extrabold tracking-wide">{t("panic")}</span>
         </>
       ) : (
-        <svg className="h-5 w-5 text-destructive-foreground" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="10" fill="currentColor" />
-          <path d="M12 7v6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <span className="px-3 py-1 text-sm font-semibold">{t("panic")}</span>
       )}
     </button>
   );
