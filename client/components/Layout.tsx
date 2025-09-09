@@ -153,14 +153,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
             <div className="text-right">
               <div className="text-sm font-medium mb-2">👨‍💻 Developed by <span className="font-semibold">College Hackathon Team</span></div>
-              <div className="flex flex-wrap justify-end gap-2">
-                {['Vijendra','Anushka','Diksha','Aman','Aman Kumar','Priyanshi'].map((n) => (
-                  <div key={n} className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/80 to-accent/70 px-3 py-1 text-white text-sm shadow-sm">
-                    <div className="h-6 w-6 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">{n.split(' ').map(s=>s[0]).slice(0,2).join('')}</div>
-                    <div className="whitespace-nowrap">{n}</div>
-                  </div>
+              <ul className="list-disc list-inside text-sm text-muted-foreground">
+                {['Vijendra','Anushka','Diksha','Aman','Aman Kumar','Priyanshi'].slice().sort((a,b)=>a.localeCompare(b)).map((n) => (
+                  <li key={n} className="py-0.5">{n}</li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
         </div>
