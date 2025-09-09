@@ -10,6 +10,8 @@ import { Chatbot } from "@/components/Chatbot";
 import { useI18n } from "@/context/i18n";
 import { DevicesPanel } from "@/components/DevicesPanel";
 import { BlockchainProof } from "@/components/BlockchainProof";
+import { KioskIssuance } from "@/components/KioskIssuance";
+import { EmergencyAccess } from "@/components/EmergencyAccess";
 import { FeatureModal } from "@/components/FeatureModal";
 
 interface Tourist {
