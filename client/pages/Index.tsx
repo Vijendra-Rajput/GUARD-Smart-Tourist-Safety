@@ -11,7 +11,6 @@ import { useI18n } from "@/context/i18n";
 import { Chatbot } from "@/components/Chatbot";
 import { DevicesPanel } from "@/components/DevicesPanel";
 import { BlockchainProof } from "@/components/BlockchainProof";
-import { useEffect, useState } from "react";
 
 interface Tourist {
   id: string;
