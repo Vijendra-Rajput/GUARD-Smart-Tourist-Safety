@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { useI18n } from "@/context/i18n";
 import { Chatbot } from "@/components/Chatbot";
 import { PanicButton } from "@/components/PanicButton";
+import HamburgerMenu from "@/components/HamburgerMenu";
 
 function Brand() {
   return (
@@ -107,6 +108,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           </nav>
 
           <div className="flex items-center gap-2">
+            <HamburgerMenu />
             <PanicButton placement="header" />
             {/* AI Guide (mobile) */}
             <div className="md:hidden">
