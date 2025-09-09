@@ -407,9 +407,6 @@ export default function Index() {
 
               <div className="flex gap-2">
                 <Chatbot />
-                <Button variant="outline" onClick={() => setKioskOpen(true)}>Issue Digital ID (Kiosk)</Button>
-                <Button variant="outline" onClick={() => setEmergencyOpen(true)}>Emergency Access</Button>
-                <Button variant="outline">Settings</Button>
               </div>
             </>
           )}
