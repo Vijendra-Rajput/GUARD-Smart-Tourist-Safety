@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useI18n } from "@/context/i18n";
 
-export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactNode; initial?: "physical" | "heat" }> = ({ height = 220, children, initial = "physical" }) => {
+export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactNode; initial?: "physical" | "heat"; trace?: { x: number; y: number }[] }> = ({ height = 220, children, initial = "physical", trace = [] }) => {
   const { t } = useI18n();
   const [tab, setTab] = useState<"physical" | "heat">(initial);
+
+  // normalize trace to svg coordinates (1200x600)
+  const points = trace.map((p) => `${p.x * 1200} ${p.y * 600}`).join(" ");
+  const last = trace.length ? trace[trace.length - 1] : null;
 
   return (
     <div className="relative w-full overflow-hidden rounded-lg border bg-background" style={{ height }}>
