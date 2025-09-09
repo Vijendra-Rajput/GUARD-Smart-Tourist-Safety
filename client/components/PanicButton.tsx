@@ -76,7 +76,7 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
         </AlertDialog>
       </div>
 
-      <FeatureModal open={successOpen} title="Panic Alert Sent" onClose={() => setSuccessOpen(false)}>
+      <FeatureModal open={successOpen} title="Panic Alert Sent" onClose={() => setSuccessOpen(false)} center={true}>
         <div className="space-y-4">
           <div className="text-sm">Panic Alert Successfully Sent to authorities.</div>
           <div className="flex gap-2">
