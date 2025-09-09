@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useI18n } from "@/context/i18n";
 import { FeatureModal } from "@/components/FeatureModal";
 import { PanicTracker } from "@/components/PanicTracker";
+import { cn } from "@/lib/utils";
 
 export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom" | "header" }> = ({ onConfirm, placement = "bottom" }) => {
   const { t } = useI18n();
