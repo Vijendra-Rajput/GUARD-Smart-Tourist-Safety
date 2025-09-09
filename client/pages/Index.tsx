@@ -31,6 +31,124 @@ function useSafetyScore() {
   return Math.round(score);
 }
 
+// Location widget component (in-file for simplicity)
+const LOCATIONS: Record<string, any> = {
+  Manali: {
+    title: "Manali, Himachal Pradesh",
+    about: "Mountain town in the Himalayas, popular for trekking and scenic views.",
+    mustVisit: ["Hadimba Temple", "Solang Valley", "Rohtang Pass"],
+    mustTry: ["Sidu", "Tibetan bread", "Local trout"],
+    hotels: ["Snow View Cottage", "Hotel Manali Heights", "Riverdale"],
+    rescue: { name: "Himachal Rescue 5", eta: "15-25 mins", contact: "+91 181 123456" },
+    rates: { avgMeal: "₹200-700", taxiPerKm: "₹20-40" },
+  },
+  Guwahati: {
+    title: "Guwahati, Assam",
+    about: "Gateway to Northeast India, rich culture and riverfronts.",
+    mustVisit: ["Kamakhya Temple", "Assam State Zoo", "Umananda Island"],
+    mustTry: ["Assam tea", "Pitha", "Fish curry"],
+    hotels: ["Hotel Brahmaputra", "The Gateway" , "City Inn"],
+    rescue: { name: "Assam Emergency", eta: "8-15 mins", contact: "+91 361 654321" },
+    rates: { avgMeal: "₹150-500", taxiPerKm: "₹15-30" },
+  },
+  Meghalaya: {
+    title: "Meghalaya (Shillong)",
+    about: "Lush hills, waterfalls and living root bridges nearby.",
+    mustVisit: ["Cherrapunji", "Nohkalikai Falls", "Living Root Bridges"],
+    mustTry: ["Jadoh", "Tungrymbai", "Local pumpkin delicacy"],
+    hotels: ["Hilltop Retreat", "Meghalaya Inn", "Cloud View"],
+    rescue: { name: "Meghalaya Rescue", eta: "20-35 mins", contact: "+91 364 987654" },
+    rates: { avgMeal: "₹180-600", taxiPerKm: "₹20-45" },
+  },
+};
+
+function pickLocationForUser(name?: string) {
+  if (!name) return "Manali";
+  const keys = Object.keys(LOCATIONS);
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h << 5) - h + name.charCodeAt(i);
+  return keys[Math.abs(h) % keys.length];
+}
+
+function LocationWidget({ itinerary }: { itinerary: any[] }) {
+  const [selected, setSelected] = useState<string>(Object.keys(LOCATIONS)[0]);
+  const info = LOCATIONS[selected];
+
+  return (
+    <div className="grid gap-3">
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-lg font-semibold">{info.title}</div>
+          <div className="text-xs text-muted-foreground">{info.about}</div>
+        </div>
+        <select value={selected} onChange={(e) => setSelected(e.target.value)} className="rounded-md border px-2 py-1 text-sm">
+          {Object.keys(LOCATIONS).map((k) => (
+            <option key={k} value={k}>{k}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="grid gap-2 sm:grid-cols-2">
+        <div className="rounded-md border bg-card/60 p-3">
+          <div className="text-sm font-semibold">Places to visit</div>
+          <ul className="mt-2 list-disc pl-5 text-sm">
+            {info.mustVisit.map((p: string) => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-md border bg-card/60 p-3">
+          <div className="text-sm font-semibold">Must try</div>
+          <ul className="mt-2 list-disc pl-5 text-sm">
+            {info.mustTry.map((p: string) => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="grid gap-2 sm:grid-cols-2">
+        <div className="rounded-md border bg-card/60 p-3">
+          <div className="text-sm font-semibold">Nearest Hotels</div>
+          <ul className="mt-2 list-disc pl-5 text-sm">
+            {info.hotels.map((p: string) => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-md border bg-card/60 p-3">
+          <div className="text-sm font-semibold">Nearest Rescue</div>
+          <div className="mt-2 text-sm">{info.rescue.name}</div>
+          <div className="text-xs text-muted-foreground">ETA: {info.rescue.eta} • Contact: {info.rescue.contact}</div>
+        </div>
+      </div>
+
+      <div className="rounded-md border bg-card/60 p-3">
+        <div className="flex items-center justify-between">
+          <div className="text-sm font-semibold">Price Rates</div>
+          <div className="text-xs text-muted-foreground">Estimates</div>
+        </div>
+        <div className="mt-2 text-sm">Avg meal: {info.rates.avgMeal} • Taxi per km: {info.rates.taxiPerKm}</div>
+      </div>
+
+      <div className="rounded-md border bg-card/60 p-3">
+        <div className="text-sm font-semibold">Itinerary</div>
+        <div className="mt-2 space-y-2">
+          {itinerary.map((it) => (
+            <div key={it.time} className="flex items-center justify-between">
+              <div>
+                <div className="text-sm font-semibold">{it.title}</div>
+                <div className="text-xs text-muted-foreground">{it.note}</div>
+              </div>
+              <div className="text-sm font-mono">{it.time}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Index() {
   const { t } = useI18n();
   const [name, setName] = useState("");
