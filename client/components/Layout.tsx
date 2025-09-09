@@ -98,6 +98,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <NavLink to="/" end className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>
               {t("touristView")}
             </NavLink>
+            <button
+              onClick={() => window.dispatchEvent(new Event("open-inline-tracker"))}
+              className="ml-2 inline-flex items-center px-3 py-2 rounded-md text-sm font-semibold bg-destructive text-destructive-foreground"
+            >
+              Track Panic Progress
+            </button>
             <NavLink to="/admin" className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>
               {t("adminDashboard")}
             </NavLink>
