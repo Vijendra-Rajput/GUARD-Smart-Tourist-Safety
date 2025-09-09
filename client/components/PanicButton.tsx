@@ -12,11 +12,28 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/context/i18n";
+import { FeatureModal } from "@/components/FeatureModal";
+import { PanicTracker } from "@/components/PanicTracker";
 
 export const PanicButton: React.FC<{ onConfirm?: () => void }> = ({ onConfirm }) => {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [trackerOpen, setTrackerOpen] = useState(false);
+  const reportId = `REP-${Math.random().toString(36).slice(2, 10).toUpperCase()}`;
+
+  const handleConfirm = () => {
+    setSent(true);
+    onConfirm?.();
+    // show success modal
+    setSuccessOpen(true);
+    setTimeout(() => {
+      setSent(false);
+      setOpen(false);
+    }, 400);
+  };
+
   return (
     <div className="fixed bottom-6 right-6 z-50">
       <AlertDialog open={open} onOpenChange={setOpen}>
@@ -38,21 +55,24 @@ export const PanicButton: React.FC<{ onConfirm?: () => void }> = ({ onConfirm })
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                setSent(true);
-                onConfirm?.();
-                setTimeout(() => {
-                  setOpen(false);
-                  setSent(false);
-                }, 1200);
-              }}
-            >
-              {sent ? t("sent") : t("panic")}
-            </AlertDialogAction>
+            <AlertDialogAction onClick={handleConfirm}>{sent ? t("sent") : t("panic")}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <FeatureModal open={successOpen} title="Panic Alert Sent" onClose={() => setSuccessOpen(false)}>
+        <div className="space-y-4">
+          <div className="text-sm">Panic Alert Successfully Sent to authorities.</div>
+          <div className="flex gap-2">
+            <Button onClick={() => { setTrackerOpen(true); setSuccessOpen(false); }}>Track the Request</Button>
+            <Button variant="outline" onClick={() => setSuccessOpen(false)}>Thanks</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      <FeatureModal open={trackerOpen} title="Track Request" onClose={() => setTrackerOpen(false)}>
+        <PanicTracker id={reportId} />
+      </FeatureModal>
     </div>
   );
 };
