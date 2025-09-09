@@ -391,7 +391,6 @@ export default function Index() {
         </div>
       </aside>
 
-      {tourist && <PanicButton onConfirm={() => console.log("panic sent for", touristId)} />}
 
       {/* Feature Modals */}
       <FeatureModal open={proofOpen} title="Blockchain Proof" onClose={() => setProofOpen(false)}>
