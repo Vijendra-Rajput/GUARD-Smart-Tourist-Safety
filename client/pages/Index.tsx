@@ -470,7 +470,36 @@ export default function Index() {
         <EmergencyAccess contacts={tourist?.id ? (tourist ? [{name: tourist.name, phone: tourist.phone}] : []) : []} />
       </FeatureModal>
 
+      <FeatureModal open={feedbackOpen} title="Feedback" onClose={() => setFeedbackOpen(false)}>
+        <FeedbackForm onClose={() => setFeedbackOpen(false)} />
+      </FeatureModal>
 
+    </div>
+  );
+}
+
+function FeedbackForm({ onClose }: { onClose: () => void }) {
+  const [text, setText] = useState("");
+  const [email, setEmail] = useState("");
+  const { toast } = useToast();
+
+  const submit = () => {
+    // mock submit
+    toast({ title: "Thanks for your feedback", description: "We appreciate your input." });
+    setText("");
+    setEmail("");
+    onClose();
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="text-sm">We'd love to hear about your experience on the website and your trip. Share ideas or report issues.</div>
+      <input placeholder="Email (optional)" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-md border px-3 py-2 text-sm" />
+      <textarea placeholder="Your feedback" value={text} onChange={(e) => setText(e.target.value)} className="w-full rounded-md border px-3 py-2 text-sm h-32" />
+      <div className="flex gap-2">
+        <Button onClick={submit}>Submit</Button>
+        <Button variant="outline" onClick={onClose}>Cancel</Button>
+      </div>
     </div>
   );
 }
