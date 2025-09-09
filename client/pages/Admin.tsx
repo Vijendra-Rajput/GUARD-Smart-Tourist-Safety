@@ -60,6 +60,9 @@ export default function Admin() {
   const filtered = useMemo(() => alerts.filter((a) => a.touristId.toLowerCase().includes(query.toLowerCase())), [alerts, query]);
   const selected = filtered[0];
 
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [selectedAlert, setSelectedAlert] = useState<AlertItem | null>(null);
+
   return (
     <div className="grid gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2">
