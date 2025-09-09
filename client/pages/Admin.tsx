@@ -79,6 +79,8 @@ export default function Admin() {
                   <div>
                     <div className="text-sm font-semibold">{a.name}<span className="text-muted-foreground"> · {a.touristId}</span></div>
                     <div className="text-xs text-muted-foreground">{new Date(a.time).toLocaleTimeString()}</div>
+                    {/* AI Anomaly */}
+                    {Math.random() > 0.7 && <div className="mt-1 inline-block rounded-full bg-yellow-400/90 px-2 py-0.5 text-xs font-bold">AI: Anomaly</div>}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -87,6 +89,9 @@ export default function Admin() {
                   </Button>
                   <Button className="h-10 px-4" variant={a.escalated ? "secondary" : "destructive"} onClick={() => escalate(a.id)} disabled={a.escalated}>
                     {t("escalate")}
+                  </Button>
+                  <Button className="h-10 px-4" variant="outline" onClick={() => alert("Auto e-FIR (mock) generated for " + a.touristId)}>
+                    Auto e-FIR
                   </Button>
                 </div>
               </div>
