@@ -169,6 +169,10 @@ export default function Index() {
   const [devicesOpen, setDevicesOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [kioskOpen, setKioskOpen] = useState(false);
+  const [emergencyOpen, setEmergencyOpen] = useState(false);
+  const [issuedTx, setIssuedTx] = useState<{ hash: string; time: number } | null>(null);
+  const [validUntil, setValidUntil] = useState<string | null>(null);
 
   // simulate real-time trace when sharing is enabled
   useEffect(() => {
