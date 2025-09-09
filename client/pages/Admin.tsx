@@ -130,32 +130,34 @@ export default function Admin() {
               <CardTitle className="text-2xl">{t("liveAlerts")}</CardTitle>
               <div className="flex items-center gap-2">
                 <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("searchById")} className="h-11 w-56" />
-                <select className="rounded-md border px-2 py-2 text-sm" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value as any)}>
-                  <option value="ALL">All Types</option>
-                  <option value="PANIC">PANIC</option>
-                  <option value="GEOFENCE">GEOFENCE</option>
-                  <option value="LOW_SCORE">LOW_SCORE</option>
+                <select
+                  className="rounded-md border px-2 py-2 text-sm"
+                  value={filterSelection}
+                  onChange={(e) => {
+                    const v = e.target.value; setFilterSelection(v);
+                    // reset
+                    setTypeFilter("ALL"); setStatusFilter("ALL"); setAnomalyOnly(false); setTimeRange("any"); setSortOrder("newest");
+                    if (v.startsWith("TYPE:")) setTypeFilter(v.split(":")[1] as any);
+                    if (v.startsWith("STATUS:")) setStatusFilter(v.split(":")[1] as any);
+                    if (v === "ANOMALY") setAnomalyOnly(true);
+                    if (v.startsWith("TIME:")) setTimeRange(v.split(":")[1] as any);
+                    if (v.startsWith("SORT:")) setSortOrder(v.split(":")[1].toLowerCase() as any);
+                  }}
+                >
+                  <option value="ALL">Select Filter</option>
+                  <option value="TYPE:PANIC">Type: PANIC</option>
+                  <option value="TYPE:GEOFENCE">Type: GEOFENCE</option>
+                  <option value="TYPE:LOW_SCORE">Type: LOW_SCORE</option>
+                  <option value="STATUS:OPEN">Status: Open</option>
+                  <option value="STATUS:ACK">Status: Acknowledged</option>
+                  <option value="STATUS:ESC">Status: Escalated</option>
+                  <option value="ANOMALY">Only Anomalies</option>
+                  <option value="TIME:1h">Time: Last 1h</option>
+                  <option value="TIME:24h">Time: Last 24h</option>
+                  <option value="TIME:7d">Time: Last 7d</option>
+                  <option value="SORT:NEWEST">Sort: Newest</option>
+                  <option value="SORT:OLDEST">Sort: Oldest</option>
                 </select>
-                <select className="rounded-md border px-2 py-2 text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as any)}>
-                  <option value="ALL">All Status</option>
-                  <option value="OPEN">Open</option>
-                  <option value="ACK">Acknowledged</option>
-                  <option value="ESC">Escalated</option>
-                </select>
-                <select className="rounded-md border px-2 py-2 text-sm" value={timeRange} onChange={(e) => setTimeRange(e.target.value as any)}>
-                  <option value="any">Any time</option>
-                  <option value="1h">Last 1h</option>
-                  <option value="24h">Last 24h</option>
-                  <option value="7d">Last 7d</option>
-                </select>
-                <select className="rounded-md border px-2 py-2 text-sm" value={sortOrder} onChange={(e) => setSortOrder(e.target.value as any)}>
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                </select>
-                <label className="inline-flex items-center gap-2 text-sm">
-                  <input type="checkbox" checked={anomalyOnly} onChange={(e) => setAnomalyOnly(e.target.checked)} className="accent-accent" />
-                  AI Anomaly
-                </label>
               </div>
             </div>
           </CardHeader>
