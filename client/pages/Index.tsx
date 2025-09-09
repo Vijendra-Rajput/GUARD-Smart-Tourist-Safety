@@ -385,7 +385,7 @@ export default function Index() {
               </Card>
 
               <div className="flex gap-2">
-                <Button variant="default" onClick={() => setChatOpen(true)}>AI Pre-Trip Chat</Button>
+                <Chatbot />
                 <Button variant="outline">Settings</Button>
               </div>
             </>
