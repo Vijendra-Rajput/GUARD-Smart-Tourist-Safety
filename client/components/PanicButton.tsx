@@ -39,8 +39,10 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
     <button
       aria-label={t("panic")}
       className={cn(
-        "relative grid place-items-center rounded-full text-destructive-foreground shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-destructive/40",
-        placement === "bottom" ? "size-20 bg-destructive" : "h-10 w-10 bg-destructive/95"
+        "relative grid place-items-center shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-destructive/40",
+        placement === "bottom"
+          ? "size-20 rounded-full bg-destructive text-destructive-foreground"
+          : "rounded-lg px-3 py-1 bg-destructive text-white panic-3d panic-blink"
       )}
     >
       {placement === "bottom" ? (
@@ -49,7 +51,7 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
           <span className="relative text-lg font-extrabold tracking-wide">{t("panic")}</span>
         </>
       ) : (
-        <span className="px-3 py-1 text-sm font-semibold">{t("panic")}</span>
+        <span className="text-sm font-semibold">{t("panic")}</span>
       )}
     </button>
   );
