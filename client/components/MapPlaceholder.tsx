@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useI18n } from "@/context/i18n";
 
 export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactNode; initial?: "physical" | "heat"; trace?: { x: number; y: number }[] }> = ({ height = 220, children, initial = "physical", trace = [] }) => {
@@ -8,6 +9,78 @@ export const MapPlaceholder: React.FC<{ height?: number; children?: React.ReactN
   // normalize trace to svg coordinates (1200x600)
   const points = trace.map((p) => `${p.x * 1200} ${p.y * 600}`).join(" ");
   const last = trace.length ? trace[trace.length - 1] : null;
+
+  // Points of interest (pixel coordinates on 1200x600)
+  const POIS = useMemo(() => [
+    { id: "oldtown", name: "Old Town", x: 70, y: 55 },
+    { id: "museum", name: "City Museum", x: 410, y: 215 },
+    { id: "pier", name: "Harbor Pier", x: 930, y: 155 },
+    { id: "park", name: "Central Park", x: 200, y: 410 },
+    { id: "riverside", name: "Riverside", x: 520, y: 290 },
+    { id: "highlands", name: "Highlands", x: 860, y: 90 },
+  ], []);
+
+  const stats = useMemo(() => {
+    if (!trace || trace.length === 0) return null;
+    // compute km traveled assuming map diagonal ~ 80 km
+    const diagPx = Math.sqrt(1200 * 1200 + 600 * 600);
+    const kmPerPx = 80 / diagPx;
+    let pxSum = 0;
+    for (let i = 1; i < trace.length; i++) {
+      const dx = (trace[i].x - trace[i - 1].x) * 1200;
+      const dy = (trace[i].y - trace[i - 1].y) * 600;
+      pxSum += Math.sqrt(dx * dx + dy * dy);
+    }
+    const km = +(pxSum * kmPerPx).toFixed(2);
+
+    const lastPx = { x: last!.x * 1200, y: last!.y * 600 };
+    // nearest POI
+    let nearest = POIS[0];
+    let nearestDist = Infinity;
+    for (const p of POIS) {
+      const dx = p.x - lastPx.x;
+      const dy = p.y - lastPx.y;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < nearestDist) {
+        nearest = p;
+        nearestDist = d;
+      }
+    }
+    // convert pixel distance to km
+    const distKm = +(nearestDist * kmPerPx).toFixed(2);
+    const avgSpeedKmh = 30; // assume 30 km/h
+    const etaMin = Math.max(1, Math.round((distKm / avgSpeedKmh) * 60));
+
+    // pseudo-lat/lon mapping for display
+    const baseLat = 32.0;
+    const baseLon = 77.0;
+    const lat = +(baseLat + (last!.y - 0.5) * 0.2).toFixed(5);
+    const lon = +(baseLon + (last!.x - 0.5) * 0.3).toFixed(5);
+
+    // travellers nearby - based on proximity to heat centers
+    const hotspotCenters = [{ x: 320, y: 220, r: 120 }, { x: 720, y: 260, r: 160 }];
+    let nearby = 1;
+    for (const h of hotspotCenters) {
+      const dx = lastPx.x - h.x;
+      const dy = lastPx.y - h.y;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < h.r) {
+        // closer -> more people
+        nearby = Math.max(3, Math.floor((1 - d / h.r) * 20));
+        break;
+      }
+    }
+
+    return {
+      kmTraveled: km,
+      destination: nearest.name,
+      distanceToDestinationKm: distKm,
+      etaMinutes: etaMin,
+      lat,
+      lon,
+      nearbyCount: nearby,
+    };
+  }, [trace, last, POIS]);
 
   return (
     <div className="relative w-full overflow-hidden rounded-lg border bg-background" style={{ height }}>
