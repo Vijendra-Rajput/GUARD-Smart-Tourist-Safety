@@ -19,19 +19,43 @@ interface AlertItem {
   anomaly?: boolean;
 }
 
-const names = ["Amit Sharma", "Lucia Gomez", "John Doe", "Priya Singh", "Carlos Diaz", "Mia Chen"];
+const names = [
+  "Amit Sharma",
+  "Priya Singh",
+  "Rohit Kumar",
+  "Sanjay Mehta",
+  "Anjali Verma",
+  "Deepak Rao",
+  "Neha Patel",
+  "Vikram Joshi",
+  "Manish Gupta",
+  "Rina K"
+];
+
+const LOCATIONS = [
+  "Manali, HP",
+  "Guwahati, Assam",
+  "Shillong, Meghalaya",
+  "Mumbai, MH",
+  "New Delhi",
+  "Kolkata, WB",
+  "Chennai, TN",
+  "Bengaluru, KA",
+];
 
 function randomAlert(): AlertItem {
   const type: AlertType = ["PANIC", "GEOFENCE", "LOW_SCORE"][Math.floor(Math.random() * 3)] as AlertType;
   const name = names[Math.floor(Math.random() * names.length)];
   const idSuffix = Math.floor(1000 + Math.random() * 9000).toString();
+  const location = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
   return {
     id: crypto.randomUUID(),
     touristId: name.toLowerCase().replace(/\s+/g, "-") + "-" + idSuffix,
     name,
     type,
     time: Date.now(),
-    anomaly: Math.random() > 0.75,
+    anomaly: Math.random() > 0.7,
+    location,
   };
 }
 
