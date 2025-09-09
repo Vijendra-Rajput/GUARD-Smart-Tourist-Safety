@@ -123,40 +123,44 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </div>
       </header>
       <main className="container py-6 md:py-8 lg:py-10">{children}</main>
-      <footer className="mt-8 bg-background/80 border-t">
-        <div className="container py-8">
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="space-y-2">
-              <div className="text-xl font-extrabold">GUARD</div>
-              <div className="text-sm text-muted-foreground">Smart Tourist Safety & Incident Response System</div>
-              <div className="text-xs text-muted-foreground mt-2">Built as part of Smart India Hackathon 2025</div>
+      <footer className="mt-8 bg-gradient-to-tr from-sidebar to-background border-t">
+        <div className="container py-10">
+          <div className="grid gap-8 md:grid-cols-3 items-start">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-md bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold">G</div>
+                <div>
+                  <div className="text-lg font-extrabold">GUARD</div>
+                  <div className="text-xs text-muted-foreground">Smart Tourist Safety & Incident Response System</div>
+                </div>
+              </div>
+              <div className="text-xs text-muted-foreground">Built as part of <span className="font-medium">Smart India Hackathon 2025</span></div>
             </div>
 
             <div className="text-center">
-              <div className="flex justify-center gap-4 mb-3 text-sm">
-                <a href="#" className="hover:underline">Home</a>
-                <span className="text-muted-foreground">·</span>
-                <a href="#" className="hover:underline">Features</a>
-                <span className="text-muted-foreground">·</span>
-                <a href="#" className="hover:underline">Dashboard</a>
-                <span className="text-muted-foreground">·</span>
-                <a href="#" className="hover:underline">About</a>
-                <span className="text-muted-foreground">·</span>
-                <a href="#" className="hover:underline">Contact</a>
-              </div>
-              <div className="text-sm">Contact: <a href="mailto:touristsafety@collegehackathon.in" className="hover:underline">touristsafety@collegehackathon.in</a></div>
+              <nav aria-label="Footer Quick Links" className="mb-4">
+                <ul className="flex flex-wrap items-center justify-center gap-3 text-sm">
+                  {['Home','Features','Dashboard','About','Contact'].map((l, i) => (
+                    <li key={l} className="inline-flex items-center gap-2">
+                      <a href="#" className="text-sm text-slate-700 hover:text-primary hover:underline">{l}</a>
+                      {i < 4 && <span className="text-muted-foreground">·</span>}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+              <div className="text-sm">Contact: <a href="mailto:touristsafety@collegehackathon.in" className="text-primary hover:underline">touristsafety@collegehackathon.in</a></div>
             </div>
 
             <div className="text-right">
-              <div className="text-sm font-medium">👨‍💻 Developed by College Hackathon Team:</div>
+              <div className="text-sm font-medium">👨‍💻 Developed by College Hackathon Team</div>
               <div className="mt-2 text-sm">Vijendra · Anushka · Diksha · Aman · Aman Kumar · Priyanshi</div>
             </div>
           </div>
         </div>
 
-        <div className="border-t bg-background/90">
+        <div className="border-t bg-gradient-to-r from-primary/10 to-transparent">
           <div className="container flex flex-col items-center justify-between gap-2 py-3 md:flex-row">
-            <div className="text-xs">© 2025 GUARD · Built with ❤️ by Students</div>
+            <div className="text-xs text-muted-foreground">© 2025 GUARD · Built with <span aria-hidden>❤</span> by Students</div>
             <div className="text-xs text-muted-foreground">Disclaimer: Demo prototype, not for real emergency use.</div>
           </div>
         </div>
