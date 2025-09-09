@@ -124,7 +124,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           </div>
         </div>
       </header>
-      <main className="container py-6 md:py-8 lg:py-10">{children}</main>
+      <main className="w-full flex flex-col mx-auto py-10 px-8">{children}</main>
       <footer className="mt-8 bg-gradient-to-tr from-sidebar to-background border-t">
         <div className="container py-10">
           <div className="grid gap-8 md:grid-cols-3 items-start">
