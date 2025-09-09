@@ -135,7 +135,7 @@ export default function Index() {
                 <CardTitle>{t("map")}</CardTitle>
               </CardHeader>
               <CardContent>
-                <MapPlaceholder>
+                <MapPlaceholder trace={trace}>
                   <div className="absolute right-4 top-4 rounded-md bg-background/80 px-3 py-1 text-xs shadow">{t("map")}: City Center</div>
                   <div className="absolute left-6 top-12 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow outline outline-2 outline-white" />
                   <div className="absolute left-24 top-24 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary shadow outline outline-2 outline-white" />
@@ -192,11 +192,11 @@ export default function Index() {
                   <div className="flex items-center justify-between">
                     <div className="text-sm">Real-time Tracking</div>
                     <label className="inline-flex items-center">
-                      <input type="checkbox" className="accent-primary size-5" id="rt" />
+                      <input type="checkbox" className="accent-primary size-5" id="rt" checked={sharing} onChange={(e) => setSharing(e.target.checked)} />
                     </label>
                   </div>
                   <div className="mt-3">
-                    <Button size="sm">Share Temporary Link</Button>
+                    <Button size="sm" onClick={() => { navigator.clipboard?.writeText(window.location.href + "?share=" + touristId); }}>Share Temporary Link</Button>
                     <Button size="sm" variant="outline" className="ml-2">Privacy</Button>
                   </div>
                 </CardContent>
@@ -236,7 +236,7 @@ export default function Index() {
               </Card>
 
               <div className="flex gap-2">
-                <Button variant="default">AI Pre-Trip Chat</Button>
+                <Button variant="default" onClick={() => setChatOpen(true)}>AI Pre-Trip Chat</Button>
                 <Button variant="outline">Settings</Button>
               </div>
             </>
