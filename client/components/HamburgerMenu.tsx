@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import React, { useEffect, useRef, useState } from "react";
+
 export default function HamburgerMenu() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
