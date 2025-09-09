@@ -100,14 +100,18 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <NavLink to="/admin" className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>
               {t("adminDashboard")}
             </NavLink>
-            {/* AI Guide next to nav */}
-            <div className="ml-2">
+            {/* AI Guide next to nav (desktop) */}
+            <div className="ml-2 hidden md:block">
               <Chatbot />
             </div>
           </nav>
 
           <div className="flex items-center gap-2">
             <PanicButton placement="header" />
+            {/* AI Guide (mobile) */}
+            <div className="md:hidden">
+              <Chatbot />
+            </div>
             <LanguageSelect />
             <OfflineBadge />
             <Button asChild className="md:hidden">
