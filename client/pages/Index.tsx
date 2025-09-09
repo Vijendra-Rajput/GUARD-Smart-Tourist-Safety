@@ -41,6 +41,10 @@ export default function Index() {
   const [sharing, setSharing] = useState(false);
   const [trace, setTrace] = useState<{ x: number; y: number }[]>([]);
   const [chatOpen, setChatOpen] = useState(false);
+  const [proofOpen, setProofOpen] = useState(false);
+  const [devicesOpen, setDevicesOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   // simulate real-time trace when sharing is enabled
   useEffect(() => {
