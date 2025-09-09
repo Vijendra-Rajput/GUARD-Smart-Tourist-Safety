@@ -180,13 +180,16 @@ export default function Index() {
     const onOpenKiosk = () => setKioskOpen(true);
     const onOpenEmergency = () => setEmergencyOpen(true);
     const onOpenSettings = () => setSettingsOpen(true);
+    const onOpenFeedback = () => setFeedbackOpen(true);
     window.addEventListener("open-kiosk", onOpenKiosk);
     window.addEventListener("open-emergency", onOpenEmergency);
     window.addEventListener("open-settings", onOpenSettings);
+    window.addEventListener("open-feedback", onOpenFeedback);
     return () => {
       window.removeEventListener("open-kiosk", onOpenKiosk);
       window.removeEventListener("open-emergency", onOpenEmergency);
       window.removeEventListener("open-settings", onOpenSettings);
+      window.removeEventListener("open-feedback", onOpenFeedback);
     };
   }, []);
 
