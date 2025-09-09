@@ -177,21 +177,35 @@ export default function Index() {
   const [issuedTx, setIssuedTx] = useState<{ hash: string; time: number } | null>(null);
   const [validUntil, setValidUntil] = useState<string | null>(null);
 
-  // listen for header hamburger menu events to open modals
+  const [showTrackerPanel, setShowTrackerPanel] = useState(false);
+  const [latestPanicId, setLatestPanicId] = useState<string | null>(null);
+
+  // listen for header hamburger menu events to open modals and panic events
   useEffect(() => {
     const onOpenKiosk = () => setKioskOpen(true);
     const onOpenEmergency = () => setEmergencyOpen(true);
     const onOpenSettings = () => setSettingsOpen(true);
     const onOpenFeedback = () => setFeedbackOpen(true);
+    const onOpenInlineTracker = () => setShowTrackerPanel(true);
+    const onPanicSent = (e: Event) => {
+      const ev = e as CustomEvent;
+      if (ev?.detail?.id) setLatestPanicId(ev.detail.id);
+    };
+
     window.addEventListener("open-kiosk", onOpenKiosk);
     window.addEventListener("open-emergency", onOpenEmergency);
     window.addEventListener("open-settings", onOpenSettings);
     window.addEventListener("open-feedback", onOpenFeedback);
+    window.addEventListener("open-inline-tracker", onOpenInlineTracker);
+    window.addEventListener("panic-sent", onPanicSent as EventListener);
+
     return () => {
       window.removeEventListener("open-kiosk", onOpenKiosk);
       window.removeEventListener("open-emergency", onOpenEmergency);
       window.removeEventListener("open-settings", onOpenSettings);
       window.removeEventListener("open-feedback", onOpenFeedback);
+      window.removeEventListener("open-inline-tracker", onOpenInlineTracker);
+      window.removeEventListener("panic-sent", onPanicSent as EventListener);
     };
   }, []);
 
