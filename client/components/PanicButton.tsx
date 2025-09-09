@@ -21,7 +21,6 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
-  const [trackerOpen, setTrackerOpen] = useState(false);
   const reportId = `REP-${Math.random().toString(36).slice(2, 10).toUpperCase()}`;
 
   const handleConfirm = () => {
