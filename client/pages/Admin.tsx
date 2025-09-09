@@ -17,6 +17,7 @@ interface AlertItem {
   acknowledged?: boolean;
   escalated?: boolean;
   anomaly?: boolean;
+  location?: string;
 }
 
 const names = [
