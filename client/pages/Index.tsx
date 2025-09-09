@@ -436,6 +436,24 @@ export default function Index() {
         </div>
       </FeatureModal>
 
+      <FeatureModal open={kioskOpen} title="Entry Kiosk — Issue Digital ID" onClose={() => setKioskOpen(false)}>
+        <KioskIssuance
+          defaultName={name}
+          onIssue={(issued) => {
+            // set tourist state from issuance
+            setTourist({ id: issued.id, name: issued.name, phone: issued.phone, consent: true });
+            setIssuedTx({ hash: issued.txHash, time: Date.now() });
+            setValidUntil(issued.validUntil);
+            setLocationPreset(issued.entryPoint.includes("Manali") ? "Manali" : undefined);
+            setKioskOpen(false);
+          }}
+        />
+      </FeatureModal>
+
+      <FeatureModal open={emergencyOpen} title="Voice/Text Emergency Access" onClose={() => setEmergencyOpen(false)}>
+        <EmergencyAccess contacts={tourist?.id ? (tourist ? [{name: tourist.name, phone: tourist.phone}] : []) : []} />
+      </FeatureModal>
+
 
     </div>
   );
