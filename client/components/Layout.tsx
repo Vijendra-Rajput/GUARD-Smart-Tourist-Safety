@@ -212,13 +212,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
               <LanguageSelect />
             </div>
             <OfflineBadge />
-            <Button asChild className="md:hidden">
-              <Link to={location.pathname === "/admin" ? "/" : "/admin"}>
-                {location.pathname === "/admin"
-                  ? t("touristView")
-                  : t("adminDashboard")}
-              </Link>
-            </Button>
+            {/* Mobile admin switch moved into hamburger menu; hidden in header */}
+            <div className="hidden" />
           </div>
         </div>
       </header>
