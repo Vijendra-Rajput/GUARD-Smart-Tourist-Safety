@@ -147,6 +147,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </div>
       </header>
       <main className="w-full flex flex-col mx-auto py-10 px-8">{children}</main>
+
+      <FeatureModal open={mockupsOpen} title={mockupsTab ? (mockupsTab === 'forum' ? 'Community Forum' : mockupsTab === 'chat' ? 'Real-time Chat' : 'Guardian Gamification') : 'Mockups'} onClose={() => setMockupsOpen(false)}>
+        <Mockups />
+      </FeatureModal>
+
       <footer className="mt-8 bg-gradient-to-tr from-sidebar to-background border-t">
         <div className="container py-10">
           <div className="grid gap-8 md:grid-cols-3 items-start">
