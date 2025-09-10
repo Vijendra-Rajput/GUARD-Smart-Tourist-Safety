@@ -30,7 +30,7 @@ const names = [
   "Neha Patel",
   "Vikram Joshi",
   "Manish Gupta",
-  "Rina K"
+  "Rina K",
 ];
 
 const LOCATIONS = [
@@ -45,7 +45,9 @@ const LOCATIONS = [
 ];
 
 function randomAlert(): AlertItem {
-  const type: AlertType = ["PANIC", "GEOFENCE", "LOW_SCORE"][Math.floor(Math.random() * 3)] as AlertType;
+  const type: AlertType = ["PANIC", "GEOFENCE", "LOW_SCORE"][
+    Math.floor(Math.random() * 3)
+  ] as AlertType;
   const name = names[Math.floor(Math.random() * names.length)];
   const idSuffix = Math.floor(1000 + Math.random() * 9000).toString();
   const location = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
@@ -70,14 +72,29 @@ function useLiveAlerts() {
     }, 5500);
     return () => clearInterval(id);
   }, []);
-  const acknowledge = (id: string) => setAlerts((a) => a.map((x) => (x.id === id ? { ...x, acknowledged: true } : x)));
-  const escalate = (id: string) => setAlerts((a) => a.map((x) => (x.id === id ? { ...x, escalated: true } : x)));
+  const acknowledge = (id: string) =>
+    setAlerts((a) =>
+      a.map((x) => (x.id === id ? { ...x, acknowledged: true } : x)),
+    );
+  const escalate = (id: string) =>
+    setAlerts((a) =>
+      a.map((x) => (x.id === id ? { ...x, escalated: true } : x)),
+    );
   return { alerts, acknowledge, escalate };
 }
 
 function Badge({ type }: { type: AlertType }) {
-  const color = type === "PANIC" ? "bg-destructive text-destructive-foreground" : type === "GEOFENCE" ? "bg-primary text-primary-foreground" : "bg-accent text-accent-foreground";
-  return <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${color}`}>{type}</span>;
+  const color =
+    type === "PANIC"
+      ? "bg-destructive text-destructive-foreground"
+      : type === "GEOFENCE"
+        ? "bg-primary text-primary-foreground"
+        : "bg-accent text-accent-foreground";
+  return (
+    <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${color}`}>
+      {type}
+    </span>
+  );
 }
 
 export default function Admin() {
@@ -88,9 +105,13 @@ export default function Admin() {
 
   // filter states
   const [typeFilter, setTypeFilter] = useState<"ALL" | AlertType>("ALL");
-  const [statusFilter, setStatusFilter] = useState<"ALL" | "OPEN" | "ACK" | "ESC">("ALL");
+  const [statusFilter, setStatusFilter] = useState<
+    "ALL" | "OPEN" | "ACK" | "ESC"
+  >("ALL");
   const [anomalyOnly, setAnomalyOnly] = useState(false);
-  const [timeRange, setTimeRange] = useState<"any" | "1h" | "24h" | "7d">("any");
+  const [timeRange, setTimeRange] = useState<"any" | "1h" | "24h" | "7d">(
+    "any",
+  );
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   const filtered = useMemo(() => {
@@ -113,8 +134,18 @@ export default function Admin() {
         if (statusFilter === "ESC") return !!a.escalated;
         return true;
       })
-      .sort((x, y) => (sortOrder === "newest" ? y.time - x.time : x.time - y.time));
-  }, [alerts, query, typeFilter, anomalyOnly, timeRange, statusFilter, sortOrder]);
+      .sort((x, y) =>
+        sortOrder === "newest" ? y.time - x.time : x.time - y.time,
+      );
+  }, [
+    alerts,
+    query,
+    typeFilter,
+    anomalyOnly,
+    timeRange,
+    statusFilter,
+    sortOrder,
+  ]);
 
   const selected = filtered[0];
 
@@ -129,19 +160,33 @@ export default function Admin() {
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <CardTitle className="text-2xl">{t("liveAlerts")}</CardTitle>
               <div className="flex items-center gap-2">
-                <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("searchById")} className="h-11 w-56" />
+                <Input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={t("searchById")}
+                  className="h-11 w-56"
+                />
                 <select
                   className="rounded-md border px-2 py-2 text-sm"
                   value={filterSelection}
                   onChange={(e) => {
-                    const v = e.target.value; setFilterSelection(v);
+                    const v = e.target.value;
+                    setFilterSelection(v);
                     // reset
-                    setTypeFilter("ALL"); setStatusFilter("ALL"); setAnomalyOnly(false); setTimeRange("any"); setSortOrder("newest");
-                    if (v.startsWith("TYPE:")) setTypeFilter(v.split(":")[1] as any);
-                    if (v.startsWith("STATUS:")) setStatusFilter(v.split(":")[1] as any);
+                    setTypeFilter("ALL");
+                    setStatusFilter("ALL");
+                    setAnomalyOnly(false);
+                    setTimeRange("any");
+                    setSortOrder("newest");
+                    if (v.startsWith("TYPE:"))
+                      setTypeFilter(v.split(":")[1] as any);
+                    if (v.startsWith("STATUS:"))
+                      setStatusFilter(v.split(":")[1] as any);
                     if (v === "ANOMALY") setAnomalyOnly(true);
-                    if (v.startsWith("TIME:")) setTimeRange(v.split(":")[1] as any);
-                    if (v.startsWith("SORT:")) setSortOrder(v.split(":")[1].toLowerCase() as any);
+                    if (v.startsWith("TIME:"))
+                      setTimeRange(v.split(":")[1] as any);
+                    if (v.startsWith("SORT:"))
+                      setSortOrder(v.split(":")[1].toLowerCase() as any);
                   }}
                 >
                   <option value="ALL">Select Filter</option>
@@ -163,24 +208,66 @@ export default function Admin() {
           </CardHeader>
           <CardContent className="space-y-3">
             {filtered.map((a) => (
-              <div key={a.id} onClick={() => { setSelectedAlert(a); setDetailOpen(true); }} className="cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border bg-card/60 p-3">
+              <div
+                key={a.id}
+                onClick={() => {
+                  setSelectedAlert(a);
+                  setDetailOpen(true);
+                }}
+                className="cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border bg-card/60 p-3"
+              >
                 <div className="flex items-center gap-3">
                   <Badge type={a.type} />
                   <div>
-                    <div className="text-sm font-semibold">{a.name}<span className="text-muted-foreground"> · {a.touristId}</span></div>
-                    <div className="text-xs text-muted-foreground">{new Date(a.time).toLocaleTimeString()}</div>
+                    <div className="text-sm font-semibold">
+                      {a.name}
+                      <span className="text-muted-foreground">
+                        {" "}
+                        · {a.touristId}
+                      </span>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {new Date(a.time).toLocaleTimeString()}
+                    </div>
                     {/* AI Anomaly */}
-                    {a.anomaly && <div className="mt-1 inline-block rounded-full bg-yellow-400/90 px-2 py-0.5 text-xs font-bold">AI: Anomaly</div>}
+                    {a.anomaly && (
+                      <div className="mt-1 inline-block rounded-full bg-yellow-400/90 px-2 py-0.5 text-xs font-bold">
+                        AI: Anomaly
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button className="h-10 px-4" variant={a.acknowledged ? "secondary" : "default"} onClick={(e) => { e.stopPropagation(); acknowledge(a.id); }} disabled={a.acknowledged}>
+                  <Button
+                    className="h-10 px-4"
+                    variant={a.acknowledged ? "secondary" : "default"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      acknowledge(a.id);
+                    }}
+                    disabled={a.acknowledged}
+                  >
                     {t("acknowledge")}
                   </Button>
-                  <Button className="h-10 px-4" variant={a.escalated ? "secondary" : "destructive"} onClick={(e) => { e.stopPropagation(); escalate(a.id); }} disabled={a.escalated}>
+                  <Button
+                    className="h-10 px-4"
+                    variant={a.escalated ? "secondary" : "destructive"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      escalate(a.id);
+                    }}
+                    disabled={a.escalated}
+                  >
                     {t("escalate")}
                   </Button>
-                  <Button className="h-10 px-4" variant="outline" onClick={(e) => { e.stopPropagation(); alert("Auto e-FIR (mock) generated for " + a.touristId); }}>
+                  <Button
+                    className="h-10 px-4"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      alert("Auto e-FIR (mock) generated for " + a.touristId);
+                    }}
+                  >
                     Auto e-FIR
                   </Button>
                 </div>
@@ -217,34 +304,83 @@ export default function Admin() {
             </div>
             <div className="flex items-center justify-between">
               <span>Status</span>
-              <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent">{t("committed")}</span>
+              <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent">
+                {t("committed")}
+              </span>
             </div>
             <div className="flex items-center justify-between">
               <span>Last Block</span>
-              <span className="font-mono">0x{(Math.random() * 1e16).toString(16).slice(0, 12)}</span>
+              <span className="font-mono">
+                0x{(Math.random() * 1e16).toString(16).slice(0, 12)}
+              </span>
             </div>
           </CardContent>
         </Card>
       </aside>
 
       {/* Alert detail modal */}
-      <FeatureModal open={detailOpen} title={selectedAlert ? `${selectedAlert.type} · ${selectedAlert.touristId}` : "Alert Detail"} onClose={() => setDetailOpen(false)}>
+      <FeatureModal
+        open={detailOpen}
+        title={
+          selectedAlert
+            ? `${selectedAlert.type} · ${selectedAlert.touristId}`
+            : "Alert Detail"
+        }
+        onClose={() => setDetailOpen(false)}
+      >
         {selectedAlert ? (
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <div className="text-sm font-semibold">{selectedAlert.name}</div>
-              <div className="text-xs text-muted-foreground">ID: {selectedAlert.touristId}</div>
-              <div className="text-xs text-muted-foreground">Location: {selectedAlert.location ?? '—'}</div>
-              <div className="mt-2 text-xs text-muted-foreground">Time: {new Date(selectedAlert.time).toLocaleString()}</div>
+              <div className="text-xs text-muted-foreground">
+                ID: {selectedAlert.touristId}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Location: {selectedAlert.location ?? "—"}
+              </div>
+              <div className="mt-2 text-xs text-muted-foreground">
+                Time: {new Date(selectedAlert.time).toLocaleString()}
+              </div>
               <div className="mt-3">
                 <div className="text-sm font-medium">AI Analysis</div>
-                <div className="text-xs text-muted-foreground">Anomaly score: {(Math.random()*100).toFixed(0)}%</div>
-                <div className="mt-2 text-xs">Suggested action: {selectedAlert.type === "PANIC" ? "Immediate dispatch" : "Investigate & contact tourist"}</div>
+                <div className="text-xs text-muted-foreground">
+                  Anomaly score: {(Math.random() * 100).toFixed(0)}%
+                </div>
+                <div className="mt-2 text-xs">
+                  Suggested action:{" "}
+                  {selectedAlert.type === "PANIC"
+                    ? "Immediate dispatch"
+                    : "Investigate & contact tourist"}
+                </div>
               </div>
               <div className="mt-4 flex gap-2">
-                <Button onClick={() => { acknowledge(selectedAlert.id); setDetailOpen(false); }}>Acknowledge</Button>
-                <Button variant="destructive" onClick={() => { escalate(selectedAlert.id); alert("Escalated (mock)"); }}>Escalate</Button>
-                <Button variant="outline" onClick={() => alert("Generate e-FIR (mock) for " + selectedAlert.touristId)}>Generate e-FIR</Button>
+                <Button
+                  onClick={() => {
+                    acknowledge(selectedAlert.id);
+                    setDetailOpen(false);
+                  }}
+                >
+                  Acknowledge
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={() => {
+                    escalate(selectedAlert.id);
+                    alert("Escalated (mock)");
+                  }}
+                >
+                  Escalate
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() =>
+                    alert(
+                      "Generate e-FIR (mock) for " + selectedAlert.touristId,
+                    )
+                  }
+                >
+                  Generate e-FIR
+                </Button>
               </div>
             </div>
             <div>
@@ -258,7 +394,6 @@ export default function Admin() {
           <div>No alert selected</div>
         )}
       </FeatureModal>
-
     </div>
   );
 }

@@ -12,10 +12,16 @@ import Mockups from "@/pages/Mockups";
 function Brand() {
   return (
     <Link to="/" className="flex items-center gap-3">
-      <img src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F4b37b2a2e5d847de87e16f39d87d991c?format=webp&width=800" alt="GUARD logo" className="h-10 w-10 object-contain rounded-md shadow-inner" />
+      <img
+        src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F4b37b2a2e5d847de87e16f39d87d991c?format=webp&width=800"
+        alt="GUARD logo"
+        className="h-10 w-10 object-contain rounded-md shadow-inner"
+      />
       <div className="leading-tight">
         <div className="text-lg font-extrabold tracking-tight">GUARD</div>
-        <div className="text-xs text-muted-foreground -mt-1">Smart Tourist Safety</div>
+        <div className="text-xs text-muted-foreground -mt-1">
+          Smart Tourist Safety
+        </div>
       </div>
     </Link>
   );
@@ -54,9 +60,22 @@ function LanguageSelect() {
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <span className="font-medium">{langs.find((l) => l.code === lang)?.label ?? lang}</span>
-        <svg className="h-4 w-4" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 8L10 12L14 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <span className="font-medium">
+          {langs.find((l) => l.code === lang)?.label ?? lang}
+        </span>
+        <svg
+          className="h-4 w-4"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 8L10 12L14 8"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
 
@@ -72,7 +91,9 @@ function LanguageSelect() {
                   }}
                   className={cn(
                     "w-full text-left px-3 py-2 rounded-md text-sm",
-                    lang === l.code ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                    lang === l.code
+                      ? "bg-primary text-primary-foreground"
+                      : "hover:bg-muted",
                   )}
                 >
                   {l.label}
@@ -86,7 +107,9 @@ function LanguageSelect() {
   );
 }
 
-export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const Layout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { t } = useI18n();
   const location = useLocation();
   const [mockupsOpen, setMockupsOpen] = useState(false);
@@ -99,7 +122,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       setMockupsOpen(true);
     };
     window.addEventListener("open-mockups", onOpenMockups as EventListener);
-    return () => window.removeEventListener("open-mockups", onOpenMockups as EventListener);
+    return () =>
+      window.removeEventListener(
+        "open-mockups",
+        onOpenMockups as EventListener,
+      );
   }, []);
 
   return (
@@ -108,16 +135,39 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <div className="container flex h-16 items-center justify-between gap-3">
           <Brand />
           <nav className="hidden md:flex items-center gap-2">
-            <NavLink to="/" end className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                cn(
+                  "px-3 py-2 rounded-md text-sm font-medium",
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "hover:bg-muted",
+                )
+              }
+            >
               {t("touristView")}
             </NavLink>
             <button
-              onClick={() => window.dispatchEvent(new Event("open-inline-tracker"))}
+              onClick={() =>
+                window.dispatchEvent(new Event("open-inline-tracker"))
+              }
               className="ml-2 inline-flex items-center px-3 py-2 rounded-md text-sm font-semibold bg-destructive text-destructive-foreground"
             >
               Track Panic Progress
             </button>
-            <NavLink to="/admin" className={({ isActive }) => cn("px-3 py-2 rounded-md text-sm font-medium", isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted")}>
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                cn(
+                  "px-3 py-2 rounded-md text-sm font-medium",
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "hover:bg-muted",
+                )
+              }
+            >
               {t("adminDashboard")}
             </NavLink>
             {/* AI Guide next to nav (desktop) */}
@@ -137,15 +187,31 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <OfflineBadge />
             <Button asChild className="md:hidden">
               <Link to={location.pathname === "/admin" ? "/" : "/admin"}>
-                {location.pathname === "/admin" ? t("touristView") : t("adminDashboard")}
+                {location.pathname === "/admin"
+                  ? t("touristView")
+                  : t("adminDashboard")}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-      <main className="w-full flex flex-col mx-auto py-10 px-8">{children}</main>
+      <main className="w-full flex flex-col mx-auto py-10 px-8">
+        {children}
+      </main>
 
-      <FeatureModal open={mockupsOpen} title={mockupsTab ? (mockupsTab === 'forum' ? 'Community Forum' : mockupsTab === 'chat' ? 'Real-time Chat' : 'Guardian Gamification') : 'Mockups'} onClose={() => setMockupsOpen(false)}>
+      <FeatureModal
+        open={mockupsOpen}
+        title={
+          mockupsTab
+            ? mockupsTab === "forum"
+              ? "Community Forum"
+              : mockupsTab === "chat"
+                ? "Real-time Chat"
+                : "Guardian Gamification"
+            : "Mockups"
+        }
+        onClose={() => setMockupsOpen(false)}
+      >
         <Mockups />
       </FeatureModal>
 
@@ -154,34 +220,67 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           <div className="grid gap-8 md:grid-cols-3 items-start">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <img src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F4b37b2a2e5d847de87e16f39d87d991c?format=webp&width=800" className="h-10 w-10 object-contain rounded-md" alt="GUARD"/>
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F4b37b2a2e5d847de87e16f39d87d991c?format=webp&width=800"
+                  className="h-10 w-10 object-contain rounded-md"
+                  alt="GUARD"
+                />
                 <div>
                   <div className="text-lg font-extrabold">GUARD</div>
-                  <div className="text-xs text-muted-foreground">Smart Tourist Safety & Incident Response System</div>
+                  <div className="text-xs text-muted-foreground">
+                    Smart Tourist Safety & Incident Response System
+                  </div>
                 </div>
               </div>
-              <div className="text-xs text-muted-foreground">Built as part of <span className="font-medium">Smart India Hackathon 2025</span></div>
+              <div className="text-xs text-muted-foreground">
+                Built as part of{" "}
+                <span className="font-medium">Smart India Hackathon 2025</span>
+              </div>
             </div>
 
             <div className="text-center">
               <nav aria-label="Footer Quick Links" className="mb-4">
                 <ul className="flex flex-wrap items-center justify-center gap-3 text-sm">
-                  {['Home','Features','Dashboard','About','Contact'].map((l, i) => (
-                    <li key={l} className="inline-flex items-center gap-2">
-                      <a href="#" className="text-sm text-slate-700 hover:text-primary hover:underline">{l}</a>
-                      {i < 4 && <span className="text-muted-foreground">·</span>}
-                    </li>
-                  ))}
+                  {["Home", "Features", "Dashboard", "About", "Contact"].map(
+                    (l, i) => (
+                      <li key={l} className="inline-flex items-center gap-2">
+                        <a
+                          href="#"
+                          className="text-sm text-slate-700 hover:text-primary hover:underline"
+                        >
+                          {l}
+                        </a>
+                        {i < 4 && (
+                          <span className="text-muted-foreground">·</span>
+                        )}
+                      </li>
+                    ),
+                  )}
                 </ul>
               </nav>
             </div>
 
             <div className="text-right">
-              <div className="text-sm font-medium mb-2">Developed by <span className="font-semibold">Team ResQ24, JEC Jabalpur</span></div>
+              <div className="text-sm font-medium mb-2">
+                Developed by{" "}
+                <span className="font-semibold">Team ResQ24, JEC Jabalpur</span>
+              </div>
               <ul className="list-disc list-inside text-sm text-muted-foreground">
-                {['Vijendra','Anushka','Diksha','Aman','Aman Kumar','Priyanshi'].slice().sort((a,b)=>a.localeCompare(b)).map((n) => (
-                  <li key={n} className="py-0.5">{n}</li>
-                ))}
+                {[
+                  "Vijendra",
+                  "Anushka",
+                  "Diksha",
+                  "Aman",
+                  "Aman Kumar",
+                  "Priyanshi",
+                ]
+                  .slice()
+                  .sort((a, b) => a.localeCompare(b))
+                  .map((n) => (
+                    <li key={n} className="py-0.5">
+                      {n}
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -189,8 +288,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
         <div className="border-t bg-gradient-to-r from-primary/10 to-transparent">
           <div className="container flex flex-col items-center justify-between gap-2 py-3 md:flex-row">
-            <div className="text-xs text-muted-foreground">© 2025 GUARD · Built with <span aria-hidden>❤</span> by Students</div>
-            <div className="text-xs text-muted-foreground">Disclaimer: Demo prototype, not for real emergency use.</div>
+            <div className="text-xs text-muted-foreground">
+              © 2025 GUARD · Built with <span aria-hidden>❤</span> by Students
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Disclaimer: Demo prototype, not for real emergency use.
+            </div>
           </div>
         </div>
       </footer>

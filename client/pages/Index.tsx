@@ -38,11 +38,16 @@ function useSafetyScore() {
 const LOCATIONS: Record<string, any> = {
   Manali: {
     title: "Manali, Himachal Pradesh",
-    about: "Mountain town in the Himalayas, popular for trekking and scenic views.",
+    about:
+      "Mountain town in the Himalayas, popular for trekking and scenic views.",
     mustVisit: ["Hadimba Temple", "Solang Valley", "Rohtang Pass"],
     mustTry: ["Sidu", "Tibetan bread", "Local trout"],
     hotels: ["Snow View Cottage", "Hotel Manali Heights", "Riverdale"],
-    rescue: { name: "Himachal Rescue 5", eta: "15-25 mins", contact: "+91 181 123456" },
+    rescue: {
+      name: "Himachal Rescue 5",
+      eta: "15-25 mins",
+      contact: "+91 181 123456",
+    },
     rates: { avgMeal: "₹200-700", taxiPerKm: "₹20-40" },
   },
   Guwahati: {
@@ -50,8 +55,12 @@ const LOCATIONS: Record<string, any> = {
     about: "Gateway to Northeast India, rich culture and riverfronts.",
     mustVisit: ["Kamakhya Temple", "Assam State Zoo", "Umananda Island"],
     mustTry: ["Assam tea", "Pitha", "Fish curry"],
-    hotels: ["Hotel Brahmaputra", "The Gateway" , "City Inn"],
-    rescue: { name: "Assam Emergency", eta: "8-15 mins", contact: "+91 361 654321" },
+    hotels: ["Hotel Brahmaputra", "The Gateway", "City Inn"],
+    rescue: {
+      name: "Assam Emergency",
+      eta: "8-15 mins",
+      contact: "+91 361 654321",
+    },
     rates: { avgMeal: "₹150-500", taxiPerKm: "₹15-30" },
   },
   Meghalaya: {
@@ -60,7 +69,11 @@ const LOCATIONS: Record<string, any> = {
     mustVisit: ["Cherrapunji", "Nohkalikai Falls", "Living Root Bridges"],
     mustTry: ["Jadoh", "Tungrymbai", "Local pumpkin delicacy"],
     hotels: ["Hilltop Retreat", "Meghalaya Inn", "Cloud View"],
-    rescue: { name: "Meghalaya Rescue", eta: "20-35 mins", contact: "+91 364 987654" },
+    rescue: {
+      name: "Meghalaya Rescue",
+      eta: "20-35 mins",
+      contact: "+91 364 987654",
+    },
     rates: { avgMeal: "₹180-600", taxiPerKm: "₹20-45" },
   },
 };
@@ -73,8 +86,16 @@ function pickLocationForUser(name?: string) {
   return keys[Math.abs(h) % keys.length];
 }
 
-function LocationWidget({ itinerary, initial }: { itinerary: any[]; initial?: string }) {
-  const [selected, setSelected] = useState<string>(initial || Object.keys(LOCATIONS)[0]);
+function LocationWidget({
+  itinerary,
+  initial,
+}: {
+  itinerary: any[];
+  initial?: string;
+}) {
+  const [selected, setSelected] = useState<string>(
+    initial || Object.keys(LOCATIONS)[0],
+  );
   React.useEffect(() => {
     if (initial) setSelected(initial);
   }, [initial]);
@@ -87,9 +108,15 @@ function LocationWidget({ itinerary, initial }: { itinerary: any[]; initial?: st
           <div className="text-lg font-semibold">{info.title}</div>
           <div className="text-xs text-muted-foreground">{info.about}</div>
         </div>
-        <select value={selected} onChange={(e) => setSelected(e.target.value)} className="rounded-md border px-2 py-1 text-sm">
+        <select
+          value={selected}
+          onChange={(e) => setSelected(e.target.value)}
+          className="rounded-md border px-2 py-1 text-sm"
+        >
           {Object.keys(LOCATIONS).map((k) => (
-            <option key={k} value={k}>{k}</option>
+            <option key={k} value={k}>
+              {k}
+            </option>
           ))}
         </select>
       </div>
@@ -125,7 +152,9 @@ function LocationWidget({ itinerary, initial }: { itinerary: any[]; initial?: st
         <div className="rounded-md border bg-card/60 p-3">
           <div className="text-sm font-semibold">Nearest Rescue</div>
           <div className="mt-2 text-sm">{info.rescue.name}</div>
-          <div className="text-xs text-muted-foreground">ETA: {info.rescue.eta} • Contact: {info.rescue.contact}</div>
+          <div className="text-xs text-muted-foreground">
+            ETA: {info.rescue.eta} • Contact: {info.rescue.contact}
+          </div>
         </div>
       </div>
 
@@ -134,7 +163,9 @@ function LocationWidget({ itinerary, initial }: { itinerary: any[]; initial?: st
           <div className="text-sm font-semibold">Price Rates</div>
           <div className="text-xs text-muted-foreground">Estimates</div>
         </div>
-        <div className="mt-2 text-sm">Avg meal: {info.rates.avgMeal} • Taxi per km: {info.rates.taxiPerKm}</div>
+        <div className="mt-2 text-sm">
+          Avg meal: {info.rates.avgMeal} • Taxi per km: {info.rates.taxiPerKm}
+        </div>
       </div>
 
       <div className="rounded-md border bg-card/60 p-3">
@@ -174,7 +205,10 @@ export default function Index() {
   const [kioskOpen, setKioskOpen] = useState(false);
   const [emergencyOpen, setEmergencyOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
-  const [issuedTx, setIssuedTx] = useState<{ hash: string; time: number } | null>(null);
+  const [issuedTx, setIssuedTx] = useState<{
+    hash: string;
+    time: number;
+  } | null>(null);
   const [validUntil, setValidUntil] = useState<string | null>(null);
 
   const [showTrackerPanel, setShowTrackerPanel] = useState(false);
@@ -216,7 +250,10 @@ export default function Index() {
     let i = 0;
     const id = setInterval(() => {
       i++;
-      const tpos = { x: 0.1 + Math.random() * 0.8, y: 0.15 + Math.random() * 0.7 };
+      const tpos = {
+        x: 0.1 + Math.random() * 0.8,
+        y: 0.15 + Math.random() * 0.7,
+      };
       setTrace((p) => [...p, tpos].slice(-20));
       if (i > 120) {
         // stop after some time
@@ -238,10 +275,17 @@ export default function Index() {
 
   const crumbs = useMemo(() => {
     const now = new Date();
-    const format = (d: Date) => d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const format = (d: Date) =>
+      d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     return [
-      { label: "Hotel", time: format(new Date(now.getTime() - 1000 * 60 * 45)) },
-      { label: "Museum", time: format(new Date(now.getTime() - 1000 * 60 * 20)) },
+      {
+        label: "Hotel",
+        time: format(new Date(now.getTime() - 1000 * 60 * 45)),
+      },
+      {
+        label: "Museum",
+        time: format(new Date(now.getTime() - 1000 * 60 * 20)),
+      },
       { label: "Cafe", time: format(new Date(now.getTime() - 1000 * 60 * 5)) },
     ];
   }, []);
@@ -259,52 +303,90 @@ export default function Index() {
         {!tourist ? (
           <>
             <Card className="overflow-hidden">
-            <CardHeader>
-              <CardTitle className="text-2xl">{t("register")}</CardTitle>
-            </CardHeader>
-            <CardContent className="grid gap-4 sm:grid-cols-2">
-              <div className="sm:col-span-2 grid gap-6 sm:grid-cols-2">
-                <div>
-                  <label className="mb-1 block text-sm font-medium" htmlFor="name">{t("name")}</label>
-                  <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Amit Sharma" className="h-12 text-base" />
+              <CardHeader>
+                <CardTitle className="text-2xl">{t("register")}</CardTitle>
+              </CardHeader>
+              <CardContent className="grid gap-4 sm:grid-cols-2">
+                <div className="sm:col-span-2 grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <label
+                      className="mb-1 block text-sm font-medium"
+                      htmlFor="name"
+                    >
+                      {t("name")}
+                    </label>
+                    <Input
+                      id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Amit Sharma"
+                      className="h-12 text-base"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="mb-1 block text-sm font-medium"
+                      htmlFor="phone"
+                    >
+                      {t("phone")}
+                    </label>
+                    <Input
+                      id="phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+91 98765 43210"
+                      className="h-12 text-base"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="mb-1 block text-sm font-medium" htmlFor="phone">{t("phone")}</label>
-                  <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91 98765 43210" className="h-12 text-base" />
+                <label className="inline-flex items-start gap-3 sm:col-span-2 select-none">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-1 size-5 accent-accent"
+                  />
+                  <span className="text-sm leading-tight">{t("consent")}</span>
+                </label>
+                <div className="sm:col-span-2">
+                  <Button
+                    className="h-12 w-full text-base font-semibold"
+                    disabled={!name || !phone || !consent}
+                    onClick={() => {
+                      const newTourist = {
+                        id: crypto.randomUUID(),
+                        name,
+                        phone,
+                        consent,
+                      };
+                      setTourist(newTourist);
+                      setLocationPreset(pickLocationForUser(name));
+                    }}
+                  >
+                    {t("generateId")}
+                  </Button>
                 </div>
-              </div>
-              <label className="inline-flex items-start gap-3 sm:col-span-2 select-none">
-                <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 size-5 accent-accent" />
-                <span className="text-sm leading-tight">{t("consent")}</span>
-              </label>
-              <div className="sm:col-span-2">
-                <Button
-                  className="h-12 w-full text-base font-semibold"
-                  disabled={!name || !phone || !consent}
-                  onClick={() => {
-                    const newTourist = { id: crypto.randomUUID(), name, phone, consent };
-                    setTourist(newTourist);
-                    setLocationPreset(pickLocationForUser(name));
-                  }}
-                >
-                  {t("generateId")}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          <Card className="mt-4">
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col gap-2">
-                <Button onClick={() => setKioskOpen(true)}>Issue Digital ID (Kiosk)</Button>
-                <Button variant="outline" onClick={() => setEmergencyOpen(true)}>Voice-Text Emergency Access</Button>
-              </div>
-            </CardContent>
-          </Card>
-
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>Quick Actions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col gap-2">
+                  <Button onClick={() => setKioskOpen(true)}>
+                    Issue Digital ID (Kiosk)
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setEmergencyOpen(true)}
+                  >
+                    Voice-Text Emergency Access
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </>
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
@@ -316,7 +398,9 @@ export default function Index() {
                 <MockQR value={tourist.id} />
                 <div className="space-y-2">
                   <div className="text-lg font-semibold">{tourist.name}</div>
-                  <div className="text-sm text-muted-foreground">{tourist.phone}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {tourist.phone}
+                  </div>
                   <div className="text-sm">
                     <span className="font-medium">ID:</span> {touristId}
                   </div>
@@ -333,7 +417,9 @@ export default function Index() {
               <CardContent className="grid gap-4">
                 <SafetyScore score={safety} />
                 <div>
-                  <div className="mb-2 text-sm font-semibold">{t("breadcrumb")}</div>
+                  <div className="mb-2 text-sm font-semibold">
+                    {t("breadcrumb")}
+                  </div>
                   <BreadcrumbTrail crumbs={crumbs} />
                 </div>
               </CardContent>
@@ -344,7 +430,9 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <MapPlaceholder trace={trace}>
-                  <div className="absolute right-4 top-4 rounded-md bg-background/80 px-3 py-1 text-xs shadow">{t("map")}: City Center</div>
+                  <div className="absolute right-4 top-4 rounded-md bg-background/80 px-3 py-1 text-xs shadow">
+                    {t("map")}: City Center
+                  </div>
                   <div className="absolute left-6 top-12 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow outline outline-2 outline-white" />
                   <div className="absolute left-24 top-24 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary shadow outline outline-2 outline-white" />
                 </MapPlaceholder>
@@ -354,12 +442,20 @@ export default function Index() {
               <CardHeader>
                 <div className="flex items-center justify-between w-full">
                   <CardTitle>{t("itinerary")}</CardTitle>
-                  <div className="text-sm text-muted-foreground">Where am I?</div>
+                  <div className="text-sm text-muted-foreground">
+                    Where am I?
+                  </div>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Location selector & info merged with itinerary */}
-                <LocationWidget itinerary={itinerary} initial={locationPreset ?? (tourist ? pickLocationForUser(tourist.name) : undefined)} />
+                <LocationWidget
+                  itinerary={itinerary}
+                  initial={
+                    locationPreset ??
+                    (tourist ? pickLocationForUser(tourist.name) : undefined)
+                  }
+                />
               </CardContent>
             </Card>
           </div>
@@ -376,7 +472,8 @@ export default function Index() {
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>
-                GUARD provides proactive safety for tourists with geofencing, emergency alerts, and privacy-first tracking.
+                GUARD provides proactive safety for tourists with geofencing,
+                emergency alerts, and privacy-first tracking.
               </p>
               <ul className="list-disc pl-5 space-y-1">
                 <li>Fast QR-based identification</li>
@@ -396,12 +493,27 @@ export default function Index() {
                   <div className="flex items-center justify-between">
                     <div className="text-sm">Real-time Tracking</div>
                     <label className="inline-flex items-center">
-                      <input type="checkbox" className="accent-primary size-5" id="rt" checked={sharing} onChange={(e) => setSharing(e.target.checked)} />
+                      <input
+                        type="checkbox"
+                        className="accent-primary size-5"
+                        id="rt"
+                        checked={sharing}
+                        onChange={(e) => setSharing(e.target.checked)}
+                      />
                     </label>
                   </div>
                   <div className="mt-3">
-                    <Button size="sm" onClick={() => setShareOpen(true)}>Share Temporary Link</Button>
-                    <Button size="sm" variant="outline" className="ml-2" onClick={() => setSettingsOpen(true)}>Privacy</Button>
+                    <Button size="sm" onClick={() => setShareOpen(true)}>
+                      Share Temporary Link
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="ml-2"
+                      onClick={() => setSettingsOpen(true)}
+                    >
+                      Privacy
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -416,9 +528,17 @@ export default function Index() {
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="font-semibold">WristBand Pro</div>
-                        <div className="text-xs text-muted-foreground">Battery 78%</div>
+                        <div className="text-xs text-muted-foreground">
+                          Battery 78%
+                        </div>
                       </div>
-                      <Button size="sm" variant="outline" onClick={() => setDevicesOpen(true)}>Manage</Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setDevicesOpen(true)}
+                      >
+                        Manage
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
@@ -431,10 +551,17 @@ export default function Index() {
                 <CardContent>
                   <div className="text-sm">
                     <div className="font-mono">{touristId}</div>
-                    <div className="text-xs text-muted-foreground mt-1">Last tx: {issuedTx ? issuedTx.hash : '—'}</div>
-                    <div className="text-xs text-muted-foreground">Valid until: {validUntil ? new Date(validUntil).toLocaleString() : '—'}</div>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      Last tx: {issuedTx ? issuedTx.hash : "—"}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Valid until:{" "}
+                      {validUntil ? new Date(validUntil).toLocaleString() : "—"}
+                    </div>
                     <div className="mt-3">
-                      <Button size="sm" onClick={() => setProofOpen(true)}>View Proof</Button>
+                      <Button size="sm" onClick={() => setProofOpen(true)}>
+                        View Proof
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
@@ -450,80 +577,165 @@ export default function Index() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-col gap-2">
-                    <Button onClick={() => setKioskOpen(true)}>Issue Digital ID (Kiosk)</Button>
-                    <Button variant="outline" onClick={() => setEmergencyOpen(true)}>Voice-Text Emergency Access</Button>
+                    <Button onClick={() => setKioskOpen(true)}>
+                      Issue Digital ID (Kiosk)
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => setEmergencyOpen(true)}
+                    >
+                      Voice-Text Emergency Access
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
-
             </>
           )}
         </div>
       </aside>
 
-
       {/* Feature Modals */}
-      <FeatureModal open={proofOpen} title="Blockchain Proof" onClose={() => setProofOpen(false)}>
-        {tourist ? <BlockchainProof id={tourist.id} /> : <div className="text-sm text-muted-foreground">No tourist selected</div>}
+      <FeatureModal
+        open={proofOpen}
+        title="Blockchain Proof"
+        onClose={() => setProofOpen(false)}
+      >
+        {tourist ? (
+          <BlockchainProof id={tourist.id} />
+        ) : (
+          <div className="text-sm text-muted-foreground">
+            No tourist selected
+          </div>
+        )}
       </FeatureModal>
 
-      <FeatureModal open={devicesOpen} title="Manage Devices & SMS" onClose={() => setDevicesOpen(false)}>
+      <FeatureModal
+        open={devicesOpen}
+        title="Manage Devices & SMS"
+        onClose={() => setDevicesOpen(false)}
+      >
         <DevicesPanel />
       </FeatureModal>
 
-      <FeatureModal open={shareOpen} title="Share Temporary Link" onClose={() => setShareOpen(false)}>
+      <FeatureModal
+        open={shareOpen}
+        title="Share Temporary Link"
+        onClose={() => setShareOpen(false)}
+      >
         <div className="text-sm">
-          <p className="mb-2">Share this temporary tracking link with family or emergency contacts:</p>
+          <p className="mb-2">
+            Share this temporary tracking link with family or emergency
+            contacts:
+          </p>
           <div className="flex items-center gap-2">
-            <input readOnly value={tourist ? window.location.href + "?share=" + touristId : ""} className="flex-1 rounded-md border px-3 py-2 font-mono text-xs" />
-            <Button onClick={() => navigator.clipboard?.writeText(tourist ? window.location.href + "?share=" + touristId : "")}>Copy</Button>
+            <input
+              readOnly
+              value={
+                tourist ? window.location.href + "?share=" + touristId : ""
+              }
+              className="flex-1 rounded-md border px-3 py-2 font-mono text-xs"
+            />
+            <Button
+              onClick={() =>
+                navigator.clipboard?.writeText(
+                  tourist ? window.location.href + "?share=" + touristId : "",
+                )
+              }
+            >
+              Copy
+            </Button>
           </div>
-          <div className="mt-2 text-xs text-muted-foreground">Link expires in 2 hours (mock)</div>
+          <div className="mt-2 text-xs text-muted-foreground">
+            Link expires in 2 hours (mock)
+          </div>
         </div>
       </FeatureModal>
 
-      <FeatureModal open={settingsOpen} title="Privacy Settings" onClose={() => setSettingsOpen(false)}>
+      <FeatureModal
+        open={settingsOpen}
+        title="Privacy Settings"
+        onClose={() => setSettingsOpen(false)}
+      >
         <div className="space-y-3 text-sm">
           <div className="flex items-center justify-between">
             <div>Share real-time location</div>
-            <input type="checkbox" className="size-5" checked={sharing} onChange={(e) => setSharing(e.target.checked)} />
+            <input
+              type="checkbox"
+              className="size-5"
+              checked={sharing}
+              onChange={(e) => setSharing(e.target.checked)}
+            />
           </div>
           <div className="flex items-center justify-between">
             <div>Allow SMS fallback</div>
             <input type="checkbox" className="size-5" defaultChecked />
           </div>
-          <div className="text-xs text-muted-foreground">These are mock settings for the demo.</div>
+          <div className="text-xs text-muted-foreground">
+            These are mock settings for the demo.
+          </div>
         </div>
       </FeatureModal>
 
-      <FeatureModal open={kioskOpen} title="Entry Kiosk — Issue Digital ID" onClose={() => setKioskOpen(false)}>
+      <FeatureModal
+        open={kioskOpen}
+        title="Entry Kiosk — Issue Digital ID"
+        onClose={() => setKioskOpen(false)}
+      >
         <KioskIssuance
           defaultName={name}
           onIssue={(issued) => {
             // set tourist state from issuance
-            setTourist({ id: issued.id, name: issued.name, phone: issued.phone, consent: true });
+            setTourist({
+              id: issued.id,
+              name: issued.name,
+              phone: issued.phone,
+              consent: true,
+            });
             setIssuedTx({ hash: issued.txHash, time: Date.now() });
             setValidUntil(issued.validUntil);
-            setLocationPreset(issued.entryPoint.includes("Manali") ? "Manali" : undefined);
+            setLocationPreset(
+              issued.entryPoint.includes("Manali") ? "Manali" : undefined,
+            );
             setKioskOpen(false);
           }}
         />
       </FeatureModal>
 
-      <FeatureModal open={emergencyOpen} title="Voice/Text Emergency Access" onClose={() => setEmergencyOpen(false)}>
-        <EmergencyAccess contacts={tourist?.id ? (tourist ? [{name: tourist.name, phone: tourist.phone}] : []) : []} />
+      <FeatureModal
+        open={emergencyOpen}
+        title="Voice/Text Emergency Access"
+        onClose={() => setEmergencyOpen(false)}
+      >
+        <EmergencyAccess
+          contacts={
+            tourist?.id
+              ? tourist
+                ? [{ name: tourist.name, phone: tourist.phone }]
+                : []
+              : []
+          }
+        />
       </FeatureModal>
 
-      <FeatureModal open={showTrackerPanel} title="Track Panic Progress" onClose={() => setShowTrackerPanel(false)} center={true}>
+      <FeatureModal
+        open={showTrackerPanel}
+        title="Track Panic Progress"
+        onClose={() => setShowTrackerPanel(false)}
+        center={true}
+      >
         <div className="space-y-3">
           <div className="text-sm">
             <div className="font-semibold">Emergency Contact</div>
-            <div className="text-xs text-muted-foreground">Himachal Rescue Helpline: +91 181 123456</div>
+            <div className="text-xs text-muted-foreground">
+              Himachal Rescue Helpline: +91 181 123456
+            </div>
           </div>
 
           <div className="text-sm">
             <div className="font-semibold">Assigned Unit</div>
-            <div className="text-xs text-muted-foreground">Himachal Rescue 5 — Vehicle • 4 pax — ETA 15-25 mins</div>
+            <div className="text-xs text-muted-foreground">
+              Himachal Rescue 5 — Vehicle • 4 pax — ETA 15-25 mins
+            </div>
           </div>
 
           <div>
@@ -532,10 +744,13 @@ export default function Index() {
         </div>
       </FeatureModal>
 
-      <FeatureModal open={feedbackOpen} title="Feedback" onClose={() => setFeedbackOpen(false)}>
+      <FeatureModal
+        open={feedbackOpen}
+        title="Feedback"
+        onClose={() => setFeedbackOpen(false)}
+      >
         <FeedbackForm onClose={() => setFeedbackOpen(false)} />
       </FeatureModal>
-
     </div>
   );
 }
@@ -547,7 +762,10 @@ function FeedbackForm({ onClose }: { onClose: () => void }) {
 
   const submit = () => {
     // mock submit
-    toast({ title: "Thanks for your feedback", description: "We appreciate your input." });
+    toast({
+      title: "Thanks for your feedback",
+      description: "We appreciate your input.",
+    });
     setText("");
     setEmail("");
     onClose();
@@ -555,12 +773,27 @@ function FeedbackForm({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="space-y-3">
-      <div className="text-sm">We'd love to hear about your experience on the website and your trip. Share ideas or report issues.</div>
-      <input placeholder="Email (optional)" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-md border px-3 py-2 text-sm" />
-      <textarea placeholder="Your feedback" value={text} onChange={(e) => setText(e.target.value)} className="w-full rounded-md border px-3 py-2 text-sm h-32" />
+      <div className="text-sm">
+        We'd love to hear about your experience on the website and your trip.
+        Share ideas or report issues.
+      </div>
+      <input
+        placeholder="Email (optional)"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full rounded-md border px-3 py-2 text-sm"
+      />
+      <textarea
+        placeholder="Your feedback"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        className="w-full rounded-md border px-3 py-2 text-sm h-32"
+      />
       <div className="flex gap-2">
         <Button onClick={submit}>Submit</Button>
-        <Button variant="outline" onClick={onClose}>Cancel</Button>
+        <Button variant="outline" onClick={onClose}>
+          Cancel
+        </Button>
       </div>
     </div>
   );

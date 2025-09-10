@@ -24,10 +24,33 @@ export default function HamburgerMenu() {
         className="inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm hover:bg-muted"
       >
         <span className="sr-only">Open menu</span>
-        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 6H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M4 12H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M4 18H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          className="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 6H20"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M4 12H20"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M4 18H20"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
 
@@ -37,7 +60,9 @@ export default function HamburgerMenu() {
             <button
               className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
               onClick={() => {
-                window.dispatchEvent(new CustomEvent("open-mockups", { detail: { tab: "forum" } }));
+                window.dispatchEvent(
+                  new CustomEvent("open-mockups", { detail: { tab: "forum" } }),
+                );
                 setOpen(false);
               }}
             >
@@ -47,7 +72,9 @@ export default function HamburgerMenu() {
             <button
               className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
               onClick={() => {
-                window.dispatchEvent(new CustomEvent("open-mockups", { detail: { tab: "chat" } }));
+                window.dispatchEvent(
+                  new CustomEvent("open-mockups", { detail: { tab: "chat" } }),
+                );
                 setOpen(false);
               }}
             >
@@ -57,7 +84,11 @@ export default function HamburgerMenu() {
             <button
               className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
               onClick={() => {
-                window.dispatchEvent(new CustomEvent("open-mockups", { detail: { tab: "gamification" } }));
+                window.dispatchEvent(
+                  new CustomEvent("open-mockups", {
+                    detail: { tab: "gamification" },
+                  }),
+                );
                 setOpen(false);
               }}
             >
