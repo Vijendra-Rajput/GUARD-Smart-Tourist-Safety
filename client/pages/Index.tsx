@@ -320,7 +320,7 @@ export default function Index() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Amit Sharma"
-                      className="h-12 text-base"
+                      className="h-12 text-base w-full"
                     />
                   </div>
                   <div>
