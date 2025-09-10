@@ -375,10 +375,11 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col gap-2">
-                  <Button onClick={() => setKioskOpen(true)}>
+                  <Button className="w-full sm:w-auto" onClick={() => setKioskOpen(true)}>
                     Issue Digital ID (Kiosk)
                   </Button>
                   <Button
+                    className="w-full sm:w-auto"
                     variant="outline"
                     onClick={() => setEmergencyOpen(true)}
                   >
@@ -577,15 +578,16 @@ export default function Index() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-col gap-2">
-                    <Button onClick={() => setKioskOpen(true)}>
-                      Issue Digital ID (Kiosk)
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setEmergencyOpen(true)}
-                    >
-                      Voice-Text Emergency Access
-                    </Button>
+                    <Button className="w-full sm:w-auto" onClick={() => setKioskOpen(true)}>
+                    Issue Digital ID (Kiosk)
+                  </Button>
+                  <Button
+                    className="w-full sm:w-auto"
+                    variant="outline"
+                    onClick={() => setEmergencyOpen(true)}
+                  >
+                    Voice-Text Emergency Access
+                  </Button>
                   </div>
                 </CardContent>
               </Card>
