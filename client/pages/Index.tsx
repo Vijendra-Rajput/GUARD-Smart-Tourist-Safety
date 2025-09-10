@@ -394,7 +394,13 @@ export default function Index() {
                       <Button
                         className="w-full"
                         variant="ghost"
-                        onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'forum' } }))}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent("open-mockups", {
+                              detail: { tab: "forum" },
+                            }),
+                          )
+                        }
                       >
                         Community Forum
                       </Button>
@@ -402,7 +408,13 @@ export default function Index() {
                       <Button
                         className="w-full"
                         variant="ghost"
-                        onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'chat' } }))}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent("open-mockups", {
+                              detail: { tab: "chat" },
+                            }),
+                          )
+                        }
                       >
                         Real-time Chat
                       </Button>
@@ -410,7 +422,13 @@ export default function Index() {
                       <Button
                         className="w-full"
                         variant="ghost"
-                        onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'gamification' } }))}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent("open-mockups", {
+                              detail: { tab: "gamification" },
+                            }),
+                          )
+                        }
                       >
                         Guardian Gamification
                       </Button>
@@ -643,7 +661,13 @@ export default function Index() {
                         <Button
                           className="w-full"
                           variant="ghost"
-                          onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'forum' } }))}
+                          onClick={() =>
+                            window.dispatchEvent(
+                              new CustomEvent("open-mockups", {
+                                detail: { tab: "forum" },
+                              }),
+                            )
+                          }
                         >
                           Community Forum
                         </Button>
@@ -651,7 +675,13 @@ export default function Index() {
                         <Button
                           className="w-full"
                           variant="ghost"
-                          onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'chat' } }))}
+                          onClick={() =>
+                            window.dispatchEvent(
+                              new CustomEvent("open-mockups", {
+                                detail: { tab: "chat" },
+                              }),
+                            )
+                          }
                         >
                           Real-time Chat
                         </Button>
@@ -659,7 +689,13 @@ export default function Index() {
                         <Button
                           className="w-full"
                           variant="ghost"
-                          onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'gamification' } }))}
+                          onClick={() =>
+                            window.dispatchEvent(
+                              new CustomEvent("open-mockups", {
+                                detail: { tab: "gamification" },
+                              }),
+                            )
+                          }
                         >
                           Guardian Gamification
                         </Button>
