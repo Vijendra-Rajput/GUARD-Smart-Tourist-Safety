@@ -141,6 +141,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
     };
   }, []);
 
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const ev = e as CustomEvent;
+      if (ev?.detail?.lang) {
+        try {
+          setLang(ev.detail.lang);
+        } catch (err) {}
+      }
+    };
+    window.addEventListener("__set-lang-internal", handler as EventListener);
+    return () => window.removeEventListener("__set-lang-internal", handler as EventListener);
+  }, [setLang]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/40">
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
