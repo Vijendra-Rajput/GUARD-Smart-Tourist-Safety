@@ -257,7 +257,8 @@ export default function Index() {
     <div className="grid gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2 grid gap-6">
         {!tourist ? (
-          <Card className="overflow-hidden">
+          <>
+            <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="text-2xl">{t("register")}</CardTitle>
             </CardHeader>
@@ -291,6 +292,20 @@ export default function Index() {
               </div>
             </CardContent>
           </Card>
+
+          <Card className="mt-4">
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-2">
+                <Button onClick={() => setKioskOpen(true)}>Issue Digital ID (Kiosk)</Button>
+                <Button variant="outline" onClick={() => setEmergencyOpen(true)}>Emergency Access</Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          </>
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
