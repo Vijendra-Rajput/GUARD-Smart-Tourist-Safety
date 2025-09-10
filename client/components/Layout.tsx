@@ -17,11 +17,9 @@ function Brand() {
         alt="GUARD logo"
         className="h-10 w-10 object-contain rounded-md shadow-inner"
       />
-      <div className="leading-tight">
-        <div className="text-lg font-extrabold tracking-tight">GUARD</div>
-        <div className="text-xs text-muted-foreground -mt-1">
-          Smart Tourist Safety
-        </div>
+      <div className="leading-tight flex flex-col">
+        <div className="text-base md:text-lg font-extrabold tracking-tight">GUARD</div>
+        <div className="text-xs md:text-xs text-muted-foreground -mt-0.5">Smart Tourist Safety</div>
       </div>
     </Link>
   );
