@@ -304,7 +304,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <div className="text-right">
               <div className="text-sm font-medium mb-2">
                 Developed by{" "}
-                <span className="font-semibold">Team Rescue24, JEC Jabalpur</span>
+                <span className="font-semibold">
+                  Team Rescue24, JEC Jabalpur
+                </span>
               </div>
               <ul className="list-disc list-inside text-sm text-muted-foreground">
                 {[
