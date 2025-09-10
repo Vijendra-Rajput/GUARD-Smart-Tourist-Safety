@@ -177,11 +177,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
           <div className="flex items-center gap-2">
             <HamburgerMenu />
             <PanicButton placement="header" />
-            {/* AI Guide (mobile) */}
-            <div className="md:hidden">
+            {/* hide AI Guide and LanguageSelect on header for mobile; they'll be in hamburger menu */}
+            <div className="hidden md:block">
               <Chatbot />
             </div>
-            <LanguageSelect />
+            <div className="hidden md:block">
+              <LanguageSelect />
+            </div>
             <OfflineBadge />
             <Button asChild className="md:hidden">
               <Link to={location.pathname === "/admin" ? "/" : "/admin"}>
