@@ -123,21 +123,20 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
     const onSetLang = (e: Event) => {
       const ev = e as CustomEvent;
       if (ev?.detail?.lang) {
-        // call setLang from i18n
-        try {
-          // import useI18n inside component scope is available; using window event to change language
-          (window as any).__setLang = (window as any).__setLang || [];
-        } catch (err) {}
-        const event = new CustomEvent("__apply-set-lang", { detail: ev.detail });
-        window.dispatchEvent(event);
+        const apply = (lang: string) => {
+          try {
+            // access i18n via custom event handled below
+            window.dispatchEvent(new CustomEvent("__set-lang-internal", { detail: { lang } }));
+          } catch (err) {}
+        };
+        apply(ev.detail.lang);
       }
     };
     window.addEventListener("set-lang", onSetLang as EventListener);
+
+    // internal listener will be registered below in another effect
     return () => {
-      window.removeEventListener(
-        "open-mockups",
-        onOpenMockups as EventListener,
-      );
+      window.removeEventListener("open-mockups", onOpenMockups as EventListener);
       window.removeEventListener("set-lang", onSetLang as EventListener);
     };
   }, []);
