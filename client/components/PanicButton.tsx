@@ -37,9 +37,11 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
     }, 400);
   };
 
+  const styleBox = sent ? { boxShadow: '0 0 10px rgba(79,70,229,0.35)' } : { boxShadow: '0 0 22px rgba(220,38,38,0.95)' };
   const triggerButton = (
     <button
       aria-label={t("panic")}
+      style={styleBox}
       className={cn(
         "relative grid place-items-center shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-destructive/40",
         placement === "bottom"
@@ -49,7 +51,7 @@ export const PanicButton: React.FC<{ onConfirm?: () => void; placement?: "bottom
     >
       {placement === "bottom" ? (
         <>
-          <span className="absolute inset-0 animate-ping rounded-full bg-destructive/40" />
+          <span className="absolute inset-0 animate-ping rounded-full bg-destructive/60" style={{ animationDuration: '800ms', filter: 'blur(6px)' }} />
           <span className="relative text-lg font-extrabold tracking-wide">{t("panic")}</span>
         </>
       ) : (
