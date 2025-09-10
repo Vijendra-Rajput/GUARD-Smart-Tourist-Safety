@@ -451,7 +451,7 @@ export default function Index() {
                 <CardContent>
                   <div className="flex flex-col gap-2">
                     <Button onClick={() => setKioskOpen(true)}>Issue Digital ID (Kiosk)</Button>
-                    <Button variant="outline" onClick={() => setEmergencyOpen(true)}>Emergency Access</Button>
+                    <Button variant="outline" onClick={() => setEmergencyOpen(true)}>Voice-Text Emergency Access</Button>
                   </div>
                 </CardContent>
               </Card>
