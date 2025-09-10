@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Chatbot } from "@/components/Chatbot";
 import { Link } from "react-router-dom";
 
 export default function HamburgerMenu() {
@@ -40,67 +39,56 @@ export default function HamburgerMenu() {
 
       {open && (
         <>
-          {/* Mobile full-screen panel */}
-          <div className="fixed inset-0 z-50 md:hidden">
-            <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
-            <div className="absolute left-0 top-0 h-full w-3/4 bg-card p-4 shadow-lg">
-              <div className="flex items-center justify-between mb-4">
+          {/* Mobile inline panel that pushes content down */}
+          <div className="md:hidden w-full">
+            <div className="w-full bg-card p-3 shadow rounded-b-md mt-2">
+              <div className="flex items-center justify-between mb-2">
                 <div className="text-lg font-semibold">Menu</div>
-                <button onClick={() => setOpen(false)} className="px-2 py-1 rounded-md">Close</button>
+                <button onClick={() => setOpen(false)} className="px-2 py-1 rounded-md text-sm">Close</button>
               </div>
 
-              <div className="space-y-3">
-                <div>
-                  <div className="font-medium mb-1">Navigation</div>
-                  <ul role="list" className="space-y-2">
-                    <li>
-                      <Link to="/" onClick={() => setOpen(false)} className="block w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted">Tourist View</Link>
-                    </li>
-                    <li>
-                      <Link to="/admin" onClick={() => setOpen(false)} className="block w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted">Admin Dashboard</Link>
-                    </li>
-                    <li>
-                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new Event('open-inline-tracker')); setOpen(false); }}>Track Panic Progress</button>
-                    </li>
-                    <li>
-                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'forum'}})); setOpen(false); }}>Community Forum</button>
-                    </li>
-                    <li>
-                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'chat'}})); setOpen(false); }}>Real-time Chat</button>
-                    </li>
-                    <li>
-                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'gamification'}})); setOpen(false); }}>Guardian Gamification</button>
-                    </li>
-                  </ul>
-                </div>
+              <nav aria-label="Mobile menu">
+                <ul role="list" className="flex flex-col gap-2">
+                  <li>
+                    <Link to="/" onClick={() => setOpen(false)} className="block w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted">Tourist View</Link>
+                  </li>
+                  <li>
+                    <Link to="/admin" onClick={() => setOpen(false)} className="block w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted">Admin Dashboard</Link>
+                  </li>
+                  <li>
+                    <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new Event('open-inline-tracker')); setOpen(false); }}>Track Panic Progress</button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'forum'}})); setOpen(false); }}>Community Forum</button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'chat'}})); setOpen(false); }}>Real-time Chat</button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'gamification'}})); setOpen(false); }}>Guardian Gamification</button>
+                  </li>
+                </ul>
 
-                <div>
-                  <div className="font-medium mb-1">Utilities</div>
-                  <div className="space-y-2">
-                    <div>
-                      <div className="text-sm font-medium mb-1">Language</div>
-                      <div className="flex gap-2">
-                        <button className="px-2 py-1 rounded-md border" onClick={() => { window.dispatchEvent(new CustomEvent('set-lang',{detail:{lang:'en'}})); setOpen(false); }}>English</button>
-                        <button className="px-2 py-1 rounded-md border" onClick={() => { window.dispatchEvent(new CustomEvent('set-lang',{detail:{lang:'hi'}})); setOpen(false); }}>हिंदी</button>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="text-sm font-medium mb-1">AI Guide</div>
-                      <Chatbot />
-                    </div>
-
-                    <div>
-                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new Event('open-settings')); setOpen(false); }}>Settings</button>
-                    </div>
+                <div className="mt-4 border-t pt-3">
+                  <div className="text-sm font-medium mb-2">Language</div>
+                  <div className="flex gap-2">
+                    <button className="px-2 py-1 rounded-md border" onClick={() => { window.dispatchEvent(new CustomEvent('set-lang',{detail:{lang:'en'}})); setOpen(false); }}>English</button>
+                    <button className="px-2 py-1 rounded-md border" onClick={() => { window.dispatchEvent(new CustomEvent('set-lang',{detail:{lang:'hi'}})); setOpen(false); }}>हिंदी</button>
                   </div>
                 </div>
 
-                <div>
-                  <div className="font-medium mb-1">Feedback</div>
+                <div className="mt-3">
+                  <button className="w-full text-left px-3 py-2 rounded-md text-sm bg-accent text-accent-foreground" onClick={() => { window.dispatchEvent(new Event('open-ai-guide')); setOpen(false); }}>AI Guide</button>
+                </div>
+
+                <div className="mt-3">
+                  <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new Event('open-settings')); setOpen(false); }}>Settings</button>
+                </div>
+
+                <div className="mt-2">
                   <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new Event('open-feedback')); setOpen(false); }}>Share Feedback</button>
                 </div>
-              </div>
+              </nav>
             </div>
           </div>
 
