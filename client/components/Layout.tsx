@@ -120,11 +120,26 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
       setMockupsOpen(true);
     };
     window.addEventListener("open-mockups", onOpenMockups as EventListener);
-    return () =>
+    const onSetLang = (e: Event) => {
+      const ev = e as CustomEvent;
+      if (ev?.detail?.lang) {
+        // call setLang from i18n
+        try {
+          // import useI18n inside component scope is available; using window event to change language
+          (window as any).__setLang = (window as any).__setLang || [];
+        } catch (err) {}
+        const event = new CustomEvent("__apply-set-lang", { detail: ev.detail });
+        window.dispatchEvent(event);
+      }
+    };
+    window.addEventListener("set-lang", onSetLang as EventListener);
+    return () => {
       window.removeEventListener(
         "open-mockups",
         onOpenMockups as EventListener,
       );
+      window.removeEventListener("set-lang", onSetLang as EventListener);
+    };
   }, []);
 
   return (
