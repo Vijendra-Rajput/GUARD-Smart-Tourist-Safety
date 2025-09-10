@@ -8,8 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 export default function Mockups() {
   return (
     <div className="space-y-8 p-8">
-      <h1 className="text-3xl font-bold">GUARD — UI Mockups</h1>
-
       {/* Community Forum Main */}
       <Card>
         <CardHeader>
