@@ -157,7 +157,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/40">
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between gap-3">
+        <div className="container flex items-center justify-between gap-3 py-3">
           <Brand />
           <nav className="hidden md:flex items-center gap-2">
             <NavLink
