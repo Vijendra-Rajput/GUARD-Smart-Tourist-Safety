@@ -37,6 +37,36 @@ export default function HamburgerMenu() {
             <button
               className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
               onClick={() => {
+                window.dispatchEvent(new CustomEvent("open-mockups", { detail: { tab: "forum" } }));
+                setOpen(false);
+              }}
+            >
+              Community Forum
+            </button>
+
+            <button
+              className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("open-mockups", { detail: { tab: "chat" } }));
+                setOpen(false);
+              }}
+            >
+              Real-time Chat
+            </button>
+
+            <button
+              className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("open-mockups", { detail: { tab: "gamification" } }));
+                setOpen(false);
+              }}
+            >
+              Guardian Gamification
+            </button>
+
+            <button
+              className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
+              onClick={() => {
                 window.dispatchEvent(new Event("open-settings"));
                 setOpen(false);
               }}
