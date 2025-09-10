@@ -429,6 +429,18 @@ export default function Index() {
                 <Chatbot />
               </div>
 
+              <Card>
+                <CardHeader>
+                  <CardTitle>Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col gap-2">
+                    <Button onClick={() => setKioskOpen(true)}>Issue Digital ID (Kiosk)</Button>
+                    <Button variant="outline" onClick={() => setEmergencyOpen(true)}>Emergency Access</Button>
+                  </div>
+                </CardContent>
+              </Card>
+
             </>
           )}
         </div>
