@@ -174,11 +174,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   ))}
                 </ul>
               </nav>
-              <div className="text-sm">Contact: <a href="mailto:touristsafety@collegehackathon.in" className="text-primary hover:underline">touristsafety@collegehackathon.in</a></div>
             </div>
 
             <div className="text-right">
-              <div className="text-sm font-medium mb-2">👨‍💻 Developed by <span className="font-semibold">College Hackathon Team</span></div>
+              <div className="text-sm font-medium mb-2">Developed by <span className="font-semibold">Team ResQ24, JEC Jabalpur</span></div>
               <ul className="list-disc list-inside text-sm text-muted-foreground">
                 {['Vijendra','Anushka','Diksha','Aman','Aman Kumar','Priyanshi'].slice().sort((a,b)=>a.localeCompare(b)).map((n) => (
                   <li key={n} className="py-0.5">{n}</li>
