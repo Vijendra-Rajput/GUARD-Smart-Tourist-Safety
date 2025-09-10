@@ -18,8 +18,12 @@ function Brand() {
         className="h-10 w-10 object-contain rounded-md shadow-inner"
       />
       <div className="leading-tight flex flex-col">
-        <div className="text-base md:text-lg font-extrabold tracking-tight">GUARD</div>
-        <div className="text-xs md:text-xs text-muted-foreground -mt-0.5">Smart Tourist Safety</div>
+        <div className="text-base md:text-lg font-extrabold tracking-tight">
+          GUARD
+        </div>
+        <div className="text-xs md:text-xs text-muted-foreground -mt-0.5">
+          Smart Tourist Safety
+        </div>
       </div>
     </Link>
   );
@@ -126,7 +130,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
         const apply = (lang: string) => {
           try {
             // access i18n via custom event handled below
-            window.dispatchEvent(new CustomEvent("__set-lang-internal", { detail: { lang } }));
+            window.dispatchEvent(
+              new CustomEvent("__set-lang-internal", { detail: { lang } }),
+            );
           } catch (err) {}
         };
         apply(ev.detail.lang);
@@ -136,7 +142,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
     // internal listener will be registered below in another effect
     return () => {
-      window.removeEventListener("open-mockups", onOpenMockups as EventListener);
+      window.removeEventListener(
+        "open-mockups",
+        onOpenMockups as EventListener,
+      );
       window.removeEventListener("set-lang", onSetLang as EventListener);
     };
   }, []);
@@ -151,7 +160,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
       }
     };
     window.addEventListener("__set-lang-internal", handler as EventListener);
-    return () => window.removeEventListener("__set-lang-internal", handler as EventListener);
+    return () =>
+      window.removeEventListener(
+        "__set-lang-internal",
+        handler as EventListener,
+      );
   }, [setLang]);
 
   return (
