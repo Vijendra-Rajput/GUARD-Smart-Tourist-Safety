@@ -335,7 +335,7 @@ export default function Index() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 98765 43210"
-                      className="h-12 text-base"
+                      className="h-12 text-base w-full"
                     />
                   </div>
                 </div>
