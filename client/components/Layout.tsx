@@ -92,6 +92,19 @@ function LanguageSelect() {
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { t } = useI18n();
   const location = useLocation();
+  const [mockupsOpen, setMockupsOpen] = useState(false);
+  const [mockupsTab, setMockupsTab] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const onOpenMockups = (e: Event) => {
+      const ev = e as CustomEvent;
+      if (ev?.detail?.tab) setMockupsTab(ev.detail.tab);
+      setMockupsOpen(true);
+    };
+    window.addEventListener("open-mockups", onOpenMockups as EventListener);
+    return () => window.removeEventListener("open-mockups", onOpenMockups as EventListener);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/40">
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
