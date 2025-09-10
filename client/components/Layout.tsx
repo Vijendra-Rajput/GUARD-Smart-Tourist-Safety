@@ -11,10 +11,8 @@ import Mockups from "@/pages/Mockups";
 
 function Brand() {
   return (
-    <Link to="/" className="flex items-center gap-2">
-      <div className="relative size-8 rounded-md bg-gradient-to-br from-primary to-accent shadow-inner">
-        <span className="absolute inset-0 m-auto size-2 rounded-sm bg-white/90" />
-      </div>
+    <Link to="/" className="flex items-center gap-3">
+      <img src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F4b37b2a2e5d847de87e16f39d87d991c?format=webp&width=800" alt="GUARD logo" className="h-10 w-10 object-contain rounded-md shadow-inner" />
       <div className="leading-tight">
         <div className="text-lg font-extrabold tracking-tight">GUARD</div>
         <div className="text-xs text-muted-foreground -mt-1">Smart Tourist Safety</div>
