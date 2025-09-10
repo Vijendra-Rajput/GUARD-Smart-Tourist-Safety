@@ -195,7 +195,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
           </div>
         </div>
       </header>
-      <main className="w-full flex flex-col mx-auto py-10 px-8">
+      <main className="w-full flex flex-col mx-auto py-6 px-4 sm:px-6 md:px-8">
         {children}
       </main>
 
