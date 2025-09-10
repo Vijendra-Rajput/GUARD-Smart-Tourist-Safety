@@ -108,7 +108,7 @@ function LanguageSelect() {
 export const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { t } = useI18n();
+  const { t, setLang } = useI18n();
   const location = useLocation();
   const [mockupsOpen, setMockupsOpen] = useState(false);
   const [mockupsTab, setMockupsTab] = useState<string | undefined>(undefined);
