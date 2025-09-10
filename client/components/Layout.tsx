@@ -174,6 +174,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             >
               {t("touristView")}
             </NavLink>
+
+            {/* Panic button alongside Tourist View on desktop */}
+            <div className="ml-2">
+              <PanicButton placement="header" />
+            </div>
+
             <button
               onClick={() =>
                 window.dispatchEvent(new Event("open-inline-tracker"))
@@ -203,7 +209,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
           <div className="flex items-center gap-2">
             <HamburgerMenu />
-            <PanicButton placement="header" />
+            {/* Panic visible on mobile header */}
+            <div className="md:hidden">
+              <PanicButton placement="header" />
+            </div>
             {/* hide AI Guide and LanguageSelect on header for mobile; they'll be in hamburger menu */}
             <div className="hidden md:block">
               <LanguageSelect />
