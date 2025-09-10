@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Chatbot } from "@/components/Chatbot";
+import { Link } from "react-router-dom";
 
 export default function HamburgerMenu() {
   const [open, setOpen] = useState(false);
@@ -51,10 +52,26 @@ export default function HamburgerMenu() {
               <div className="space-y-3">
                 <div>
                   <div className="font-medium mb-1">Navigation</div>
-                  <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new Event('open-inline-tracker')); setOpen(false); }}>Track Panic Progress</button>
-                  <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'forum'}})); setOpen(false); }}>Community Forum</button>
-                  <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'chat'}})); setOpen(false); }}>Real-time Chat</button>
-                  <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'gamification'}})); setOpen(false); }}>Guardian Gamification</button>
+                  <ul role="list" className="space-y-2">
+                    <li>
+                      <Link to="/" onClick={() => setOpen(false)} className="block w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted">Tourist View</Link>
+                    </li>
+                    <li>
+                      <Link to="/admin" onClick={() => setOpen(false)} className="block w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted">Admin Dashboard</Link>
+                    </li>
+                    <li>
+                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new Event('open-inline-tracker')); setOpen(false); }}>Track Panic Progress</button>
+                    </li>
+                    <li>
+                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'forum'}})); setOpen(false); }}>Community Forum</button>
+                    </li>
+                    <li>
+                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'chat'}})); setOpen(false); }}>Real-time Chat</button>
+                    </li>
+                    <li>
+                      <button className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted" onClick={() => { window.dispatchEvent(new CustomEvent('open-mockups',{detail:{tab:'gamification'}})); setOpen(false); }}>Guardian Gamification</button>
+                    </li>
+                  </ul>
                 </div>
 
                 <div>
