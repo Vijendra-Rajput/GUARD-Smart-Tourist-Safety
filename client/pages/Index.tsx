@@ -388,6 +388,49 @@ export default function Index() {
                   >
                     Voice-Text Emergency Access
                   </Button>
+
+                  <div className="mt-3 border-t pt-3">
+                    <div className="flex flex-col gap-2">
+                      <Button
+                        className="w-full"
+                        variant="ghost"
+                        onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'forum' } }))}
+                      >
+                        Community Forum
+                      </Button>
+
+                      <Button
+                        className="w-full"
+                        variant="ghost"
+                        onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'chat' } }))}
+                      >
+                        Real-time Chat
+                      </Button>
+
+                      <Button
+                        className="w-full"
+                        variant="ghost"
+                        onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'gamification' } }))}
+                      >
+                        Guardian Gamification
+                      </Button>
+
+                      <Button
+                        className="w-full"
+                        onClick={() => setSettingsOpen(true)}
+                      >
+                        Settings
+                      </Button>
+
+                      <Button
+                        className="w-full"
+                        variant="outline"
+                        onClick={() => setFeedbackOpen(true)}
+                      >
+                        Share Feedback
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -594,6 +637,49 @@ export default function Index() {
                     >
                       Voice-Text Emergency Access
                     </Button>
+
+                    <div className="mt-3 border-t pt-3">
+                      <div className="flex flex-col gap-2">
+                        <Button
+                          className="w-full"
+                          variant="ghost"
+                          onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'forum' } }))}
+                        >
+                          Community Forum
+                        </Button>
+
+                        <Button
+                          className="w-full"
+                          variant="ghost"
+                          onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'chat' } }))}
+                        >
+                          Real-time Chat
+                        </Button>
+
+                        <Button
+                          className="w-full"
+                          variant="ghost"
+                          onClick={() => window.dispatchEvent(new CustomEvent('open-mockups', { detail: { tab: 'gamification' } }))}
+                        >
+                          Guardian Gamification
+                        </Button>
+
+                        <Button
+                          className="w-full"
+                          onClick={() => setSettingsOpen(true)}
+                        >
+                          Settings
+                        </Button>
+
+                        <Button
+                          className="w-full"
+                          variant="outline"
+                          onClick={() => setFeedbackOpen(true)}
+                        >
+                          Share Feedback
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
