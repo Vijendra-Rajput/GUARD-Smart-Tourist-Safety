@@ -37,26 +37,6 @@ export default function HamburgerMenu() {
             <button
               className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
               onClick={() => {
-                window.dispatchEvent(new Event("open-kiosk"));
-                setOpen(false);
-              }}
-            >
-              Issue Digital ID (Kiosk)
-            </button>
-
-            <button
-              className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
-              onClick={() => {
-                window.dispatchEvent(new Event("open-emergency"));
-                setOpen(false);
-              }}
-            >
-              Emergency Access
-            </button>
-
-            <button
-              className="w-full text-left px-3 py-2 rounded-md text-sm hover:bg-muted"
-              onClick={() => {
                 window.dispatchEvent(new Event("open-settings"));
                 setOpen(false);
               }}
