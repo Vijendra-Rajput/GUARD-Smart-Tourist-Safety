@@ -8,7 +8,6 @@ import { PanicButton } from "@/components/PanicButton";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { FeatureModal } from "@/components/FeatureModal";
 import Mockups from "@/pages/Mockups";
-import React, { useEffect, useState } from "react";
 
 function Brand() {
   return (
