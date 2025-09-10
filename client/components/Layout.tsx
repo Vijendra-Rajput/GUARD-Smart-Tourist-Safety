@@ -154,7 +154,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           <div className="grid gap-8 md:grid-cols-3 items-start">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-md bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold">G</div>
+                <img src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F4b37b2a2e5d847de87e16f39d87d991c?format=webp&width=800" className="h-10 w-10 object-contain rounded-md" alt="GUARD"/>
                 <div>
                   <div className="text-lg font-extrabold">GUARD</div>
                   <div className="text-xs text-muted-foreground">Smart Tourist Safety & Incident Response System</div>
