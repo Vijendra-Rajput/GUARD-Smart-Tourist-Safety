@@ -206,9 +206,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <PanicButton placement="header" />
             {/* hide AI Guide and LanguageSelect on header for mobile; they'll be in hamburger menu */}
             <div className="hidden md:block">
-              <Chatbot />
-            </div>
-            <div className="hidden md:block">
               <LanguageSelect />
             </div>
             <OfflineBadge />
