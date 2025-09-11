@@ -48,16 +48,70 @@ function RiskMeter({ risk }: { risk: number }) {
   );
 }
 
-function AvatarCard({ risk, lastUpdated }: { risk: number; lastUpdated: string }) {
+function RadialGauge({label, value, size=64, stroke=8}:{label:string,value:number,size?:number,stroke?:number}){
+  const radius = (size - stroke) / 2;
+  const circ = 2 * Math.PI * radius;
+  const [anim, setAnim] = useState(0);
+  useEffect(()=>{
+    let raf: any;
+    let start: number | null = null;
+    const duration = 900;
+    function step(ts:number){
+      if (!start) start = ts;
+      const t = Math.min(1, (ts-start)/duration);
+      setAnim(Math.round(value * t));
+      if (t<1) raf = requestAnimationFrame(step);
+    }
+    raf = requestAnimationFrame(step);
+    return ()=> cancelAnimationFrame(raf);
+  },[value]);
+  const dash = (anim/100) * circ;
   return (
-    <Card>
+    <div className="flex flex-col items-center">
+      <svg width={size} height={size} className="block">
+        <defs>
+          <linearGradient id={`g-${label}`} x1="0" x2="1">
+            <stop offset="0%" stopColor="#60a5fa" />
+            <stop offset="100%" stopColor="#4f46e5" />
+          </linearGradient>
+        </defs>
+        <circle cx={size/2} cy={size/2} r={radius} stroke="#e6e9ee" strokeWidth={stroke} fill="none" />
+        <circle cx={size/2} cy={size/2} r={radius} stroke={`url(#g-${label})`} strokeWidth={stroke} strokeLinecap="round" fill="none"
+          strokeDasharray={`${dash} ${circ-dash}`} transform={`rotate(-90 ${size/2} ${size/2})`} />
+        <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" className="text-sm font-semibold fill-current text-white" style={{fontSize: size/6}}>{anim}%</text>
+      </svg>
+      <div className="text-xs text-muted-foreground mt-1">{label}</div>
+    </div>
+  );
+}
+
+function AvatarCard({ risk, lastUpdated }: { risk: number; lastUpdated: string }) {
+  const pulseColor = risk<=30 ? 'from-emerald-400 to-emerald-600' : risk<=70 ? 'from-amber-400 to-amber-600' : 'from-red-400 to-red-600';
+  return (
+    <Card className="card-hover">
       <CardHeader>
         <CardTitle>My Safety Twin</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-3">
-          <div className="h-14 w-14 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold">MT</div>
-          <div>
+          <div className="relative">
+            <div className={`absolute -inset-1 rounded-full blur-xl opacity-30 bg-gradient-to-r ${pulseColor} animate-pulse-slow`} aria-hidden />
+            <div className="h-14 w-14 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="8" r="3.2" fill="#fff" opacity="0.95" />
+                <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" fill="#fff" opacity="0.9" />
+              </svg>
+            </div>
+            {/* risk ring */}
+            <svg className="absolute -bottom-1 -right-1" width="60" height="60" viewBox="0 0 60 60">
+              <circle cx="30" cy="30" r="26" stroke="#e6e6e6" strokeWidth="4" fill="none" />
+              <circle cx="30" cy="30" r="26" strokeWidth="4" strokeLinecap="round" fill="none"
+                stroke={risk<=30? '#10b981' : risk<=70? '#f59e0b' : '#ef4444'}
+                strokeDasharray={`${(risk/100)*163} ${163 - (risk/100)*163}`} transform="rotate(-90 30 30)" className="transition-all duration-700" />
+            </svg>
+          </div>
+
+          <div className="flex-1">
             <div className="text-sm font-semibold">Guest Twin</div>
             <div className="text-xs text-muted-foreground">Last update: {lastUpdated}</div>
           </div>
@@ -67,14 +121,12 @@ function AvatarCard({ risk, lastUpdated }: { risk: number; lastUpdated: string }
           <RiskMeter risk={risk} />
         </div>
 
-        <div className="mt-4 grid grid-cols-3 gap-2">
-          <div className="text-center">
-            <div className="text-xs text-muted-foreground">Stamina</div>
-            <div className="font-semibold">78%</div>
+        <div className="mt-4 grid grid-cols-3 gap-2 items-center">
+          <div className="flex flex-col items-center">
+            <RadialGauge label="Stamina" value={78} />
           </div>
-          <div className="text-center">
-            <div className="text-xs text-muted-foreground">Battery</div>
-            <div className="font-semibold">62%</div>
+          <div className="flex flex-col items-center">
+            <RadialGauge label="Battery" value={62} />
           </div>
           <div className="text-center">
             <div className="text-xs text-muted-foreground">Steps</div>
