@@ -233,11 +233,16 @@ function ReasonsPanel({ reasons }: { reasons: { text: string; score: number; ico
       <CardContent>
         <ul className="space-y-3">
           {reasons.map((r, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <div className="h-8 w-8 rounded-md bg-slate-800 flex items-center justify-center text-white text-sm">{r.icon || "!"}</div>
-              <div>
-                <div className="font-semibold">{r.text}</div>
-                <div className="text-xs text-muted-foreground">Confidence: {r.score}%</div>
+            <li key={i} className="flex flex-col fade-up" style={{animationDelay: `${i*80}ms`}}>
+              <div className="flex items-center gap-3">
+                <div className="h-8 w-8 rounded-md bg-slate-800 flex items-center justify-center text-white text-sm">{r.icon || "!"}</div>
+                <div className="flex-1">
+                  <div className="font-semibold">{r.text}</div>
+                  <div className="text-xs text-muted-foreground">Confidence: {r.score}%</div>
+                </div>
+              </div>
+              <div className="w-full bg-slate-100 rounded-full h-2 mt-2 overflow-hidden">
+                <div className="h-2 bg-gradient-to-r from-red-400 to-red-600" style={{width: Math.max(6, Math.min(100, r.score)) + '%'}} />
               </div>
             </li>
           ))}
