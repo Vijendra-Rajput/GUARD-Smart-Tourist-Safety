@@ -613,12 +613,16 @@ export default function DigitalTwin() {
       </FeatureModal>
 
       {/* Quick Modes Modal */}
-      <FeatureModal open={quickModesOpen} title="Quick Modes" onClose={() => setQuickModesOpen(false)}>
+      <FeatureModal open={quickModesOpen} title="Quick Modes" onClose={() => { setQuickModesOpen(false); setQuickModesMessage(null); }}>
         <div className="space-y-3">
           <div className="text-sm">Silent Alarm, Watch Mode and quick settings (demo)</div>
-          <div className="flex gap-2">
-            <Button onClick={() => { window.alert('Silent Alarm (demo): Alert sent quietly'); setQuickModesOpen(false); }}>Silent Alarm</Button>
-            <Button onClick={() => { window.alert('Watch Me (demo): Timer started'); setQuickModesOpen(false); }}>Watch Me</Button>
+          <div className="flex flex-col gap-2">
+            <Button onClick={() => { setQuickModesMessage('Silent Alarm sent quietly (demo)'); }} aria-label="Silent Alarm">Silent Alarm</Button>
+            <Button onClick={() => { setQuickModesMessage('Watch Me started — family notified (demo)'); }} aria-label="Watch Me">Watch Me</Button>
+            {quickModesMessage && <div className="p-2 rounded bg-slate-100 text-sm text-muted-foreground">{quickModesMessage}</div>}
+            <div className="flex gap-2 mt-2">
+              <Button onClick={() => { setQuickModesMessage(null); setQuickModesOpen(false); }}>Close</Button>
+            </div>
           </div>
         </div>
       </FeatureModal>
