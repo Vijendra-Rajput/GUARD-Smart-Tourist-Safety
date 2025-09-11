@@ -283,9 +283,9 @@ export default function DigitalTwin() {
   return (
     <div className="w-full">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="flex flex-col gap-3">
           {/* Left / avatar & tabs */}
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 flex flex-col">
             <AvatarCard risk={current.risk} lastUpdated={new Date().toLocaleTimeString()} />
 
             <div className="mt-3 space-y-2">
@@ -374,7 +374,7 @@ export default function DigitalTwin() {
                   <div>
                     <Card className="bg-gradient-to-br from-sky-800/40 to-indigo-900/40">
                       <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-sky-600 flex items-center justify-center text-white">💧</div>
+                        <div className="h-8 w-8 rounded-md bg-sky-600 flex items-center justify-center text-white">���</div>
                         <CardTitle className="text-sm">Personalized Advisor</CardTitle>
                       </CardHeader>
                       <CardContent>
