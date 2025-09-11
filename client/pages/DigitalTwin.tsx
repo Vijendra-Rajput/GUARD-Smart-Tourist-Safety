@@ -164,6 +164,19 @@ export default function DigitalTwin() {
   const [hour, setHour] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [layer, setLayer] = useState<"Safe" | "RiskingSoon" | "Unsafe">("Safe");
+  const [routeModalOpen, setRouteModalOpen] = useState(false);
+  const [visitingModalOpen, setVisitingModalOpen] = useState(false);
+  const [advisorOpen, setAdvisorOpen] = useState(false);
+  const [scamOpen, setScamOpen] = useState(false);
+  const [quickModesOpen, setQuickModesOpen] = useState(false);
+  const [whyOpen, setWhyOpen] = useState(false);
+  const [evidenceOpen, setEvidenceOpen] = useState(false);
+  const [trustOpen, setTrustOpen] = useState(false);
+  const [arOpen, setArOpen] = useState(false);
+  const [demoControlsOpen, setDemoControlsOpen] = useState(false);
+  const [altPath, setAltPath] = useState<number[][] | null>(null);
+  const [currentPath, setCurrentPath] = useState<number[][] | null>(null);
+  const [visitingMarkers, setVisitingMarkers] = useState<number[][]>([]);
   const [consent, setConsent] = useLocalStorage("dt-consent", { allowTracking: false, location: false, trust: false, ts: null });
   const [consentOpen, setConsentOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
@@ -206,7 +219,8 @@ export default function DigitalTwin() {
     }
     return pts;
   }
-  const path = generateWavyPath(hour, 7);
+  const defaultPath = generateWavyPath(hour, 7);
+  const path = currentPath ?? defaultPath;
   const markerPos = path && path.length ? path[0] : [10, 50];
 
   // reasons seeded
@@ -272,21 +286,11 @@ export default function DigitalTwin() {
                     </select>
 
                     <div className="flex items-center gap-2">
-                      <input
-                        aria-label="Simulate hours"
-                        type="range"
-                        min={0}
-                        max={4}
-                        value={hour}
-                        onChange={(e) => setHour(Number(e.target.value))}
-                        className="flex-1"
-                      />
-                      <div className="w-12 text-right text-sm">+{hour}h</div>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Button onClick={onPlayToggle}>{playing ? "Stop" : "Play"}</Button>
-                      <Button variant="outline" onClick={() => setHour(0)}>Reset</Button>
+                      <div className="text-sm">Scenario progress: <span className="font-semibold">Hour +{hour}</span></div>
+                      <div className="ml-auto flex gap-2">
+                        <Button onClick={onPlayToggle} aria-pressed={playing}>{playing ? "Stop" : "Play"}</Button>
+                        <Button variant="outline" onClick={() => { setHour(0); setPlaying(false); setCurrentPath(null); }}>Reset</Button>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -314,29 +318,31 @@ export default function DigitalTwin() {
                     Safe
                   </button>
                   <button
-                    className={cn("px-2 py-1 rounded-md text-sm", layer === "RiskingSoon" ? "bg-amber-500 text-white" : "bg-slate-100")}
-                    onClick={() => setLayer("RiskingSoon")}
+                    className={cn("px-2 py-1 rounded-md text-sm focus:outline focus:ring", layer === "RiskingSoon" ? "bg-amber-500 text-white" : "bg-slate-100")}
+                    onClick={() => { setLayer("RiskingSoon"); }}
                     aria-pressed={layer === "RiskingSoon"}
+                    aria-label="Show RiskingSoon heatmap"
                   >
                     RiskingSoon
                   </button>
                   <button
-                    className={cn("px-2 py-1 rounded-md text-sm", layer === "Unsafe" ? "bg-red-600 text-white" : "bg-slate-100")}
-                    onClick={() => setLayer("Unsafe")}
+                    className={cn("px-2 py-1 rounded-md text-sm focus:outline focus:ring", layer === "Unsafe" ? "bg-red-600 text-white" : "bg-slate-100")}
+                    onClick={() => { setLayer("Unsafe"); }}
                     aria-pressed={layer === "Unsafe"}
+                    aria-label="Show Unsafe heatmap"
                   >
                     Unsafe
                   </button>
                 </div>
               </div>
 
-              <MapPanel markerPos={markerPos} path={path} layer={layer} />
+              <MapPanel markerPos={markerPos} path={path} layer={layer} altPath={altPath} visitingMarkers={visitingMarkers} />
 
               <div className="flex gap-2">
-                <Button onClick={() => alert("Safe Route (demo): alternative path shown")}>Safe Route Suggestion</Button>
-                <Button onClick={() => alert("Marking as visiting (demo)")}>Mark As Visiting</Button>
-                <Button onClick={onShare}>Share With Family</Button>
-                <Button className="bg-red-600 text-white" onClick={() => alert("Panic (demo): mock alert sent")}>Panic</Button>
+                <Button onClick={() => { const alt = generateWavyPath(hour+1,7).map(p=>[Math.min(96,p[0]+3),Math.min(96,p[1]+3)]); setAltPath(alt); setRouteModalOpen(true); }} aria-label="Safe route suggestion">Safe Route Suggestion</Button>
+                <Button onClick={() => { setVisitingMarkers((m)=>[...m, path[path.length-1]]); setVisitingModalOpen(true); }} aria-label="Mark as visiting">Mark As Visiting</Button>
+                <Button onClick={onShare} aria-label="Share with family">Share With Family</Button>
+                <Button className="bg-red-600 text-white" onClick={() => { /* open existing panic UI */ window.dispatchEvent(new Event('open-panic-ui')); }} aria-label="Panic">Panic</Button>
               </div>
 
               {/* Horizontal feature strip below the map */}
@@ -356,7 +362,7 @@ export default function DigitalTwin() {
                       <CardContent>
                         <div className="text-sm">Hydration reminder: Drink 200ml water<br/>Battery: 62% • Steps: 1,234</div>
                         <div className="mt-2">
-                          <Button variant="ghost" onClick={() => alert('Advisor details (demo): hydration plan, rest spots')}>Open</Button>
+                          <Button variant="ghost" onClick={() => setAdvisorOpen(true)}>Open</Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -376,7 +382,7 @@ export default function DigitalTwin() {
                           <li>Fake guide — use official counter</li>
                         </ul>
                         <div className="mt-2">
-                          <Button variant="ghost" onClick={() => alert('Scam tips (demo): shows common scams nearby')}>View</Button>
+                          <Button variant="ghost" onClick={() => setScamOpen(true)}>View</Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -392,8 +398,8 @@ export default function DigitalTwin() {
                       </CardHeader>
                       <CardContent>
                         <div className="flex gap-2">
-                          <Button variant="outline" onClick={() => alert('Silent Alarm (demo): Alert sent quietly')}>Silent Alarm</Button>
-                          <Button variant="outline" onClick={() => alert('Watch Me (demo): Timer started')}>Watch Me</Button>
+                          <Button variant="outline" onClick={() => { setQuickModesOpen(true); }}>Silent Alarm</Button>
+                          <Button variant="outline" onClick={() => { setQuickModesOpen(true); }}>Watch Me</Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -410,7 +416,7 @@ export default function DigitalTwin() {
                       <CardContent>
                         <div className="text-sm">Tap to see why this area is flagged.</div>
                         <div className="mt-2">
-                          <Button variant="ghost" onClick={openExplain}>Explain</Button>
+                          <Button variant="ghost" onClick={() => setWhyOpen(true)}>Explain</Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -427,7 +433,7 @@ export default function DigitalTwin() {
                       <CardContent>
                         <div className="text-sm">Location pinned • Photo stored • Hash created</div>
                         <div className="mt-2">
-                          <Button variant="ghost" onClick={() => alert('Evidence viewer (demo): shows logs')}>View</Button>
+                          <Button variant="ghost" onClick={() => setEvidenceOpen(true)}>View</Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -444,7 +450,7 @@ export default function DigitalTwin() {
                       <CardContent>
                         <div className="text-sm">Nearby Guardians: 4 • Rating: 4.5/5</div>
                         <div className="mt-2">
-                          <Button variant="ghost" onClick={() => alert('Trust network (demo): shows guardian profiles')}>Open</Button>
+                          <Button variant="ghost" onClick={() => setTrustOpen(true)}>Open</Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -461,7 +467,7 @@ export default function DigitalTwin() {
                       <CardContent>
                         <div className="text-sm">Open AR preview (demo)</div>
                         <div className="mt-2">
-                          <Button variant="ghost" onClick={() => alert('AR Preview (demo): overlay mock')}>Open</Button>
+                          <Button variant="ghost" onClick={() => setArOpen(true)}>Open</Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -479,7 +485,7 @@ export default function DigitalTwin() {
                         <div className="flex flex-col gap-2">
                           <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Use synthetic ML</label>
                           <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Show data sources</label>
-                          <Button variant="ghost" onClick={() => window.location.reload()}>Reset twin</Button>
+                          <Button variant="ghost" onClick={() => setDemoControlsOpen(true)}>Open</Button>
                         </div>
                       </CardContent>
                     </Card>
