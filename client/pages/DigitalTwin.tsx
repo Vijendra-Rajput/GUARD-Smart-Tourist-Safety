@@ -251,7 +251,7 @@ export default function DigitalTwin() {
   const reasons = [
     { text: "Festival: high crowd density", score: Math.min(95, 30 + current.risk), icon: "🎉" },
     { text: "Recent local incidents: 2 in 48h", score: Math.min(90, 20 + current.risk), icon: "⚠️" },
-    { text: "Weather alert: heavy", score: Math.min(85, 10 + current.risk), icon: "🌧️" },
+    { text: "Weather alert: heavy", score: Math.min(85, 10 + current.risk), icon: "🌧���" },
   ];
 
   useEffect(() => {
@@ -366,19 +366,14 @@ export default function DigitalTwin() {
                 <Button className="bg-red-600 text-white" onClick={() => { /* open existing panic UI */ window.dispatchEvent(new Event('open-panic-ui')); }} aria-label="Panic">Panic</Button>
               </div>
 
-              {/* Horizontal feature strip below the map */}
-              <div className="mt-4 overflow-x-auto">
-                <div className="flex gap-4 py-2">
-                  <div className="min-w-[220px]">
+              {/* Feature grid below the map (table-like) */}
+              <div className="mt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div>
                     <Card className="bg-gradient-to-br from-sky-800/40 to-indigo-900/40">
-                      <CardHeader>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <div className="h-8 w-8 rounded-md bg-sky-600 flex items-center justify-center text-white">💧</div>
-                            <CardTitle className="text-sm">Personalized Advisor</CardTitle>
-                          </div>
-                          <div className="text-xs text-muted-foreground">Stamina</div>
-                        </div>
+                      <CardHeader className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-md bg-sky-600 flex items-center justify-center text-white">💧</div>
+                        <CardTitle className="text-sm">Personalized Advisor</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="text-sm">Hydration reminder: Drink 200ml water<br/>Battery: 62% • Steps: 1,234</div>
@@ -389,13 +384,11 @@ export default function DigitalTwin() {
                     </Card>
                   </div>
 
-                  <div className="min-w-[220px]">
+                  <div>
                     <Card className="bg-gradient-to-br from-amber-700/10 to-amber-900/10">
-                      <CardHeader>
-                        <div className="flex items-center gap-2">
-                          <div className="h-8 w-8 rounded-md bg-amber-500 flex items-center justify-center text-white">🚕</div>
-                          <CardTitle className="text-sm">AI Scam Prevention</CardTitle>
-                        </div>
+                      <CardHeader className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-md bg-amber-500 flex items-center justify-center text-white">🚕</div>
+                        <CardTitle className="text-sm">AI Scam Prevention</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ul className="text-sm">
@@ -409,13 +402,11 @@ export default function DigitalTwin() {
                     </Card>
                   </div>
 
-                  <div className="min-w-[220px]">
+                  <div>
                     <Card className="bg-gradient-to-br from-slate-800/20 to-slate-900/20">
-                      <CardHeader>
-                        <div className="flex items-center gap-2">
-                          <div className="h-8 w-8 rounded-md bg-violet-600 flex items-center justify-center text-white">👀</div>
-                          <CardTitle className="text-sm">Quick Modes</CardTitle>
-                        </div>
+                      <CardHeader className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-md bg-violet-600 flex items-center justify-center text-white">👀</div>
+                        <CardTitle className="text-sm">Quick Modes</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="flex gap-2">
@@ -426,13 +417,11 @@ export default function DigitalTwin() {
                     </Card>
                   </div>
 
-                  <div className="min-w-[220px]">
+                  <div>
                     <Card>
-                      <CardHeader>
-                        <div className="flex items-center gap-2">
-                          <div className="h-8 w-8 rounded-md bg-red-600 flex items-center justify-center text-white">⚠️</div>
-                          <CardTitle className="text-sm">Why?</CardTitle>
-                        </div>
+                      <CardHeader className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-md bg-red-600 flex items-center justify-center text-white">⚠️</div>
+                        <CardTitle className="text-sm">Why?</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="text-sm">Tap to see why this area is flagged.</div>
@@ -443,13 +432,11 @@ export default function DigitalTwin() {
                     </Card>
                   </div>
 
-                  <div className="min-w-[220px]">
+                  <div>
                     <Card>
-                      <CardHeader>
-                        <div className="flex items-center gap-2">
-                          <div className="h-8 w-8 rounded-md bg-emerald-600 flex items-center justify-center text-white">📦</div>
-                          <CardTitle className="text-sm">Automated Evidence</CardTitle>
-                        </div>
+                      <CardHeader className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-md bg-emerald-600 flex items-center justify-center text-white">📦</div>
+                        <CardTitle className="text-sm">Automated Evidence</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="text-sm">Location pinned • Photo stored • Hash created</div>
@@ -460,13 +447,11 @@ export default function DigitalTwin() {
                     </Card>
                   </div>
 
-                  <div className="min-w-[220px]">
+                  <div>
                     <Card>
-                      <CardHeader>
-                        <div className="flex items-center gap-2">
-                          <div className="h-8 w-8 rounded-md bg-sky-500 flex items-center justify-center text-white">🤝</div>
-                          <CardTitle className="text-sm">Trust Network</CardTitle>
-                        </div>
+                      <CardHeader className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-md bg-sky-500 flex items-center justify-center text-white">🤝</div>
+                        <CardTitle className="text-sm">Trust Network</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="text-sm">Nearby Guardians: 4 • Rating: 4.5/5</div>
@@ -477,13 +462,11 @@ export default function DigitalTwin() {
                     </Card>
                   </div>
 
-                  <div className="min-w-[220px]">
+                  <div>
                     <Card>
-                      <CardHeader>
-                        <div className="flex items-center gap-2">
-                          <div className="h-8 w-8 rounded-md bg-pink-600 flex items-center justify-center text-white">📸</div>
-                          <CardTitle className="text-sm">AR Overlay</CardTitle>
-                        </div>
+                      <CardHeader className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-md bg-pink-600 flex items-center justify-center text-white">📸</div>
+                        <CardTitle className="text-sm">AR Overlay</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="text-sm">Open AR preview (demo)</div>
@@ -494,13 +477,11 @@ export default function DigitalTwin() {
                     </Card>
                   </div>
 
-                  <div className="min-w-[220px]">
+                  <div>
                     <Card>
-                      <CardHeader>
-                        <div className="flex items-center gap-2">
-                          <div className="h-8 w-8 rounded-md bg-gray-700 flex items-center justify-center text-white">⚙️</div>
-                          <CardTitle className="text-sm">Demo Controls</CardTitle>
-                        </div>
+                      <CardHeader className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-md bg-gray-700 flex items-center justify-center text-white">⚙️</div>
+                        <CardTitle className="text-sm">Demo Controls</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="flex flex-col gap-2">
