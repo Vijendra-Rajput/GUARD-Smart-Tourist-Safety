@@ -748,6 +748,55 @@ export default function DigitalTwin() {
         </div>
       </FeatureModal>
 
+      {/* Parallel World Simulation Modal */}
+      <FeatureModal open={parallelOpen} title="Parallel World Simulation" onClose={() => { setParallelOpen(false); setSimPlaying(false); setSimPath(null); setSimIndex(0); setSimBlocked(false); }}>
+        <div className="flex gap-4">
+          <div className="w-2/3">
+            <div className="h-64 bg-slate-900/10 rounded p-2 relative">
+              <div className="text-sm text-muted-foreground">Map preview (demo)</div>
+              {/* render sim path and avatar */}
+              <svg viewBox="0 0 100 100" className="w-full h-44 mt-2">
+                <polyline points={(simPath||[]).map(p=>p.join(',')).join(' ')} fill="none" stroke="#06b6d4" strokeWidth="0.8" strokeLinecap="round" className={simPath? 'dt-altpath':''} />
+                {simPath && simPath[simIndex] && (
+                  <g>
+                    <circle cx={simPath[simIndex][0]} cy={simPath[simIndex][1]} r="1.6" fill="#06b6d4" />
+                    <circle cx={simPath[simIndex][0]} cy={simPath[simIndex][1]} r="2.8" fill="#06b6d4" opacity="0.12" className="dt-marker-pulse" />
+                  </g>
+                )}
+                {simBlocked && (
+                  <rect x="40" y="40" width="20" height="4" fill="#ef4444" opacity="0.95" />
+                )}
+              </svg>
+
+              <div className="mt-2 flex gap-2">
+                <Button onClick={() => {
+                  const sp = generateWavyPath(hour+1, 20);
+                  setSimPath(sp);
+                  setSimIndex(0);
+                  setSimBlocked(false);
+                  setSimPlaying(true);
+                }}>Start Simulation</Button>
+                <Button variant="outline" onClick={() => { setSimPlaying(false); setSimPath(null); setSimIndex(0); }}>Stop</Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-1/3">
+            <div className="space-y-3">
+              <div className="text-sm font-semibold">Simulation Analysis</div>
+              <div className="p-2 bg-card rounded">
+                <div className="flex items-center justify-between text-sm"><div>Crowd Density</div><div className="font-semibold">{simData.crowd}%</div></div>
+                <div className="w-full bg-slate-100 rounded-full h-2 mt-1 overflow-hidden"><div className="h-2 bg-amber-400" style={{width: simData.crowd + '%'}} /></div>
+                <div className="flex items-center justify-between text-sm mt-2"><div>Community Trust</div><div className="font-semibold">{(simData.trust/10).toFixed(1)}/5</div></div>
+                <div className="text-sm mt-1">CCTV: {simData.cctv ? 'Detected' : 'Not detected'}</div>
+                <div className="text-sm mt-1">Nearest Police Booth: {simData.police}m</div>
+                {simBlocked && <div className="mt-3 p-2 rounded bg-red-100 text-red-700 font-semibold">ALERT: Route Ahead Blocked Due to High Security Risk</div>}
+              </div>
+            </div>
+          </div>
+        </div>
+      </FeatureModal>
+
       {/* Quick Modes Modal */}
       <FeatureModal open={quickModesOpen} title="Quick Modes" onClose={() => { setQuickModesOpen(false); setQuickModesMessage(null); }}>
         <div className="space-y-3">
