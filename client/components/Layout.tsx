@@ -193,6 +193,21 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
               <PanicButton placement="header" />
             </div>
 
+            {/* Digital Twin desktop link */}
+            <NavLink
+              to="/digital-twin"
+              className={({ isActive }) =>
+                cn(
+                  "ml-2 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2",
+                  isActive ? "bg-primary text-white" : "hover:bg-muted",
+                )
+              }
+              title="Open Digital Twin"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none"><path d="M3 7v10a2 2 0 0 0 2 2h14V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 4h10v4H7z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <span>Digital Twin</span>
+            </NavLink>
+
             <button
               onClick={() =>
                 window.dispatchEvent(new Event("open-inline-tracker"))
