@@ -106,6 +106,7 @@ function MapPanel({ markerPos, path, layer, altPath, visitingMarkers }: any) {
         {/* winding path */}
         {path && (
           <polyline
+            className="dt-path"
             points={path.map((p: any) => `${p[0]},${p[1]}`).join(" ")}
             fill="none"
             stroke="url(#pathGrad)"
