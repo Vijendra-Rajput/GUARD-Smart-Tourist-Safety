@@ -87,7 +87,7 @@ function MapPanel({ markerPos, path, layer, altPath, visitingMarkers }: any) {
   // Map uses a mock satellite image as background with overlayed svg paths and heat layers.
   const bg = "https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2Fb5e8ea85976646bc87d3215c7c267687?format=webp&width=1200";
   return (
-    <div className="relative bg-black rounded-md overflow-hidden h-72 md:h-[60vh] lg:h-[80vh]">
+    <div className="relative bg-black rounded-md overflow-hidden h-64 md:h-[50vh] lg:h-[60vh]">
       <img src={bg} alt="map mock" className="absolute inset-0 w-full h-full object-cover opacity-90" />
 
       {/* dark overlay for contrast */}
@@ -283,12 +283,12 @@ export default function DigitalTwin() {
   return (
     <div className="w-full">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Left / avatar & tabs */}
           <div className="md:col-span-1">
             <AvatarCard risk={current.risk} lastUpdated={new Date().toLocaleTimeString()} />
 
-            <div className="mt-4 space-y-3">
+            <div className="mt-3 space-y-2">
               <Card>
                 <CardHeader>
                   <CardTitle>Simulation</CardTitle>
@@ -369,8 +369,8 @@ export default function DigitalTwin() {
               </div>
 
               {/* Feature grid below the map (table-like) */}
-              <div className="mt-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="mt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   <div>
                     <Card className="bg-gradient-to-br from-sky-800/40 to-indigo-900/40">
                       <CardHeader className="flex items-center gap-2">
