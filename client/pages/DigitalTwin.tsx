@@ -354,9 +354,9 @@ export default function DigitalTwin() {
               <MapPanel markerPos={markerPos} path={path} layer={layer} altPath={altPath} visitingMarkers={visitingMarkers} />
 
               <div className="flex gap-2">
-                <Button onClick={() => { const alt = generateWavyPath(hour+1,7).map(p=>[Math.min(96,p[0]+3),Math.min(96,p[1]+3)]); setAltPath(alt); setRouteModalOpen(true); }} aria-label="Safe route suggestion">Safe Route Suggestion</Button>
-                <Button onClick={() => { setVisitingMarkers((m)=>[...m, path[path.length-1]]); setVisitingModalOpen(true); }} aria-label="Mark as visiting">Mark As Visiting</Button>
-                <Button onClick={onShare} aria-label="Share with family">Share With Family</Button>
+                <Button className="bg-blue-600 text-white" onClick={() => { const alt = generateWavyPath(hour+1,7).map(p=>[Math.min(96,p[0]+3),Math.min(96,p[1]+3)]); setAltPath(alt); setRouteModalOpen(true); }} aria-label="Safe route suggestion">Safe Route Suggestion</Button>
+                <Button variant="outline" onClick={() => { setVisitingMarkers((m)=>[...m, path[path.length-1]]); setVisitingModalOpen(true); }} aria-label="Mark as visiting">Mark As Visiting</Button>
+                <Button variant="outline" onClick={onShare} aria-label="Share with family">Share With Family</Button>
                 <Button className="bg-red-600 text-white" onClick={() => { /* open existing panic UI */ window.dispatchEvent(new Event('open-panic-ui')); }} aria-label="Panic">Panic</Button>
               </div>
 
