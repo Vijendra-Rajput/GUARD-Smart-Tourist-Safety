@@ -559,9 +559,10 @@ export default function DigitalTwin() {
         <div className="space-y-3">
           <div className="text-sm">Share this link with family (demo):</div>
           <div className="text-xs break-all bg-slate-100 p-2 rounded">{familyLink}</div>
-          <div className="flex gap-2">
-            <Button onClick={() => { navigator.clipboard?.writeText(familyLink); window.alert('Link copied (demo)'); }}>Copy</Button>
+          <div className="flex gap-2 items-center">
+            <Button onClick={() => { navigator.clipboard?.writeText(familyLink); setShareCopied(true); setTimeout(()=>setShareCopied(false),2000); }}>Copy</Button>
             <Button variant="outline" onClick={() => setShareOpen(false)}>Close</Button>
+            {shareCopied && <div className="text-sm text-emerald-600 ml-2">Copied</div>}
           </div>
         </div>
       </FeatureModal>
