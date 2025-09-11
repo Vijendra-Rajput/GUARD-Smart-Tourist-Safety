@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
+import DigitalTwin from "./pages/DigitalTwin";
 import { I18nProvider } from "@/context/i18n";
 import { Layout } from "@/components/Layout";
 
