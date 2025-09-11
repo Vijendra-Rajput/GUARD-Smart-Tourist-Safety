@@ -322,7 +322,14 @@ export default function DigitalTwin() {
   const reasons = [
     { text: "Festival: high crowd density", score: Math.min(95, 30 + current.risk), icon: "🎉" },
     { text: "Recent local incidents: 2 in 48h", score: Math.min(90, 20 + current.risk), icon: "⚠️" },
-    { text: "Weather alert: heavy", score: Math.min(85, 10 + current.risk), icon: "🌧���" },
+    { text: "Weather alert: heavy", score: Math.min(85, 10 + current.risk), icon: "🌧️" },
+  ];
+
+  // memory log entries
+  const memoryLog = [
+    { title: 'Safe Experience: navigated Paharganj market with no incidents', date: 'Yesterday', color: 'bg-emerald-400' },
+    { title: 'Risk Encountered: crowd density alert near Red Fort', date: '2 days ago', color: 'bg-red-400' },
+    { title: 'Safe Experience: followed community-verified safe route', date: '3 days ago', color: 'bg-emerald-400' },
   ];
 
   useEffect(() => {
