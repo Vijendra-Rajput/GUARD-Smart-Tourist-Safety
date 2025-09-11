@@ -353,6 +353,12 @@ export default function DigitalTwin() {
 
               <MapPanel markerPos={markerPos} path={path} layer={layer} altPath={altPath} visitingMarkers={visitingMarkers} />
 
+              {/* prominent quick mode buttons moved out of grid */}
+              <div className="mt-2 flex gap-2 items-center">
+                <Button variant="outline" onClick={() => setQuickModesOpen(true)}>Silent Alarm</Button>
+                <Button variant="outline" onClick={() => setQuickModesOpen(true)}>Watch Me</Button>
+              </div>
+
               <div className="flex gap-2">
                 <Button className="bg-blue-600 text-white" onClick={() => { const alt = generateWavyPath(hour+1,7).map(p=>[Math.min(96,p[0]+3),Math.min(96,p[1]+3)]); setAltPath(alt); setRouteModalOpen(true); }} aria-label="Safe route suggestion">Safe Route Suggestion</Button>
                 <Button variant="outline" onClick={() => { setVisitingMarkers((m)=>[...m, path[path.length-1]]); setVisitingModalOpen(true); }} aria-label="Mark as visiting">Mark As Visiting</Button>
