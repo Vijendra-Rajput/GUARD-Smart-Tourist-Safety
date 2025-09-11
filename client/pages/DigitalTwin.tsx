@@ -206,6 +206,8 @@ export default function DigitalTwin() {
   const [shareOpen, setShareOpen] = useState(false);
   const [familyLink, setFamilyLink] = useState("");
   const [mockEmotion, setMockEmotion] = useState<string | null>(null);
+  const [shareCopied, setShareCopied] = useState(false);
+  const [quickModesMessage, setQuickModesMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!consent || !consent.ts) setConsentOpen(true);
