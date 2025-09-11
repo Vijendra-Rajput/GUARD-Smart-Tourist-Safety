@@ -587,6 +587,21 @@ export default function DigitalTwin() {
           {/* Right / reasons */}
           <div className="md:col-span-1 lg:col-span-1">
             <ReasonsPanel reasons={reasons} />
+            <div className="mt-3">
+              <Card className="card-hover">
+                <CardHeader>
+                  <CardTitle>Risk Score Personality</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <div className="text-sm">Risk Pulse corresponds to current risk bands</div>
+                      <div className="text-xs text-muted-foreground mt-2">0-30: Green • 31-70: Orange • 71-100: Red</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
