@@ -266,6 +266,12 @@ export default function DigitalTwin() {
   const [quickModesOpen, setQuickModesOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
   const [evidenceOpen, setEvidenceOpen] = useState(false);
+  // parallel world simulation states
+  const [simPath, setSimPath] = useState<number[][] | null>(null);
+  const [simIndex, setSimIndex] = useState(0);
+  const [simPlaying, setSimPlaying] = useState(false);
+  const [simBlocked, setSimBlocked] = useState(false);
+  const [simData, setSimData] = useState({ crowd: 0, trust: 0, cctv: false, police: 0 });
   const [trustOpen, setTrustOpen] = useState(false);
   const [arOpen, setArOpen] = useState(false);
   const [demoControlsOpen, setDemoControlsOpen] = useState(false);
