@@ -364,6 +364,27 @@ export default function DigitalTwin() {
           <div className="md:col-span-1 flex flex-col">
             <AvatarCard risk={current.risk} lastUpdated={new Date().toLocaleTimeString()} />
 
+            <div className="mt-3">
+              <Card className="card-hover">
+                <CardHeader>
+                  <CardTitle>Twin's Memory Log</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {memoryLog.map((m,i)=> (
+                      <li key={i} className="flex items-start gap-3 fade-up" style={{animationDelay: `${i*90}ms`}}>
+                        <div className={`${m.color} h-3 w-3 rounded-full mt-1`} />
+                        <div>
+                          <div className="text-sm font-medium">{m.title}</div>
+                          <div className="text-xs text-muted-foreground">{m.date}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
             <div className="mt-3 space-y-2">
               <Card>
                 <CardHeader>
