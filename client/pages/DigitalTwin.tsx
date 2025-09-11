@@ -177,7 +177,9 @@ function MapPanel({ markerPos, path, layer, altPath, visitingMarkers }: any) {
         {markerPos && (
           <g>
             <circle cx={markerPos[0]} cy={markerPos[1]} r="1.4" fill="#4F46E5" />
-            <circle cx={markerPos[0]} cy={markerPos[1]} r="2.6" fill="#4F46E5" opacity="0.14" className="dt-marker-pulse" />
+            <circle cx={markerPos[0]} cy={markerPos[1]} r="3.2" fill="#4F46E5" opacity="0.12" className="dt-marker-pulse" />
+            {/* breathing glow */}
+            <circle cx={markerPos[0]} cy={markerPos[1]} r="5" fill="#4F46E5" opacity="0.08" className="animate-pulse-slow" />
           </g>
         )}
       </svg>
