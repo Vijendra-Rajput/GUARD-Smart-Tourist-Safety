@@ -269,6 +269,7 @@ export default function DigitalTwin() {
   const [trustOpen, setTrustOpen] = useState(false);
   const [arOpen, setArOpen] = useState(false);
   const [demoControlsOpen, setDemoControlsOpen] = useState(false);
+  const [parallelOpen, setParallelOpen] = useState(false);
   const [altPath, setAltPath] = useState<number[][] | null>(null);
   const [currentPath, setCurrentPath] = useState<number[][] | null>(null);
   const [visitingMarkers, setVisitingMarkers] = useState<number[][]>([]);
