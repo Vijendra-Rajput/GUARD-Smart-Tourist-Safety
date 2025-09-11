@@ -84,50 +84,53 @@ function AvatarCard({ risk, lastUpdated }: { risk: number; lastUpdated: string }
 }
 
 function MapPanel({ markerPos, path, layer }: any) {
-  // placeholder map: simple grid with neon roads
+  // Map uses a mock satellite image as background with overlayed svg paths and heat layers.
+  const bg = "https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2Fb5e8ea85976646bc87d3215c7c267687?format=webp&width=1200";
   return (
-    <div className="relative bg-[#071027] rounded-md overflow-hidden h-72 md:h-[60vh] lg:h-[80vh]">
-      <div
-        className="absolute inset-0 bg-[repeating-linear-gradient(0deg,#071027, #071027 24px, rgba(15,22,65,0.3) 24px, rgba(15,22,65,0.3) 25px)]"
-        aria-hidden
-      />
+    <div className="relative bg-black rounded-md overflow-hidden h-72 md:h-[60vh] lg:h-[80vh]">
+      <img src={bg} alt="map mock" className="absolute inset-0 w-full h-full object-cover opacity-90" />
 
-      {/* neon roads */}
+      {/* dark overlay for contrast */}
+      <div className="absolute inset-0 bg-black/50" aria-hidden />
+
+      {/* foreground SVG for paths and marker */}
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
-        <g strokeWidth="0.6">
-          <line x1="0" y1="20" x2="100" y2="20" stroke="#0f62fe" strokeOpacity="0.2" />
-          <line x1="0" y1="40" x2="100" y2="40" stroke="#0f62fe" strokeOpacity="0.12" />
-          <line x1="0" y1="60" x2="100" y2="60" stroke="#0f62fe" strokeOpacity="0.12" />
-          <line x1="0" y1="80" x2="100" y2="80" stroke="#0f62fe" strokeOpacity="0.08" />
-        </g>
+        {/* subtle grid */}
+        <defs>
+          <linearGradient id="pathGrad" x1="0" x2="1">
+            <stop offset="0%" stopColor="#6EE7B7" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#4F46E5" stopOpacity="0.95" />
+          </linearGradient>
+        </defs>
 
-        {/* path */}
+        {/* winding path */}
         {path && (
           <polyline
             points={path.map((p: any) => `${p[0]},${p[1]}`).join(" ")}
             fill="none"
-            stroke="#4F46E5"
-            strokeWidth="0.8"
+            stroke="url(#pathGrad)"
+            strokeWidth="0.9"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeOpacity="0.9"
+            strokeOpacity="0.95"
+            style={{ filter: 'drop-shadow(0 2px 6px rgba(79,70,229,0.35))' }}
           />
         )}
 
         {/* avatar marker */}
         {markerPos && (
           <g>
-            <circle cx={markerPos[0]} cy={markerPos[1]} r="1.2" fill="#4F46E5" />
-            <circle cx={markerPos[0]} cy={markerPos[1]} r="2.2" fill="#4F46E5" opacity="0.12" />
+            <circle cx={markerPos[0]} cy={markerPos[1]} r="1.4" fill="#4F46E5" />
+            <circle cx={markerPos[0]} cy={markerPos[1]} r="2.6" fill="#4F46E5" opacity="0.14" />
           </g>
         )}
       </svg>
 
       {/* heat overlays */}
       <div className="absolute inset-0 pointer-events-none">
-        {layer === "Safe" && <div className="absolute inset-0 bg-emerald-600/6" />}
-        {layer === "RiskingSoon" && <div className="absolute inset-0 bg-amber-500/12" />}
-        {layer === "Unsafe" && <div className="absolute inset-0 bg-red-600/16" />}
+        {layer === "Safe" && <div className="absolute inset-0 bg-emerald-600/10 mix-blend-screen" />}
+        {layer === "RiskingSoon" && <div className="absolute inset-0 bg-amber-500/14 mix-blend-screen" />}
+        {layer === "Unsafe" && <div className="absolute inset-0 bg-red-600/16 mix-blend-screen" />}
       </div>
     </div>
   );
@@ -282,42 +285,7 @@ export default function DigitalTwin() {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Personalized Advisor</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-sm">
-                    <div>Hydration reminder: Drink 200ml water</div>
-                    <div>Steps today: 1,234</div>
-                    <div>Phone battery: 62% — consider power bank</div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>AI Scam Prevention</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm">
-                    <li>Taxi overcharge — verify fare on meter</li>
-                    <li>Fake guide offering paid entry — use official counter</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Quick Modes</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex gap-2">
-                    <Button variant="ghost" onClick={() => alert("Silent Alarm (demo): Alert sent quietly")}>Silent Alarm</Button>
-                    <Button variant="ghost" onClick={() => alert("Watch Me (demo): Timer started, family notified")}>Watch Me</Button>
-                  </div>
-                </CardContent>
-              </Card>
+              {/* moved feature cards to horizontal strip below the map for compact layout */}
             </div>
           </div>
 
@@ -374,61 +342,6 @@ export default function DigitalTwin() {
           {/* Right / reasons */}
           <div className="md:col-span-1 lg:col-span-1">
             <ReasonsPanel reasons={reasons} />
-
-            <div className="mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Automated Evidence</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="text-sm">
-                    <li>Location pinned</li>
-                    <li>Photo stored (demo)</li>
-                    <li>Blockchain hash created</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Trust Network</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div>Nearby Guardians: 4</div>
-                  <div>Avg Rating: 4.5 / 5</div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>AR Overlay</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Button onClick={() => alert("AR Preview (demo): overlay mock")}>Open AR Preview</Button>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Demo Controls</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-col gap-2">
-                    <label className="text-xs">Use synthetic ML</label>
-                    <input type="checkbox" />
-                    <label className="text-xs">Show data sources</label>
-                    <input type="checkbox" />
-                    <Button variant="ghost" onClick={() => window.location.reload()}>Reset twin</Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
           </div>
         </div>
       </div>
