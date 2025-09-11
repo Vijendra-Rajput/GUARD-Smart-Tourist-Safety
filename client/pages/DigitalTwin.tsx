@@ -34,9 +34,12 @@ function RiskMeter({ risk }: { risk: number }) {
         <div>Risk</div>
         <div className="font-semibold">{pct}/100</div>
       </div>
-      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 mt-2 overflow-hidden">
+      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 mt-2 overflow-hidden">
         <div
-          className={cn("h-2 rounded-full transition-all duration-300", colorForRisk(pct))}
+          className={cn(
+            "h-3 rounded-full transition-all duration-700 bg-gradient-to-r",
+            pct <= 30 ? "from-emerald-400 to-emerald-600" : pct <= 70 ? "from-amber-400 to-amber-600" : "from-red-400 to-red-700",
+          )}
           style={{ width: `${pct}%` }}
           aria-hidden
         />
@@ -368,12 +371,12 @@ export default function DigitalTwin() {
                 <Button className="bg-red-600 text-white" onClick={() => { /* open existing panic UI */ window.dispatchEvent(new Event('open-panic-ui')); }} aria-label="Panic">Panic</Button>
               </div>
 
-              {/* Feature grid below the map (table-like) */}
+              {/* Feature grid below the map (table-like) - updated hierarchy */}
               <div className="mt-2">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                  {/* Personalized Advisor */}
-                  <div>
-                    <Card className="bg-gradient-to-br from-sky-700/20 to-indigo-900/10">
+                  {/* Personalized Advisor - larger */}
+                  <div className="lg:col-span-2">
+                    <Card className="bg-gradient-to-br from-sky-700/20 to-indigo-900/10 card-hover relative">
                       <CardHeader className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-sky-600 flex items-center justify-center text-white text-lg">💧</div>
                         <div>
@@ -381,7 +384,7 @@ export default function DigitalTwin() {
                           <div className="text-xs text-muted-foreground">Next reminder: 12m</div>
                         </div>
                       </CardHeader>
-                      <CardContent className="pt-2">
+                      <CardContent className="pt-2 relative">
                         <div className="flex items-center justify-between text-sm">
                           <div className="text-muted-foreground">Battery</div>
                           <div className="font-semibold">62%</div>
@@ -394,17 +397,14 @@ export default function DigitalTwin() {
                           <div className="text-muted-foreground">Hydration</div>
                           <div className="font-semibold">200ml due</div>
                         </div>
-                        <div className="mt-3 flex gap-2">
-                          <Button variant="ghost" onClick={() => setAdvisorOpen(true)}>Open</Button>
-                          <Button variant="outline" onClick={() => alert('Smart tips shown (demo)')}>Tips</Button>
-                        </div>
+                        <div className="absolute right-3 bottom-3 text-muted-foreground">→</div>
                       </CardContent>
                     </Card>
                   </div>
 
                   {/* AI Scam Prevention */}
                   <div>
-                    <Card className="bg-gradient-to-br from-amber-100 to-amber-50">
+                    <Card className="bg-gradient-to-br from-amber-100 to-amber-50 card-hover relative">
                       <CardHeader className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-amber-500 flex items-center justify-center text-white text-lg">🚕</div>
                         <div>
@@ -412,45 +412,37 @@ export default function DigitalTwin() {
                           <div className="text-xs text-muted-foreground">Incidents (48h): 2 • Last: 1h ago</div>
                         </div>
                       </CardHeader>
-                      <CardContent className="pt-2">
+                      <CardContent className="pt-2 relative">
                         <ul className="text-sm space-y-1">
                           <li>Suspicious taxis detected: 1</li>
                           <li>Reported fraudulent guides near POI: 0</li>
                           <li className="text-xs text-muted-foreground">Advice: Verify official counters and fares</li>
                         </ul>
-                        <div className="mt-3">
-                          <Button variant="ghost" onClick={() => setScamOpen(true)}>View</Button>
-                        </div>
+                        <div className="absolute right-3 bottom-3 text-muted-foreground">→</div>
                       </CardContent>
                     </Card>
                   </div>
 
-                  {/* Quick Modes */}
+                  {/* AR Overlay */}
                   <div>
-                    <Card className="bg-gradient-to-br from-violet-50 to-violet-100">
+                    <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-violet-600 flex items-center justify-center text-white text-lg">👀</div>
+                        <div className="h-10 w-10 rounded-lg bg-pink-600 flex items-center justify-center text-white text-lg">📸</div>
                         <div>
-                          <CardTitle className="text-sm">Quick Modes</CardTitle>
-                          <div className="text-xs text-muted-foreground">Silent Alarm • Watch Me</div>
+                          <CardTitle className="text-sm">AR Overlay</CardTitle>
+                          <div className="text-xs text-muted-foreground">Hotspots: 5 • Camera: disconnected</div>
                         </div>
                       </CardHeader>
                       <CardContent className="pt-2">
-                        <div className="flex flex-col gap-2">
-                          <div className="flex items-center justify-between text-sm"><div className="text-muted-foreground">Silent Alarm</div><div className="font-semibold">Ready</div></div>
-                          <div className="flex items-center justify-between text-sm"><div className="text-muted-foreground">Watch Me</div><div className="font-semibold">Inactive</div></div>
-                          <div className="mt-3 flex gap-2">
-                            <Button variant="outline" onClick={() => { setQuickModesOpen(true); }}>Silent Alarm</Button>
-                            <Button variant="outline" onClick={() => { setQuickModesOpen(true); }}>Watch Me</Button>
-                          </div>
-                        </div>
+                        <div className="text-sm">Preview AR overlays on camera (demo)</div>
+                        <div className="absolute right-3 bottom-3 text-muted-foreground">→</div>
                       </CardContent>
                     </Card>
                   </div>
 
                   {/* Why? Explainability */}
                   <div>
-                    <Card>
+                    <Card className="card-hover">
                       <CardHeader className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-red-600 flex items-center justify-center text-white text-lg">⚠️</div>
                         <div>
@@ -461,7 +453,7 @@ export default function DigitalTwin() {
                       <CardContent className="pt-2">
                         <ul className="space-y-2">
                           {reasons.map((r,i)=> (
-                            <li key={i} className="text-sm">
+                            <li key={i} className="text-sm fade-up" style={{animationDelay: `${i*80}ms`}}>
                               <div className="flex items-center justify-between"><div className="font-medium">{r.text}</div><div className="text-xs text-muted-foreground">{r.score}%</div></div>
                               <div className="w-full bg-slate-100 rounded-full h-2 mt-1 overflow-hidden"><div className="h-2 bg-red-500" style={{width: Math.max(8, Math.min(100, r.score)) + '%'}} /></div>
                             </li>
@@ -476,7 +468,7 @@ export default function DigitalTwin() {
 
                   {/* Automated Evidence */}
                   <div>
-                    <Card>
+                    <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-emerald-600 flex items-center justify-center text-white text-lg">📦</div>
                         <div>
@@ -487,16 +479,14 @@ export default function DigitalTwin() {
                       <CardContent className="pt-2">
                         <div className="text-sm">Last capture: 18m ago</div>
                         <div className="text-xs text-muted-foreground mt-1">Hash: a3f5...9b2c (demo)</div>
-                        <div className="mt-3">
-                          <Button variant="ghost" onClick={() => setEvidenceOpen(true)}>View</Button>
-                        </div>
+                        <div className="absolute right-3 bottom-3 text-muted-foreground">→</div>
                       </CardContent>
                     </Card>
                   </div>
 
                   {/* Trust Network */}
                   <div>
-                    <Card>
+                    <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-sky-500 flex items-center justify-center text-white text-lg">🤝</div>
                         <div>
@@ -506,35 +496,14 @@ export default function DigitalTwin() {
                       </CardHeader>
                       <CardContent className="pt-2">
                         <div className="text-sm">Last guardian online: 2m ago</div>
-                        <div className="mt-3">
-                          <Button variant="ghost" onClick={() => setTrustOpen(true)}>Open</Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* AR Overlay */}
-                  <div>
-                    <Card>
-                      <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-pink-600 flex items-center justify-center text-white text-lg">📸</div>
-                        <div>
-                          <CardTitle className="text-sm">AR Overlay</CardTitle>
-                          <div className="text-xs text-muted-foreground">Hotspots: 5 • Camera: disconnected</div>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="pt-2">
-                        <div className="text-sm">Preview AR overlays on camera (demo)</div>
-                        <div className="mt-3">
-                          <Button variant="ghost" onClick={() => setArOpen(true)}>Open</Button>
-                        </div>
+                        <div className="absolute right-3 bottom-3 text-muted-foreground">→</div>
                       </CardContent>
                     </Card>
                   </div>
 
                   {/* Demo Controls */}
                   <div>
-                    <Card>
+                    <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-gray-700 flex items-center justify-center text-white text-lg">⚙️</div>
                         <div>
@@ -547,7 +516,7 @@ export default function DigitalTwin() {
                           <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Use synthetic ML</label>
                           <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Show data sources</label>
                           <div className="mt-2">
-                            <Button variant="ghost" onClick={() => setDemoControlsOpen(true)}>Open</Button>
+                            <div className="absolute right-3 bottom-3 text-muted-foreground">→</div>
                           </div>
                         </div>
                       </CardContent>
