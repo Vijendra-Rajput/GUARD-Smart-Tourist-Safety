@@ -371,125 +371,184 @@ export default function DigitalTwin() {
               {/* Feature grid below the map (table-like) */}
               <div className="mt-2">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {/* Personalized Advisor */}
                   <div>
-                    <Card className="bg-gradient-to-br from-sky-800/40 to-indigo-900/40">
-                      <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-sky-600 flex items-center justify-center text-white">���</div>
-                        <CardTitle className="text-sm">Personalized Advisor</CardTitle>
+                    <Card className="bg-gradient-to-br from-sky-700/20 to-indigo-900/10">
+                      <CardHeader className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-sky-600 flex items-center justify-center text-white text-lg">💧</div>
+                        <div>
+                          <CardTitle className="text-sm">Personalized Advisor</CardTitle>
+                          <div className="text-xs text-muted-foreground">Next reminder: 12m</div>
+                        </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="text-sm">Hydration reminder: Drink 200ml water<br/>Battery: 62% • Steps: 1,234</div>
-                        <div className="mt-2">
+                      <CardContent className="pt-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <div className="text-muted-foreground">Battery</div>
+                          <div className="font-semibold">62%</div>
+                        </div>
+                        <div className="flex items-center justify-between text-sm mt-1">
+                          <div className="text-muted-foreground">Steps</div>
+                          <div className="font-semibold">1,234</div>
+                        </div>
+                        <div className="flex items-center justify-between text-sm mt-1">
+                          <div className="text-muted-foreground">Hydration</div>
+                          <div className="font-semibold">200ml due</div>
+                        </div>
+                        <div className="mt-3 flex gap-2">
                           <Button variant="ghost" onClick={() => setAdvisorOpen(true)}>Open</Button>
+                          <Button variant="outline" onClick={() => alert('Smart tips shown (demo)')}>Tips</Button>
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
+                  {/* AI Scam Prevention */}
                   <div>
-                    <Card className="bg-gradient-to-br from-amber-700/10 to-amber-900/10">
-                      <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-amber-500 flex items-center justify-center text-white">🚕</div>
-                        <CardTitle className="text-sm">AI Scam Prevention</CardTitle>
+                    <Card className="bg-gradient-to-br from-amber-100 to-amber-50">
+                      <CardHeader className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-amber-500 flex items-center justify-center text-white text-lg">🚕</div>
+                        <div>
+                          <CardTitle className="text-sm">AI Scam Prevention</CardTitle>
+                          <div className="text-xs text-muted-foreground">Incidents (48h): 2 • Last: 1h ago</div>
+                        </div>
                       </CardHeader>
-                      <CardContent>
-                        <ul className="text-sm">
-                          <li>Taxi overcharge — verify meter</li>
-                          <li>Fake guide — use official counter</li>
+                      <CardContent className="pt-2">
+                        <ul className="text-sm space-y-1">
+                          <li>Suspicious taxis detected: 1</li>
+                          <li>Reported fraudulent guides near POI: 0</li>
+                          <li className="text-xs text-muted-foreground">Advice: Verify official counters and fares</li>
                         </ul>
-                        <div className="mt-2">
+                        <div className="mt-3">
                           <Button variant="ghost" onClick={() => setScamOpen(true)}>View</Button>
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
+                  {/* Quick Modes */}
                   <div>
-                    <Card className="bg-gradient-to-br from-slate-800/20 to-slate-900/20">
-                      <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-violet-600 flex items-center justify-center text-white">👀</div>
-                        <CardTitle className="text-sm">Quick Modes</CardTitle>
+                    <Card className="bg-gradient-to-br from-violet-50 to-violet-100">
+                      <CardHeader className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-violet-600 flex items-center justify-center text-white text-lg">👀</div>
+                        <div>
+                          <CardTitle className="text-sm">Quick Modes</CardTitle>
+                          <div className="text-xs text-muted-foreground">Silent Alarm • Watch Me</div>
+                        </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="flex gap-2">
-                          <Button variant="outline" onClick={() => { setQuickModesOpen(true); }}>Silent Alarm</Button>
-                          <Button variant="outline" onClick={() => { setQuickModesOpen(true); }}>Watch Me</Button>
+                      <CardContent className="pt-2">
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center justify-between text-sm"><div className="text-muted-foreground">Silent Alarm</div><div className="font-semibold">Ready</div></div>
+                          <div className="flex items-center justify-between text-sm"><div className="text-muted-foreground">Watch Me</div><div className="font-semibold">Inactive</div></div>
+                          <div className="mt-3 flex gap-2">
+                            <Button variant="outline" onClick={() => { setQuickModesOpen(true); }}>Silent Alarm</Button>
+                            <Button variant="outline" onClick={() => { setQuickModesOpen(true); }}>Watch Me</Button>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
+                  {/* Why? Explainability */}
                   <div>
                     <Card>
-                      <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-red-600 flex items-center justify-center text-white">⚠️</div>
-                        <CardTitle className="text-sm">Why?</CardTitle>
+                      <CardHeader className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-red-600 flex items-center justify-center text-white text-lg">⚠️</div>
+                        <div>
+                          <CardTitle className="text-sm">Why?</CardTitle>
+                          <div className="text-xs text-muted-foreground">Top signals contributing to risk</div>
+                        </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="text-sm">Tap to see why this area is flagged.</div>
-                        <div className="mt-2">
+                      <CardContent className="pt-2">
+                        <ul className="space-y-2">
+                          {reasons.map((r,i)=> (
+                            <li key={i} className="text-sm">
+                              <div className="flex items-center justify-between"><div className="font-medium">{r.text}</div><div className="text-xs text-muted-foreground">{r.score}%</div></div>
+                              <div className="w-full bg-slate-100 rounded-full h-2 mt-1 overflow-hidden"><div className="h-2 bg-red-500" style={{width: Math.max(8, Math.min(100, r.score)) + '%'}} /></div>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="mt-3">
                           <Button variant="ghost" onClick={() => setWhyOpen(true)}>Explain</Button>
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
+                  {/* Automated Evidence */}
                   <div>
                     <Card>
-                      <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-emerald-600 flex items-center justify-center text-white">📦</div>
-                        <CardTitle className="text-sm">Automated Evidence</CardTitle>
+                      <CardHeader className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-emerald-600 flex items-center justify-center text-white text-lg">📦</div>
+                        <div>
+                          <CardTitle className="text-sm">Automated Evidence</CardTitle>
+                          <div className="text-xs text-muted-foreground">Photos: 3 • Hash stored</div>
+                        </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="text-sm">Location pinned • Photo stored • Hash created</div>
-                        <div className="mt-2">
+                      <CardContent className="pt-2">
+                        <div className="text-sm">Last capture: 18m ago</div>
+                        <div className="text-xs text-muted-foreground mt-1">Hash: a3f5...9b2c (demo)</div>
+                        <div className="mt-3">
                           <Button variant="ghost" onClick={() => setEvidenceOpen(true)}>View</Button>
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
+                  {/* Trust Network */}
                   <div>
                     <Card>
-                      <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-sky-500 flex items-center justify-center text-white">🤝</div>
-                        <CardTitle className="text-sm">Trust Network</CardTitle>
+                      <CardHeader className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-sky-500 flex items-center justify-center text-white text-lg">🤝</div>
+                        <div>
+                          <CardTitle className="text-sm">Trust Network</CardTitle>
+                          <div className="text-xs text-muted-foreground">Nearby: 4 • Avg response: 3m</div>
+                        </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="text-sm">Nearby Guardians: 4 • Rating: 4.5/5</div>
-                        <div className="mt-2">
+                      <CardContent className="pt-2">
+                        <div className="text-sm">Last guardian online: 2m ago</div>
+                        <div className="mt-3">
                           <Button variant="ghost" onClick={() => setTrustOpen(true)}>Open</Button>
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
+                  {/* AR Overlay */}
                   <div>
                     <Card>
-                      <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-pink-600 flex items-center justify-center text-white">📸</div>
-                        <CardTitle className="text-sm">AR Overlay</CardTitle>
+                      <CardHeader className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-pink-600 flex items-center justify-center text-white text-lg">📸</div>
+                        <div>
+                          <CardTitle className="text-sm">AR Overlay</CardTitle>
+                          <div className="text-xs text-muted-foreground">Hotspots: 5 • Camera: disconnected</div>
+                        </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="text-sm">Open AR preview (demo)</div>
-                        <div className="mt-2">
+                      <CardContent className="pt-2">
+                        <div className="text-sm">Preview AR overlays on camera (demo)</div>
+                        <div className="mt-3">
                           <Button variant="ghost" onClick={() => setArOpen(true)}>Open</Button>
                         </div>
                       </CardContent>
                     </Card>
                   </div>
 
+                  {/* Demo Controls */}
                   <div>
                     <Card>
-                      <CardHeader className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-md bg-gray-700 flex items-center justify-center text-white">⚙️</div>
-                        <CardTitle className="text-sm">Demo Controls</CardTitle>
+                      <CardHeader className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-gray-700 flex items-center justify-center text-white text-lg">⚙️</div>
+                        <div>
+                          <CardTitle className="text-sm">Demo Controls</CardTitle>
+                          <div className="text-xs text-muted-foreground">Reset & testing toggles</div>
+                        </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="pt-2">
                         <div className="flex flex-col gap-2">
                           <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Use synthetic ML</label>
                           <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Show data sources</label>
-                          <Button variant="ghost" onClick={() => setDemoControlsOpen(true)}>Open</Button>
+                          <div className="mt-2">
+                            <Button variant="ghost" onClick={() => setDemoControlsOpen(true)}>Open</Button>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
