@@ -127,11 +127,34 @@ function MapPanel({ markerPos, path, layer }: any) {
       </svg>
 
       {/* heat overlays */}
-      <div className="absolute inset-0 pointer-events-none">
-        {layer === "Safe" && <div className="absolute inset-0 bg-emerald-600/10 mix-blend-screen" />}
-        {layer === "RiskingSoon" && <div className="absolute inset-0 bg-amber-500/14 mix-blend-screen" />}
-        {layer === "Unsafe" && <div className="absolute inset-0 bg-red-600/16 mix-blend-screen" />}
-      </div>
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+        <defs>
+          <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" />
+          </filter>
+        </defs>
+        {/* draw heat circles along the path */}
+        {path && path.map((p:any,i:number)=>{
+          const intensity = (1 - i / path.length) * 0.9;
+          const color = layer === 'Safe' ? 'rgba(34,197,94,'+ (0.06+intensity*0.18) +')' : layer === 'RiskingSoon' ? 'rgba(245,158,11,'+(0.06+intensity*0.18)+')' : 'rgba(220,38,38,'+(0.06+intensity*0.18)+')';
+          return (
+            <circle key={i} cx={p[0]} cy={p[1]} r={3 + (i%3)} fill={color} style={{filter:'url(#blur)'}} />
+          )
+        })}
+
+        {/* altPath heat or path overlay */}
+        {altPath && altPath.length>0 && (
+          <polyline points={altPath.map((p:any)=>p.join(',')).join(' ')} fill="none" stroke="#06b6d4" strokeWidth="0.6" strokeDasharray="4 3" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.9" />
+        )}
+
+        {/* visiting markers */}
+        {visitingMarkers && visitingMarkers.map((p:any,idx:number)=>(
+          <g key={idx}>
+            <circle cx={p[0]} cy={p[1]} r={1.6} fill="#0ea5e9" />
+            <circle cx={p[0]} cy={p[1]} r={3.2} fill="#0ea5e9" opacity="0.1" className="dt-marker-pulse" />
+          </g>
+        ))}
+      </svg>
     </div>
   );
 }
