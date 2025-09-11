@@ -83,7 +83,7 @@ function AvatarCard({ risk, lastUpdated }: { risk: number; lastUpdated: string }
   );
 }
 
-function MapPanel({ markerPos, path, layer }: any) {
+function MapPanel({ markerPos, path, layer, altPath, visitingMarkers }: any) {
   // Map uses a mock satellite image as background with overlayed svg paths and heat layers.
   const bg = "https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2Fb5e8ea85976646bc87d3215c7c267687?format=webp&width=1200";
   return (
