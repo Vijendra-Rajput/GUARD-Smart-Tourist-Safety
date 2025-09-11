@@ -238,8 +238,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
           <div className="flex items-center gap-2">
             <HamburgerMenu />
             {/* Panic visible on mobile header */}
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center gap-2">
               <PanicButton placement="header" />
+              <Link to="/digital-twin" aria-label="Open Digital Twin" className="inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm hover:bg-muted">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none"><path d="M3 7v10a2 2 0 0 0 2 2h14V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 4h10v4H7z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </Link>
             </div>
             {/* hide AI Guide and LanguageSelect on header for mobile; they'll be in hamburger menu */}
             <div className="hidden md:block">
