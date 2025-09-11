@@ -348,6 +348,37 @@ export default function DigitalTwin() {
     else setLayer("Unsafe");
   }, [hour, scenarioKey]);
 
+  // simulation runner for Parallel World
+  useEffect(()=>{
+    let iv: any;
+    if (simPlaying && simPath && simPath.length) {
+      iv = setInterval(()=>{
+        setSimIndex((i)=>{
+          const next = i + 1;
+          // predict risk ahead simplistically
+          const riskAhead = current.risk + next * 3;
+          if (riskAhead > 90) {
+            setSimBlocked(true);
+            setSimPlaying(false);
+            return i;
+          }
+          // update sim data mock
+          setSimData({
+            crowd: Math.min(98, Math.round(40 + next * 3 + current.risk / 2)),
+            trust: Math.max(10, Math.round(35 - next)),
+            cctv: next % 3 === 0,
+            police: Math.max(100, 500 - next * 12),
+          });
+          if (next >= (simPath?.length||0)-1) {
+            setSimPlaying(false);
+          }
+          return Math.min(next, (simPath?.length||1)-1);
+        });
+      }, 600);
+    }
+    return ()=> clearInterval(iv);
+  }, [simPlaying, simPath, current.risk]);
+
   function onPlayToggle() {
     setPlaying((p) => !p);
   }
@@ -584,7 +615,7 @@ export default function DigitalTwin() {
                         <div className="h-10 w-10 rounded-lg bg-sky-500 flex items-center justify-center text-white text-lg">🤝</div>
                         <div>
                           <CardTitle className="text-sm">Trust Network</CardTitle>
-                          <div className="text-xs text-muted-foreground">Nearby: 4 • Avg response: 3m</div>
+                          <div className="text-xs text-muted-foreground">Nearby: 4 �� Avg response: 3m</div>
                         </div>
                       </CardHeader>
                       <CardContent className="pt-2">
