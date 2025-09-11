@@ -27,6 +27,12 @@ export const PanicButton: React.FC<{
   const [trackerOpen, setTrackerOpen] = useState(false);
   const reportId = `REP-${Math.random().toString(36).slice(2, 10).toUpperCase()}`;
 
+  useEffect(()=>{
+    function onOpen(e: Event){ setOpen(true); }
+    window.addEventListener('open-panic-ui', onOpen as EventListener);
+    return ()=> window.removeEventListener('open-panic-ui', onOpen as EventListener);
+  },[]);
+
   const handleConfirm = () => {
     setSent(true);
     onConfirm?.();
