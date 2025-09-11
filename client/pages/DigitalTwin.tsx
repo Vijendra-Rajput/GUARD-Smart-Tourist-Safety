@@ -193,14 +193,21 @@ export default function DigitalTwin() {
   const scenario = SCENARIOS[scenarioKey];
   const current = scenario.hours[hour];
 
-  // map placeholders
-  const markerPos = [10 + hour * 16, 50];
-  const path = [
-    [10, 50],
-    [20 + hour * 6, 48 - hour * 2],
-    [40 + hour * 8, 46 - hour * 3],
-    [60 + hour * 6, 44 - hour * 2],
-  ];
+  // map placeholders - generate a shorter, winding path with more turns to mimic realistic tourist path
+  function generateWavyPath(h: number, segments = 6) {
+    const baseX = 10;
+    const baseY = 50;
+    const pts: number[][] = [];
+    for (let i = 0; i < segments; i++) {
+      const t = i / (segments - 1);
+      const x = baseX + t * (70) + (Math.sin((i + h) * 1.9) * 6);
+      const y = baseY + Math.cos((i + h) * 2.3) * (6 + (i % 2 === 0 ? 3 : -3));
+      pts.push([Math.max(2, Math.min(98, parseFloat(x.toFixed(2)))), Math.max(2, Math.min(98, parseFloat(y.toFixed(2))))]);
+    }
+    return pts;
+  }
+  const path = generateWavyPath(hour, 7);
+  const markerPos = path && path.length ? path[0] : [10, 50];
 
   // reasons seeded
   const reasons = [
