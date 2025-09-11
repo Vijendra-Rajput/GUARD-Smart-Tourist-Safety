@@ -332,6 +332,154 @@ export default function DigitalTwin() {
                 <Button className="bg-red-600 text-white" onClick={() => alert("Panic (demo): mock alert sent")}>Panic</Button>
               </div>
 
+              {/* Horizontal feature strip below the map */}
+              <div className="mt-4 overflow-x-auto">
+                <div className="flex gap-4 py-2">
+                  <div className="min-w-[220px]">
+                    <Card className="bg-gradient-to-br from-sky-800/40 to-indigo-900/40">
+                      <CardHeader>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="h-8 w-8 rounded-md bg-sky-600 flex items-center justify-center text-white">💧</div>
+                            <CardTitle className="text-sm">Personalized Advisor</CardTitle>
+                          </div>
+                          <div className="text-xs text-muted-foreground">Stamina</div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-sm">Hydration reminder: Drink 200ml water<br/>Battery: 62% • Steps: 1,234</div>
+                        <div className="mt-2">
+                          <Button variant="ghost" onClick={() => alert('Advisor details (demo): hydration plan, rest spots')}>Open</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="min-w-[220px]">
+                    <Card className="bg-gradient-to-br from-amber-700/10 to-amber-900/10">
+                      <CardHeader>
+                        <div className="flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-md bg-amber-500 flex items-center justify-center text-white">🚕</div>
+                          <CardTitle className="text-sm">AI Scam Prevention</CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="text-sm">
+                          <li>Taxi overcharge — verify meter</li>
+                          <li>Fake guide — use official counter</li>
+                        </ul>
+                        <div className="mt-2">
+                          <Button variant="ghost" onClick={() => alert('Scam tips (demo): shows common scams nearby')}>View</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="min-w-[220px]">
+                    <Card className="bg-gradient-to-br from-slate-800/20 to-slate-900/20">
+                      <CardHeader>
+                        <div className="flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-md bg-violet-600 flex items-center justify-center text-white">👀</div>
+                          <CardTitle className="text-sm">Quick Modes</CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex gap-2">
+                          <Button variant="outline" onClick={() => alert('Silent Alarm (demo): Alert sent quietly')}>Silent Alarm</Button>
+                          <Button variant="outline" onClick={() => alert('Watch Me (demo): Timer started')}>Watch Me</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="min-w-[220px]">
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-md bg-red-600 flex items-center justify-center text-white">⚠️</div>
+                          <CardTitle className="text-sm">Why?</CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-sm">Tap to see why this area is flagged.</div>
+                        <div className="mt-2">
+                          <Button variant="ghost" onClick={openExplain}>Explain</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="min-w-[220px]">
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-md bg-emerald-600 flex items-center justify-center text-white">📦</div>
+                          <CardTitle className="text-sm">Automated Evidence</CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-sm">Location pinned • Photo stored • Hash created</div>
+                        <div className="mt-2">
+                          <Button variant="ghost" onClick={() => alert('Evidence viewer (demo): shows logs')}>View</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="min-w-[220px]">
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-md bg-sky-500 flex items-center justify-center text-white">🤝</div>
+                          <CardTitle className="text-sm">Trust Network</CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-sm">Nearby Guardians: 4 • Rating: 4.5/5</div>
+                        <div className="mt-2">
+                          <Button variant="ghost" onClick={() => alert('Trust network (demo): shows guardian profiles')}>Open</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="min-w-[220px]">
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-md bg-pink-600 flex items-center justify-center text-white">📸</div>
+                          <CardTitle className="text-sm">AR Overlay</CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-sm">Open AR preview (demo)</div>
+                        <div className="mt-2">
+                          <Button variant="ghost" onClick={() => alert('AR Preview (demo): overlay mock')}>Open</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="min-w-[220px]">
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-md bg-gray-700 flex items-center justify-center text-white">⚙️</div>
+                          <CardTitle className="text-sm">Demo Controls</CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-col gap-2">
+                          <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Use synthetic ML</label>
+                          <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Show data sources</label>
+                          <Button variant="ghost" onClick={() => window.location.reload()}>Reset twin</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+
               <div className="mt-2 flex items-center gap-2">
                 <button aria-label="emotion" className="p-2 rounded-md border" onClick={toggleEmotion}>🎙️</button>
                 <div className="text-sm">Emotion: {mockEmotion ?? "—"} <span className="text-xs text-muted-foreground">(Emotion analysis OFF in demo)</span></div>
