@@ -407,12 +407,15 @@ export default function DigitalTwin() {
                       ))}
                     </select>
 
-                    <div className="flex items-center gap-2">
-                      <div className="text-sm">Scenario progress: <span className="font-semibold">Hour +{hour}</span></div>
-                      <div className="ml-auto flex gap-2">
-                        <Button onClick={onPlayToggle} aria-pressed={playing}>{playing ? "Stop" : "Play"}</Button>
-                        <Button variant="outline" onClick={() => { setHour(0); setPlaying(false); setCurrentPath(null); }}>Reset</Button>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <button onClick={onPlayToggle} className="p-2 rounded-md bg-blue-600 text-white flex items-center justify-center" aria-pressed={playing} title="Play">
+                          {playing ? '■' : '▶'}
+                        </button>
+                        <div className="text-sm">Hour <span className="font-semibold">+{hour}</span></div>
                       </div>
+                      <input type="range" min={0} max={4} value={hour} onChange={(e)=>{ setHour(parseInt(e.target.value)); setCurrentPath(null); }} className="w-full mx-2" />
+                      <Button variant="outline" onClick={() => { setHour(0); setPlaying(false); setCurrentPath(null); }}>Reset</Button>
                     </div>
                   </div>
                 </CardContent>
