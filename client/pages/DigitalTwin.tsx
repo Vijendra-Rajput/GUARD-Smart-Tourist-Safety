@@ -344,30 +344,10 @@ export default function DigitalTwin() {
                   <div className="text-xs text-muted-foreground">Placeholder map—no external API</div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    className={cn("px-2 py-1 rounded-md text-sm", layer === "Safe" ? "bg-emerald-600 text-white" : "bg-slate-100")}
-                    onClick={() => setLayer("Safe")}
-                    aria-pressed={layer === "Safe"}
-                  >
-                    Safe
-                  </button>
-                  <button
-                    className={cn("px-2 py-1 rounded-md text-sm focus:outline focus:ring", layer === "RiskingSoon" ? "bg-amber-500 text-white" : "bg-slate-100")}
-                    onClick={() => { setLayer("RiskingSoon"); }}
-                    aria-pressed={layer === "RiskingSoon"}
-                    aria-label="Show RiskingSoon heatmap"
-                  >
-                    RiskingSoon
-                  </button>
-                  <button
-                    className={cn("px-2 py-1 rounded-md text-sm focus:outline focus:ring", layer === "Unsafe" ? "bg-red-600 text-white" : "bg-slate-100")}
-                    onClick={() => { setLayer("Unsafe"); }}
-                    aria-pressed={layer === "Unsafe"}
-                    aria-label="Show Unsafe heatmap"
-                  >
-                    Unsafe
-                  </button>
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-500 inline-block" /> <span>Safe</span></div>
+                  <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-amber-500 inline-block" /> <span>RiskingSoon</span></div>
+                  <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-red-500 inline-block" /> <span>Unsafe</span></div>
                 </div>
               </div>
 
