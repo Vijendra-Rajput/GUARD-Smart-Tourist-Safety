@@ -579,8 +579,120 @@ export default function DigitalTwin() {
           <div className="text-sm">Share this link with family (demo):</div>
           <div className="text-xs break-all bg-slate-100 p-2 rounded">{familyLink}</div>
           <div className="flex gap-2">
-            <Button onClick={() => { navigator.clipboard?.writeText(familyLink); alert('Link copied (demo)'); }}>Copy</Button>
+            <Button onClick={() => { navigator.clipboard?.writeText(familyLink); window.alert('Link copied (demo)'); }}>Copy</Button>
             <Button variant="outline" onClick={() => setShareOpen(false)}>Close</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Route Modal */}
+      <FeatureModal open={routeModalOpen} title="Safe Route Suggestion" onClose={() => setRouteModalOpen(false)}>
+        <div className="space-y-3">
+          <div className="text-sm">Preview alternative safe route (demo). You can apply this route to the map.</div>
+          <div className="h-40 bg-slate-900/10 rounded p-2">Route preview shown on map overlay.</div>
+          <div className="flex gap-2">
+            <Button onClick={() => { setCurrentPath(altPath); setRouteModalOpen(false); }}>Apply Route</Button>
+            <Button variant="outline" onClick={() => setRouteModalOpen(false)}>Close</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Visiting Modal */}
+      <FeatureModal open={visitingModalOpen} title="Marking as Visiting" onClose={() => setVisitingModalOpen(false)}>
+        <div className="space-y-3">
+          <div className="text-sm">You've marked this destination as visiting. Family will be notified (demo)</div>
+          <div className="flex gap-2">
+            <Button onClick={() => setVisitingModalOpen(false)}>OK</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Advisor Modal */}
+      <FeatureModal open={advisorOpen} title="Personalized Advisor" onClose={() => setAdvisorOpen(false)}>
+        <div className="space-y-3">
+          <div className="text-sm">Hydration plan, rest spots, and battery-saving tips (demo).</div>
+          <div className="flex gap-2">
+            <Button onClick={() => setAdvisorOpen(false)}>Close</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Scam Modal */}
+      <FeatureModal open={scamOpen} title="AI Scam Prevention" onClose={() => setScamOpen(false)}>
+        <div className="space-y-3">
+          <ul className="text-sm">
+            <li>Taxi overcharge — check meter</li>
+            <li>Fake guide — pay at official counters</li>
+          </ul>
+          <div className="flex gap-2">
+            <Button onClick={() => setScamOpen(false)}>Close</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Quick Modes Modal */}
+      <FeatureModal open={quickModesOpen} title="Quick Modes" onClose={() => setQuickModesOpen(false)}>
+        <div className="space-y-3">
+          <div className="text-sm">Silent Alarm, Watch Mode and quick settings (demo)</div>
+          <div className="flex gap-2">
+            <Button onClick={() => { window.alert('Silent Alarm (demo): Alert sent quietly'); setQuickModesOpen(false); }}>Silent Alarm</Button>
+            <Button onClick={() => { window.alert('Watch Me (demo): Timer started'); setQuickModesOpen(false); }}>Watch Me</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Why Modal */}
+      <FeatureModal open={whyOpen} title="Explainability" onClose={() => setWhyOpen(false)}>
+        <div className="space-y-3">
+          <ul className="text-sm">
+            <li>Recent incidents near POI — local police reports</li>
+            <li>High crowd density — aggregated sensor data</li>
+            <li>Weather alert — public weather feed</li>
+          </ul>
+          <div className="flex gap-2">
+            <Button onClick={() => setWhyOpen(false)}>Close</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Evidence Modal */}
+      <FeatureModal open={evidenceOpen} title="Automated Evidence" onClose={() => setEvidenceOpen(false)}>
+        <div className="space-y-3">
+          <div className="text-sm">Logs: Location pinned, photo stored, blockchain hash (demo)</div>
+          <div className="flex gap-2">
+            <Button onClick={() => setEvidenceOpen(false)}>Close</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Trust Modal */}
+      <FeatureModal open={trustOpen} title="Trust Network" onClose={() => setTrustOpen(false)}>
+        <div className="space-y-3">
+          <div className="text-sm">Nearby guardians profiles (demo)</div>
+          <div className="flex gap-2">
+            <Button onClick={() => setTrustOpen(false)}>Close</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* AR Modal */}
+      <FeatureModal open={arOpen} title="AR Overlay" onClose={() => setArOpen(false)}>
+        <div className="space-y-3">
+          <div className="text-sm">AR Overlay mock preview (icons overlayed on camera) — demo only.</div>
+          <div className="flex gap-2">
+            <Button onClick={() => setArOpen(false)}>Close</Button>
+          </div>
+        </div>
+      </FeatureModal>
+
+      {/* Demo Controls Modal */}
+      <FeatureModal open={demoControlsOpen} title="Demo Controls" onClose={() => setDemoControlsOpen(false)}>
+        <div className="space-y-3">
+          <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Use synthetic ML</label>
+          <label className="text-xs flex items-center gap-2"><input type="checkbox" /> Show data sources</label>
+          <div className="flex gap-2">
+            <Button variant="ghost" onClick={() => window.location.reload()}>Reset twin</Button>
+            <Button variant="outline" onClick={() => setDemoControlsOpen(false)}>Close</Button>
           </div>
         </div>
       </FeatureModal>
