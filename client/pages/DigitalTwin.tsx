@@ -271,10 +271,7 @@ export default function DigitalTwin() {
     setShareOpen(true);
   }
 
-  function openExplain() {
-    // placeholder show modal with explainability
-    window.alert("Explainability:\n- Recent incidents near POI\n- Crowd density sensors\n- Weather alerts\n(Data sources: Map POI, Weather API, Local Police feed)");
-  }
+  // explainability is shown via modal (setWhyOpen)
 
   function toggleEmotion() {
     const list = ["Calm", "Anxious", "Neutral"];
