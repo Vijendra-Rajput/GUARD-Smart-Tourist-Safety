@@ -148,7 +148,16 @@ function MapPanel({ markerPos, path, layer, altPath, visitingMarkers }: any) {
 
         {/* altPath heat or path overlay */}
         {altPath && altPath.length>0 && (
-          <polyline points={altPath.map((p:any)=>p.join(',')).join(' ')} fill="none" stroke="#06b6d4" strokeWidth="0.6" strokeDasharray="4 3" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.9" />
+          <polyline
+            points={altPath.map((p:any)=>p.join(',')).join(' ')}
+            fill="none"
+            stroke="#06b6d4"
+            strokeWidth="0.9"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeOpacity="0.95"
+            className="dt-altpath"
+          />
         )}
 
         {/* visiting markers */}
