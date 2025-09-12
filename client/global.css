@@ -110,8 +110,9 @@
   100% { background-position: 100% 100%, 0% 100%, 100% 0%; }
 }
 
-/* frosted glass card */
-.glass { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(10px); }
+/* frosted glass card (light theme primary) */
+.glass { background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.85); backdrop-filter: blur(6px); box-shadow: 0 6px 18px rgba(16,24,40,0.04); }
+/* keep darker variant when .dark is used explicitly */
 .dark .glass { background: rgba(16,18,28,0.5); border-color: rgba(255,255,255,0.12); }
 
 /* circular gradient icon container */
