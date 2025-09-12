@@ -1036,7 +1036,7 @@ export default function DigitalTwin() {
                   <div>
                     <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-gray-700 flex items-center justify-center text-white text-lg">
+                        <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#64748b,#334155)'}}>
                           ⚙️
                         </div>
                         <div>
