@@ -93,14 +93,29 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
+  * { @apply border-border; }
+  body { @apply text-foreground; }
 }
+
+/* animated dark abstract gradient */
+.animated-dark-bg {
+  background: radial-gradient(1200px 600px at 10% 10%, #0b1026 0%, #0a0f24 35%, #0a0d1f 50%),
+    radial-gradient(800px 500px at 90% 20%, rgba(60, 30, 150, 0.35), transparent 60%),
+    radial-gradient(900px 600px at 30% 90%, rgba(21, 128, 220, 0.28), transparent 60%);
+  background-size: 200% 200%;
+  animation: moveGradient 18s ease-in-out infinite alternate;
+}
+@keyframes moveGradient {
+  0% { background-position: 0% 0%, 100% 0%, 0% 100%; }
+  100% { background-position: 100% 100%, 0% 100%, 100% 0%; }
+}
+
+/* frosted glass card */
+.glass { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(10px); }
+.dark .glass { background: rgba(16,18,28,0.5); border-color: rgba(255,255,255,0.12); }
+
+/* circular gradient icon container */
+.icon-badge { @apply rounded-full flex items-center justify-center text-white; background: linear-gradient(135deg, rgba(59,130,246,.95), rgba(79,70,229,.95)); box-shadow: 0 8px 24px rgba(59,130,246,.25); }
 
 @layer components {
   .panic-3d {

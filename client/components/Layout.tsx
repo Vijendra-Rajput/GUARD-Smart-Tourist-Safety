@@ -168,7 +168,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   }, [setLang]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/40">
+    <div className="min-h-screen animated-dark-bg">
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex items-center justify-between gap-3 py-3">
           <Brand />
