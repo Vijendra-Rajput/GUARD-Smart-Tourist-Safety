@@ -239,4 +239,13 @@
       stroke-dashoffset: 0;
     }
   }
+
+  /* data orb */
+  .data-orb { width: 80px; height: 80px; border-radius: 999px; transition: transform .18s ease, box-shadow .18s ease; }
+  .data-orb:hover { transform: translateY(-6px) scale(1.04); box-shadow: 0 12px 30px rgba(79,70,229,0.12); }
+
+  /* brain line pulse */
+  .brain-lines path { stroke-dasharray: 400; stroke-dashoffset: 400; animation: brainFlow 2200ms linear infinite; }
+  @keyframes brainFlow { to { stroke-dashoffset: 0; } }
+
 }
