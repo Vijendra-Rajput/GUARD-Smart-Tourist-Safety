@@ -124,13 +124,19 @@ function RadialGauge({
   );
 }
 
-function HeroRisk({ value }:{value:number}){
-  const size=220, stroke=16, r=(size-stroke)/2, circ=2*Math.PI*r; const dash=(value/100)*circ;
-  const color = value<=30? '#60a5fa' : value<=70? '#4f46e5' : '#ef4444';
-  const ticks = Array.from({length:40});
+function HeroRisk({ value }: { value: number }) {
+  const size = 220,
+    stroke = 16,
+    r = (size - stroke) / 2,
+    circ = 2 * Math.PI * r;
+  const dash = (value / 100) * circ;
+  const color = value <= 30 ? "#60a5fa" : value <= 70 ? "#4f46e5" : "#ef4444";
+  const ticks = Array.from({ length: 40 });
   return (
     <Card className="card-hover relative">
-      <CardHeader className="pb-2"><CardTitle className="text-lg">Risk Score</CardTitle></CardHeader>
+      <CardHeader className="pb-2">
+        <CardTitle className="text-lg">Risk Score</CardTitle>
+      </CardHeader>
       <CardContent className="pt-0 flex items-center gap-4">
         <div className="relative">
           <div className="absolute -inset-4 rounded-full blur-3xl opacity-30 bg-gradient-to-r from-sky-200 to-indigo-200" />
@@ -147,31 +153,72 @@ function HeroRisk({ value }:{value:number}){
             </defs>
 
             {/* ticks */}
-            {ticks.map((_,i)=>{
-              const ang = (i/40)*Math.PI*2 - Math.PI/2;
+            {ticks.map((_, i) => {
+              const ang = (i / 40) * Math.PI * 2 - Math.PI / 2;
               const inner = r - 6;
               const outer = r + 6;
-              const x1 = size/2 + Math.cos(ang)*inner;
-              const y1 = size/2 + Math.sin(ang)*inner;
-              const x2 = size/2 + Math.cos(ang)*outer;
-              const y2 = size/2 + Math.sin(ang)*outer;
-              return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#e6eef9" strokeWidth={i%5===0?2:1} strokeOpacity={0.9} strokeLinecap="round" />;
+              const x1 = size / 2 + Math.cos(ang) * inner;
+              const y1 = size / 2 + Math.sin(ang) * inner;
+              const x2 = size / 2 + Math.cos(ang) * outer;
+              const y2 = size / 2 + Math.sin(ang) * outer;
+              return (
+                <line
+                  key={i}
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke="#e6eef9"
+                  strokeWidth={i % 5 === 0 ? 2 : 1}
+                  strokeOpacity={0.9}
+                  strokeLinecap="round"
+                />
+              );
             })}
 
             {/* background ring */}
-            <circle cx={size/2} cy={size/2} r={r} stroke="#f1f5f9" strokeWidth={stroke} fill="none" />
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={r}
+              stroke="#f1f5f9"
+              strokeWidth={stroke}
+              fill="none"
+            />
 
             {/* progress arc */}
-            <circle cx={size/2} cy={size/2} r={r} stroke="url(#heroArc)" strokeWidth={stroke} strokeLinecap="round" fill="none" strokeDasharray={`${dash} ${circ-dash}`} transform={`rotate(-90 ${size/2} ${size/2})`} className="transition-all duration-700 drop-shadow-md" />
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={r}
+              stroke="url(#heroArc)"
+              strokeWidth={stroke}
+              strokeLinecap="round"
+              fill="none"
+              strokeDasharray={`${dash} ${circ - dash}`}
+              transform={`rotate(-90 ${size / 2} ${size / 2})`}
+              className="transition-all duration-700 drop-shadow-md"
+            />
 
             {/* center number */}
-            <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" className="font-extrabold text-slate-900" style={{fontSize: 44}}>{value}</text>
+            <text
+              x="50%"
+              y="50%"
+              dominantBaseline="middle"
+              textAnchor="middle"
+              className="font-extrabold text-slate-900"
+              style={{ fontSize: 44 }}
+            >
+              {value}
+            </text>
           </svg>
         </div>
         <div className="space-y-1 text-sm">
           <div className="text-muted-foreground">Live risk level</div>
           <div className="text-xl font-semibold">{value}/100</div>
-          <div className="text-xs text-muted-foreground">Pulse color adapts to risk bands.</div>
+          <div className="text-xs text-muted-foreground">
+            Pulse color adapts to risk bands.
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -652,20 +699,51 @@ export default function DigitalTwin() {
         {/* Hero Section: The Twin's Core */}
         <section className="w-full mb-6">
           <div className="glass rounded-xl p-6 flex flex-col items-center text-center">
-            <h1 className="text-3xl md:text-4xl font-extrabold">Meet Your Digital Twin</h1>
-            <p className="text-sm text-muted-foreground mt-2 max-w-2xl">Your personal safety co-pilot, analyzing millions of data points to predict and prevent risks in real-time.</p>
+            <h1 className="text-3xl md:text-4xl font-extrabold">
+              Meet Your Digital Twin
+            </h1>
+            <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
+              Your personal safety co-pilot, analyzing millions of data points
+              to predict and prevent risks in real-time.
+            </p>
 
             <div className="mt-6 relative flex items-center justify-center">
               {/* stylized neural brain SVG with avatar at core */}
               <div className="relative">
-                <svg width="260" height="180" viewBox="0 0 260 180" className="mx-auto">
+                <svg
+                  width="260"
+                  height="180"
+                  viewBox="0 0 260 180"
+                  className="mx-auto"
+                >
                   <defs>
-                    <linearGradient id="gcore" x1="0" x2="1"><stop offset="0%" stopColor="#60a5fa" /><stop offset="100%" stopColor="#4f46e5" /></linearGradient>
+                    <linearGradient id="gcore" x1="0" x2="1">
+                      <stop offset="0%" stopColor="#60a5fa" />
+                      <stop offset="100%" stopColor="#4f46e5" />
+                    </linearGradient>
                   </defs>
                   <g className="brain-lines">
-                    <path d="M30 90 C60 10, 200 10, 230 90" stroke="url(#gcore)" strokeWidth="2" fill="none" strokeOpacity="0.9" />
-                    <path d="M30 100 C60 170, 200 170, 230 100" stroke="url(#gcore)" strokeWidth="2" fill="none" strokeOpacity="0.7" />
-                    <circle cx="130" cy="90" r="36" fill="url(#gcore)" opacity="0.08" />
+                    <path
+                      d="M30 90 C60 10, 200 10, 230 90"
+                      stroke="url(#gcore)"
+                      strokeWidth="2"
+                      fill="none"
+                      strokeOpacity="0.9"
+                    />
+                    <path
+                      d="M30 100 C60 170, 200 170, 230 100"
+                      stroke="url(#gcore)"
+                      strokeWidth="2"
+                      fill="none"
+                      strokeOpacity="0.7"
+                    />
+                    <circle
+                      cx="130"
+                      cy="90"
+                      r="36"
+                      fill="url(#gcore)"
+                      opacity="0.08"
+                    />
                   </g>
                 </svg>
                 <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
@@ -684,35 +762,53 @@ export default function DigitalTwin() {
             <div className="flex items-center gap-6">
               <div className="w-1/3">
                 <h3 className="text-lg font-semibold">How Your Twin Learns</h3>
-                <p className="text-sm text-muted-foreground mt-1">A live network of data sources powers the Twin's intelligence. Hover any orb to learn more.</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  A live network of data sources powers the Twin's intelligence.
+                  Hover any orb to learn more.
+                </p>
               </div>
               <div className="flex-1 relative">
-                <div className="mx-auto w-full" style={{height: 220}}>
+                <div className="mx-auto w-full" style={{ height: 220 }}>
                   {/* central brain small */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <div className="h-16 w-16 rounded-full bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-white text-sm shadow-lg">MT</div>
+                    <div className="h-16 w-16 rounded-full bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-white text-sm shadow-lg">
+                      MT
+                    </div>
                   </div>
 
                   {/* data orbs positioned around */}
                   <div className="absolute inset-0">
                     {[
-                      ['Police & NCRB','🛡️','10%','police'],
-                      ['Local News','📰','15%','news'],
-                      ['Weather Alerts','⛅','12%','weather'],
-                      ['Community Reviews','⭐','18%','reviews'],
-                      ['Social Trends','🐦','9%','social'],
-                      ['Telecom Data','📶','11%','telecom'],
-                      ['Geospatial','📍','14%','map'],
-                      ['On-device','📱','11%','device'],
-                    ].map((o,i)=>{
-                      const angle = (i/8) * Math.PI * 2;
+                      ["Police & NCRB", "🛡️", "10%", "police"],
+                      ["Local News", "📰", "15%", "news"],
+                      ["Weather Alerts", "⛅", "12%", "weather"],
+                      ["Community Reviews", "⭐", "18%", "reviews"],
+                      ["Social Trends", "🐦", "9%", "social"],
+                      ["Telecom Data", "📶", "11%", "telecom"],
+                      ["Geospatial", "📍", "14%", "map"],
+                      ["On-device", "📱", "11%", "device"],
+                    ].map((o, i) => {
+                      const angle = (i / 8) * Math.PI * 2;
                       const cx = 50 + Math.cos(angle) * 36;
                       const cy = 50 + Math.sin(angle) * 36;
                       return (
-                        <div key={o[0] as string} className="absolute" style={{left: `${cx}%`, top: `${cy}%`, transform: 'translate(-50%,-50%)'}}>
-                          <div className="data-orb glass p-3 flex flex-col items-center justify-center w-20 h-20 transition-transform" title={o[0] as string}>
+                        <div
+                          key={o[0] as string}
+                          className="absolute"
+                          style={{
+                            left: `${cx}%`,
+                            top: `${cy}%`,
+                            transform: "translate(-50%,-50%)",
+                          }}
+                        >
+                          <div
+                            className="data-orb glass p-3 flex flex-col items-center justify-center w-20 h-20 transition-transform"
+                            title={o[0] as string}
+                          >
                             <div className="text-xl">{o[1] as string}</div>
-                            <div className="text-xs mt-1 text-center">{o[0] as string}</div>
+                            <div className="text-xs mt-1 text-center">
+                              {o[0] as string}
+                            </div>
                           </div>
                         </div>
                       );
@@ -728,31 +824,88 @@ export default function DigitalTwin() {
         <section className="w-full mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-lg font-semibold">Your Twin's Superpowers</h3>
-            <div className="text-xs text-muted-foreground">Scroll to explore</div>
+            <div className="text-xs text-muted-foreground">
+              Scroll to explore
+            </div>
           </div>
           <div className="marquee -mx-2 py-2">
             <div className="marquee-inner px-2">
-              {[...[
-                {t:'Behavior Mirror Engine', txt:'Aapke travel style ko samajhkar, aapka personal risk DNA banata hai.', icon:'🪞'},
-                {t:'Future Risk Simulation', txt:'Kisi jagah unsafe hone se pehle hi aapko forecast dekar batata hai.', icon:'🔮'},
-                {t:'Emotion Sync Mode', txt:'Aapke stress ko sense karke, emergency mode ko standby pe rakhta hai.', icon:'💓'},
-                {t:'Parallel World Safety View', txt:'Aapke jaane se pehle, virtually route explore karke safety check karta hai.', icon:'🧭'},
-                {t:"Learning Memory Brain", txt:'Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.', icon:'🧠'},
-                {t:'Risk Score Personality', txt:'Avatar ke rang se hi aap apni real-time safety samajh sakte hain.', icon:'🏁'},
-              ], ...[
-                {t:'Behavior Mirror Engine', txt:'Aapke travel style ko samajhkar, aapka personal risk DNA banata hai.', icon:'🪞'},
-                {t:'Future Risk Simulation', txt:'Kisi jagah unsafe hone se pehle hi aapko forecast dekar batata hai.', icon:'🔮'},
-                {t:'Emotion Sync Mode', txt:'Aapke stress ko sense karke, emergency mode ko standby pe rakhta hai.', icon:'💓'},
-                {t:'Parallel World Safety View', txt:'Aapke jaane se pehle, virtually route explore karke safety check karta hai.', icon:'🧭'},
-                {t:"Learning Memory Brain", txt:'Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.', icon:'🧠'},
-                {t:'Risk Score Personality', txt:'Avatar ke rang se hi aap apni real-time safety samajh sakte hain.', icon:'🏁'},
-              ]].map((c,idx)=> (
+              {[
+                ...[
+                  {
+                    t: "Behavior Mirror Engine",
+                    txt: "Aapke travel style ko samajhkar, aapka personal risk DNA banata hai.",
+                    icon: "🪞",
+                  },
+                  {
+                    t: "Future Risk Simulation",
+                    txt: "Kisi jagah unsafe hone se pehle hi aapko forecast dekar batata hai.",
+                    icon: "🔮",
+                  },
+                  {
+                    t: "Emotion Sync Mode",
+                    txt: "Aapke stress ko sense karke, emergency mode ko standby pe rakhta hai.",
+                    icon: "💓",
+                  },
+                  {
+                    t: "Parallel World Safety View",
+                    txt: "Aapke jaane se pehle, virtually route explore karke safety check karta hai.",
+                    icon: "🧭",
+                  },
+                  {
+                    t: "Learning Memory Brain",
+                    txt: "Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.",
+                    icon: "🧠",
+                  },
+                  {
+                    t: "Risk Score Personality",
+                    txt: "Avatar ke rang se hi aap apni real-time safety samajh sakte hain.",
+                    icon: "🏁",
+                  },
+                ],
+                ...[
+                  {
+                    t: "Behavior Mirror Engine",
+                    txt: "Aapke travel style ko samajhkar, aapka personal risk DNA banata hai.",
+                    icon: "🪞",
+                  },
+                  {
+                    t: "Future Risk Simulation",
+                    txt: "Kisi jagah unsafe hone se pehle hi aapko forecast dekar batata hai.",
+                    icon: "🔮",
+                  },
+                  {
+                    t: "Emotion Sync Mode",
+                    txt: "Aapke stress ko sense karke, emergency mode ko standby pe rakhta hai.",
+                    icon: "💓",
+                  },
+                  {
+                    t: "Parallel World Safety View",
+                    txt: "Aapke jaane se pehle, virtually route explore karke safety check karta hai.",
+                    icon: "🧭",
+                  },
+                  {
+                    t: "Learning Memory Brain",
+                    txt: "Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.",
+                    icon: "🧠",
+                  },
+                  {
+                    t: "Risk Score Personality",
+                    txt: "Avatar ke rang se hi aap apni real-time safety samajh sakte hain.",
+                    icon: "🏁",
+                  },
+                ],
+              ].map((c, idx) => (
                 <Card key={idx} className="min-w-[260px] p-4 glass card-hover">
                   <div className="flex flex-col gap-3">
-                    <div className="h-14 w-14 icon-badge text-2xl flex items-center justify-center">{c.icon}</div>
+                    <div className="h-14 w-14 icon-badge text-2xl flex items-center justify-center">
+                      {c.icon}
+                    </div>
                     <div>
                       <div className="font-semibold">{c.t}</div>
-                      <div className="text-sm text-muted-foreground mt-1">{c.txt}</div>
+                      <div className="text-sm text-muted-foreground mt-1">
+                        {c.txt}
+                      </div>
                     </div>
                   </div>
                 </Card>
@@ -779,12 +932,20 @@ export default function DigitalTwin() {
                 <CardContent>
                   <ul className="space-y-2">
                     {memoryLog.map((m, i) => (
-                      <li key={i} className="fade-up" style={{ animationDelay: `${i * 90}ms` }}>
+                      <li
+                        key={i}
+                        className="fade-up"
+                        style={{ animationDelay: `${i * 90}ms` }}
+                      >
                         <div className="glass rounded-md p-2 flex items-start gap-3">
-                          <div className={`${m.color} h-3 w-3 rounded-full mt-1`} />
+                          <div
+                            className={`${m.color} h-3 w-3 rounded-full mt-1`}
+                          />
                           <div className="flex-1">
                             <div className="text-sm font-medium">{m.title}</div>
-                            <div className="text-xs text-muted-foreground">{m.date}</div>
+                            <div className="text-xs text-muted-foreground">
+                              {m.date}
+                            </div>
                           </div>
                         </div>
                       </li>
@@ -897,8 +1058,18 @@ export default function DigitalTwin() {
 
               {/* prominent quick mode buttons moved out of grid */}
               <div className="mt-2 flex gap-2 items-center">
-                <button className="px-4 py-2 rounded-full bg-red-600 text-white shadow-md" onClick={() => setQuickModesOpen(true)}>Silent Alarm</button>
-                <button className="px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm border border-white/30" onClick={() => setQuickModesOpen(true)}>Watch Me</button>
+                <button
+                  className="px-4 py-2 rounded-full bg-red-600 text-white shadow-md"
+                  onClick={() => setQuickModesOpen(true)}
+                >
+                  Silent Alarm
+                </button>
+                <button
+                  className="px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm border border-white/30"
+                  onClick={() => setQuickModesOpen(true)}
+                >
+                  Watch Me
+                </button>
               </div>
 
               <div className="flex gap-2">
@@ -960,7 +1131,13 @@ export default function DigitalTwin() {
                   <div className="lg:col-span-2">
                     <Card className="bg-gradient-to-br from-sky-700/20 to-indigo-900/10 card-hover relative">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#3b82f6,#4f46e5)'}}>
+                        <div
+                          className="h-10 w-10 icon-badge"
+                          style={{
+                            background:
+                              "linear-gradient(135deg,#3b82f6,#4f46e5)",
+                          }}
+                        >
                           💧
                         </div>
                         <div>
@@ -996,7 +1173,13 @@ export default function DigitalTwin() {
                   <div>
                     <Card className="bg-gradient-to-br from-amber-100 to-amber-50 card-hover relative">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#f59e0b,#eab308)'}}>
+                        <div
+                          className="h-10 w-10 icon-badge"
+                          style={{
+                            background:
+                              "linear-gradient(135deg,#f59e0b,#eab308)",
+                          }}
+                        >
                           🚕
                         </div>
                         <div>
@@ -1027,7 +1210,13 @@ export default function DigitalTwin() {
                   <div>
                     <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#ec4899,#db2777)'}}>
+                        <div
+                          className="h-10 w-10 icon-badge"
+                          style={{
+                            background:
+                              "linear-gradient(135deg,#ec4899,#db2777)",
+                          }}
+                        >
                           📸
                         </div>
                         <div>
@@ -1052,7 +1241,13 @@ export default function DigitalTwin() {
                   <div>
                     <Card className="card-hover">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#ef4444,#dc2626)'}}>
+                        <div
+                          className="h-10 w-10 icon-badge"
+                          style={{
+                            background:
+                              "linear-gradient(135deg,#ef4444,#dc2626)",
+                          }}
+                        >
                           ⚠️
                         </div>
                         <div>
@@ -1104,7 +1299,13 @@ export default function DigitalTwin() {
                   <div>
                     <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#10b981,#059669)'}}>
+                        <div
+                          className="h-10 w-10 icon-badge"
+                          style={{
+                            background:
+                              "linear-gradient(135deg,#10b981,#059669)",
+                          }}
+                        >
                           📦
                         </div>
                         <div>
@@ -1132,7 +1333,13 @@ export default function DigitalTwin() {
                   <div>
                     <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)'}}>
+                        <div
+                          className="h-10 w-10 icon-badge"
+                          style={{
+                            background:
+                              "linear-gradient(135deg,#22c55e,#16a34a)",
+                          }}
+                        >
                           🤝
                         </div>
                         <div>
@@ -1159,7 +1366,13 @@ export default function DigitalTwin() {
                   <div>
                     <Card className="card-hover relative">
                       <CardHeader className="flex items-center gap-3">
-                        <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#64748b,#334155)'}}>
+                        <div
+                          className="h-10 w-10 icon-badge"
+                          style={{
+                            background:
+                              "linear-gradient(135deg,#64748b,#334155)",
+                          }}
+                        >
                           ⚙️
                         </div>
                         <div>
@@ -1240,24 +1453,63 @@ export default function DigitalTwin() {
         <div className="glass rounded-xl p-6 flex gap-6 items-center">
           <div className="w-1/3 flex items-center justify-center">
             <div className="h-28 w-28 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white text-3xl shadow-lg">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 6v5c0 5 3 9 9 11 6-2 9-6 9-11V6l-9-4z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 11c1.5 2 3 3 6 2" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg
+                width="36"
+                height="36"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 2L3 6v5c0 5 3 9 9 11 6-2 9-6 9-11V6l-9-4z"
+                  stroke="white"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M9 11c1.5 2 3 3 6 2"
+                  stroke="white"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold">Your Privacy, Our Priority</h3>
-            <p className="text-sm text-muted-foreground mt-1">We design for safety and trust. Below are our core commitments.</p>
+            <h3 className="text-lg font-semibold">
+              Your Privacy, Our Priority
+            </h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              We design for safety and trust. Below are our core commitments.
+            </p>
             <ul className="mt-4 space-y-2 text-sm">
-              <li>✔ <span className="font-medium">Your Consent is Key:</span> We only process data after you give clear consent.</li>
-              <li>✔ <span className="font-medium">Anonymized & Hashed:</span> Sensitive KYC data like Aadhaar is never stored directly; it is securely hashed.</li>
-              <li>✔ <span className="font-medium">You Are In Control:</span> The AI provides suggestions, not commands. You always make the final decision.</li>
-              <li>✔ <span className="font-medium">Data with a Purpose:</span> Your data is used for one reason only: to enhance your safety.</li>
+              <li>
+                ✔ <span className="font-medium">Your Consent is Key:</span> We
+                only process data after you give clear consent.
+              </li>
+              <li>
+                ✔ <span className="font-medium">Anonymized & Hashed:</span>{" "}
+                Sensitive KYC data like Aadhaar is never stored directly; it is
+                securely hashed.
+              </li>
+              <li>
+                ✔ <span className="font-medium">You Are In Control:</span> The
+                AI provides suggestions, not commands. You always make the final
+                decision.
+              </li>
+              <li>
+                ✔ <span className="font-medium">Data with a Purpose:</span>{" "}
+                Your data is used for one reason only: to enhance your safety.
+              </li>
             </ul>
           </div>
         </div>
       </section>
 
       <FeatureModal
-      open={consentOpen}
+        open={consentOpen}
         title="Consent"
         onClose={() => setConsentOpen(false)}
       >
