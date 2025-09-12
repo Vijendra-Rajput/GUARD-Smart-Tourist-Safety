@@ -125,18 +125,47 @@ function RadialGauge({
 }
 
 function HeroRisk({ value }:{value:number}){
-  const size=200, stroke=14, r=(size-stroke)/2, circ=2*Math.PI*r; const dash=(value/100)*circ;
-  const color = value<=30? '#10b981' : value<=70? '#f59e0b' : '#ef4444';
+  const size=220, stroke=16, r=(size-stroke)/2, circ=2*Math.PI*r; const dash=(value/100)*circ;
+  const color = value<=30? '#60a5fa' : value<=70? '#4f46e5' : '#ef4444';
+  const ticks = Array.from({length:40});
   return (
     <Card className="card-hover relative">
       <CardHeader className="pb-2"><CardTitle className="text-lg">Risk Score</CardTitle></CardHeader>
       <CardContent className="pt-0 flex items-center gap-4">
         <div className="relative">
-          <div className="absolute -inset-3 rounded-full blur-2xl opacity-30 bg-gradient-to-r from-indigo-500 to-fuchsia-600 animate-pulse-slow" />
+          <div className="absolute -inset-4 rounded-full blur-3xl opacity-30 bg-gradient-to-r from-sky-200 to-indigo-200" />
           <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-            <circle cx={size/2} cy={size/2} r={r} stroke="#e6e6e6" strokeWidth={stroke} fill="none" />
-            <circle cx={size/2} cy={size/2} r={r} stroke={color} strokeWidth={stroke} strokeLinecap="round" fill="none" strokeDasharray={`${dash} ${circ-dash}`} transform={`rotate(-90 ${size/2} ${size/2})`} className="transition-all duration-700" />
-            <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" className="font-extrabold" style={{fontSize: 36}}>{value}</text>
+            <defs>
+              <linearGradient id="heroGrad" x1="0" x2="1">
+                <stop offset="0%" stopColor="#bfdbfe" />
+                <stop offset="100%" stopColor="#60a5fa" />
+              </linearGradient>
+              <linearGradient id="heroArc" x1="0" x2="1">
+                <stop offset="0%" stopColor="#60a5fa" />
+                <stop offset="100%" stopColor="#4f46e5" />
+              </linearGradient>
+            </defs>
+
+            {/* ticks */}
+            {ticks.map((_,i)=>{
+              const ang = (i/40)*Math.PI*2 - Math.PI/2;
+              const inner = r - 6;
+              const outer = r + 6;
+              const x1 = size/2 + Math.cos(ang)*inner;
+              const y1 = size/2 + Math.sin(ang)*inner;
+              const x2 = size/2 + Math.cos(ang)*outer;
+              const y2 = size/2 + Math.sin(ang)*outer;
+              return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#e6eef9" strokeWidth={i%5===0?2:1} strokeOpacity={0.9} strokeLinecap="round" />;
+            })}
+
+            {/* background ring */}
+            <circle cx={size/2} cy={size/2} r={r} stroke="#f1f5f9" strokeWidth={stroke} fill="none" />
+
+            {/* progress arc */}
+            <circle cx={size/2} cy={size/2} r={r} stroke="url(#heroArc)" strokeWidth={stroke} strokeLinecap="round" fill="none" strokeDasharray={`${dash} ${circ-dash}`} transform={`rotate(-90 ${size/2} ${size/2})`} className="transition-all duration-700 drop-shadow-md" />
+
+            {/* center number */}
+            <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" className="font-extrabold text-slate-900" style={{fontSize: 44}}>{value}</text>
           </svg>
         </div>
         <div className="space-y-1 text-sm">
@@ -256,15 +285,12 @@ function MapPanel({ markerPos, path, layer, altPath, visitingMarkers }: any) {
   const bg =
     "https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2Fb5e8ea85976646bc87d3215c7c267687?format=webp&width=1200";
   return (
-    <div className="relative bg-black rounded-md overflow-hidden h-64 md:h-[50vh] lg:h-[60vh]">
+    <div className="relative rounded-xl overflow-hidden h-64 md:h-[50vh] lg:h-[60vh] glass">
       <img
         src={bg}
         alt="map mock"
-        className="absolute inset-0 w-full h-full object-cover opacity-90"
+        className="absolute inset-0 w-full h-full object-cover opacity-80"
       />
-
-      {/* dark overlay for contrast */}
-      <div className="absolute inset-0 bg-black/50" aria-hidden />
 
       {/* foreground SVG for paths and marker */}
       <svg
@@ -704,16 +730,23 @@ export default function DigitalTwin() {
             <h3 className="text-lg font-semibold">Your Twin's Superpowers</h3>
             <div className="text-xs text-muted-foreground">Scroll to explore</div>
           </div>
-          <div className="overflow-x-auto -mx-2 py-2">
-            <div className="flex gap-3 px-2">
-              {[
+          <div className="marquee -mx-2 py-2">
+            <div className="marquee-inner px-2">
+              {[...[
                 {t:'Behavior Mirror Engine', txt:'Aapke travel style ko samajhkar, aapka personal risk DNA banata hai.', icon:'🪞'},
                 {t:'Future Risk Simulation', txt:'Kisi jagah unsafe hone se pehle hi aapko forecast dekar batata hai.', icon:'🔮'},
                 {t:'Emotion Sync Mode', txt:'Aapke stress ko sense karke, emergency mode ko standby pe rakhta hai.', icon:'💓'},
                 {t:'Parallel World Safety View', txt:'Aapke jaane se pehle, virtually route explore karke safety check karta hai.', icon:'🧭'},
                 {t:"Learning Memory Brain", txt:'Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.', icon:'🧠'},
                 {t:'Risk Score Personality', txt:'Avatar ke rang se hi aap apni real-time safety samajh sakte hain.', icon:'🏁'},
-              ].map((c,idx)=> (
+              ], ...[
+                {t:'Behavior Mirror Engine', txt:'Aapke travel style ko samajhkar, aapka personal risk DNA banata hai.', icon:'🪞'},
+                {t:'Future Risk Simulation', txt:'Kisi jagah unsafe hone se pehle hi aapko forecast dekar batata hai.', icon:'🔮'},
+                {t:'Emotion Sync Mode', txt:'Aapke stress ko sense karke, emergency mode ko standby pe rakhta hai.', icon:'💓'},
+                {t:'Parallel World Safety View', txt:'Aapke jaane se pehle, virtually route explore karke safety check karta hai.', icon:'🧭'},
+                {t:"Learning Memory Brain", txt:'Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.', icon:'🧠'},
+                {t:'Risk Score Personality', txt:'Avatar ke rang se hi aap apni real-time safety samajh sakte hain.', icon:'🏁'},
+              ]].map((c,idx)=> (
                 <Card key={idx} className="min-w-[260px] p-4 glass card-hover">
                   <div className="flex flex-col gap-3">
                     <div className="h-14 w-14 icon-badge text-2xl flex items-center justify-center">{c.icon}</div>
@@ -746,18 +779,12 @@ export default function DigitalTwin() {
                 <CardContent>
                   <ul className="space-y-2">
                     {memoryLog.map((m, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-3 fade-up"
-                        style={{ animationDelay: `${i * 90}ms` }}
-                      >
-                        <div
-                          className={`${m.color} h-3 w-3 rounded-full mt-1`}
-                        />
-                        <div>
-                          <div className="text-sm font-medium">{m.title}</div>
-                          <div className="text-xs text-muted-foreground">
-                            {m.date}
+                      <li key={i} className="fade-up" style={{ animationDelay: `${i * 90}ms` }}>
+                        <div className="glass rounded-md p-2 flex items-start gap-3">
+                          <div className={`${m.color} h-3 w-3 rounded-full mt-1`} />
+                          <div className="flex-1">
+                            <div className="text-sm font-medium">{m.title}</div>
+                            <div className="text-xs text-muted-foreground">{m.date}</div>
                           </div>
                         </div>
                       </li>
@@ -870,23 +897,13 @@ export default function DigitalTwin() {
 
               {/* prominent quick mode buttons moved out of grid */}
               <div className="mt-2 flex gap-2 items-center">
-                <Button
-                  variant="outline"
-                  onClick={() => setQuickModesOpen(true)}
-                >
-                  Silent Alarm
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => setQuickModesOpen(true)}
-                >
-                  Watch Me
-                </Button>
+                <button className="px-4 py-2 rounded-full bg-red-600 text-white shadow-md" onClick={() => setQuickModesOpen(true)}>Silent Alarm</button>
+                <button className="px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm border border-white/30" onClick={() => setQuickModesOpen(true)}>Watch Me</button>
               </div>
 
               <div className="flex gap-2">
-                <Button
-                  className="bg-blue-600 text-white"
+                <button
+                  className="px-4 py-2 rounded-full bg-blue-600 text-white shadow-md"
                   onClick={() => {
                     const alt = generateWavyPath(hour + 1, 7).map((p) => [
                       Math.min(96, p[0] + 3),
@@ -898,9 +915,9 @@ export default function DigitalTwin() {
                   aria-label="Safe route suggestion"
                 >
                   Safe Route Suggestion
-                </Button>
-                <Button
-                  variant="outline"
+                </button>
+                <button
+                  className="px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm border border-white/30"
                   onClick={() => {
                     setVisitingMarkers((m) => [...m, path[path.length - 1]]);
                     setVisitingModalOpen(true);
@@ -908,23 +925,23 @@ export default function DigitalTwin() {
                   aria-label="Mark as visiting"
                 >
                   Mark As Visiting
-                </Button>
-                <Button
-                  variant="outline"
+                </button>
+                <button
+                  className="px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm border border-white/30"
                   onClick={onShare}
                   aria-label="Share with family"
                 >
                   Share With Family
-                </Button>
-                <Button
-                  variant="outline"
+                </button>
+                <button
+                  className="px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm border border-white/30"
                   onClick={() => setParallelOpen(true)}
                   aria-label="Parallel World Simulation"
                 >
                   Parallel World
-                </Button>
-                <Button
-                  className="bg-red-600 text-white"
+                </button>
+                <button
+                  className="px-4 py-2 rounded-full bg-red-600 text-white shadow-md"
                   onClick={() => {
                     /* open existing panic UI */ window.dispatchEvent(
                       new Event("open-panic-ui"),
@@ -933,7 +950,7 @@ export default function DigitalTwin() {
                   aria-label="Panic"
                 >
                   Panic
-                </Button>
+                </button>
               </div>
 
               {/* Feature grid below the map (table-like) - updated hierarchy */}
