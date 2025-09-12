@@ -97,21 +97,20 @@
   body { @apply text-foreground; }
 }
 
-/* animated dark abstract gradient */
-.animated-dark-bg {
-  background: radial-gradient(1200px 600px at 10% 10%, #0b1026 0%, #0a0f24 35%, #0a0d1f 50%),
-    radial-gradient(800px 500px at 90% 20%, rgba(60, 30, 150, 0.35), transparent 60%),
-    radial-gradient(900px 600px at 30% 90%, rgba(21, 128, 220, 0.28), transparent 60%);
+/* animated light abstract gradient */
+.animated-light-bg {
+  background: radial-gradient(800px 400px at 10% 10%, hsla(220, 100%, 95%, 1) 0%, hsla(260, 100%, 95%, 1) 35%, rgba(255,255,255,0.7) 100%),
+    radial-gradient(600px 300px at 80% 20%, rgba(96,165,250,0.12), transparent 60%);
   background-size: 200% 200%;
-  animation: moveGradient 18s ease-in-out infinite alternate;
+  animation: moveLightGradient 20s ease-in-out infinite alternate;
 }
-@keyframes moveGradient {
-  0% { background-position: 0% 0%, 100% 0%, 0% 100%; }
-  100% { background-position: 100% 100%, 0% 100%, 100% 0%; }
+@keyframes moveLightGradient {
+  0% { background-position: 0% 0%, 100% 0%; }
+  100% { background-position: 100% 100%, 0% 100%; }
 }
 
 /* frosted glass card (light theme primary) */
-.glass { background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.85); backdrop-filter: blur(6px); box-shadow: 0 6px 18px rgba(16,24,40,0.04); }
+.glass { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 12px 30px rgba(16,24,40,0.06); }
 /* keep darker variant when .dark is used explicitly */
 .dark .glass { background: rgba(16,18,28,0.5); border-color: rgba(255,255,255,0.12); }
 
@@ -247,5 +246,16 @@
   /* brain line pulse */
   .brain-lines path { stroke-dasharray: 400; stroke-dashoffset: 400; animation: brainFlow 2200ms linear infinite; }
   @keyframes brainFlow { to { stroke-dashoffset: 0; } }
+
+  /* marquee for infinite scrolling capabilities */
+  .marquee { overflow: hidden; width: 100%; }
+  .marquee-inner { display: flex; gap: 1rem; align-items: stretch; animation: marqueeMove 18s linear infinite; }
+  .marquee:hover .marquee-inner { animation-play-state: paused; }
+  @keyframes marqueeMove { 0% { transform: translateX(0%);} 100% { transform: translateX(-50%);} }
+
+  /* data orb float + hover glow */
+  .data-orb { width: 88px; height: 88px; border-radius: 999px; transition: transform .18s ease, box-shadow .18s ease; animation: floatOrb 6s ease-in-out infinite; background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.42)); border: 1px solid rgba(255,255,255,0.6); }
+  @keyframes floatOrb { 0% { transform: translateY(0);} 50% { transform: translateY(-6px);} 100% { transform: translateY(0);} }
+  .data-orb:hover { transform: translateY(-8px) scale(1.04); box-shadow: 0 18px 36px rgba(59,130,246,0.14), 0 6px 18px rgba(79,70,229,0.06); filter: drop-shadow(0 6px 18px rgba(59,130,246,0.12)); }
 
 }
