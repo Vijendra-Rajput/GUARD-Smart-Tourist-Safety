@@ -124,6 +124,31 @@ function RadialGauge({
   );
 }
 
+function HeroRisk({ value }:{value:number}){
+  const size=200, stroke=14, r=(size-stroke)/2, circ=2*Math.PI*r; const dash=(value/100)*circ;
+  const color = value<=30? '#10b981' : value<=70? '#f59e0b' : '#ef4444';
+  return (
+    <Card className="card-hover relative">
+      <CardHeader className="pb-2"><CardTitle className="text-lg">Risk Score</CardTitle></CardHeader>
+      <CardContent className="pt-0 flex items-center gap-4">
+        <div className="relative">
+          <div className="absolute -inset-3 rounded-full blur-2xl opacity-30 bg-gradient-to-r from-indigo-500 to-fuchsia-600 animate-pulse-slow" />
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+            <circle cx={size/2} cy={size/2} r={r} stroke="#e6e6e6" strokeWidth={stroke} fill="none" />
+            <circle cx={size/2} cy={size/2} r={r} stroke={color} strokeWidth={stroke} strokeLinecap="round" fill="none" strokeDasharray={`${dash} ${circ-dash}`} transform={`rotate(-90 ${size/2} ${size/2})`} className="transition-all duration-700" />
+            <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" className="font-extrabold" style={{fontSize: 36}}>{value}</text>
+          </svg>
+        </div>
+        <div className="space-y-1 text-sm">
+          <div className="text-muted-foreground">Live risk level</div>
+          <div className="text-xl font-semibold">{value}/100</div>
+          <div className="text-xs text-muted-foreground">Pulse color adapts to risk bands.</div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 function AvatarCard({
   risk,
   lastUpdated,
@@ -665,7 +690,7 @@ export default function DigitalTwin() {
                           aria-pressed={playing}
                           title="Play"
                         >
-                          {playing ? "■" : "▶"}
+                          {playing ? "■" : "���"}
                         </button>
                         <div className="text-sm">
                           Hour <span className="font-semibold">+{hour}</span>
