@@ -626,6 +626,7 @@ export default function DigitalTwin() {
         <div className="flex flex-col gap-3">
           {/* Left / avatar & tabs */}
           <div className="md:col-span-1 flex flex-col">
+            <HeroRisk value={current.risk} />
             <AvatarCard
               risk={current.risk}
               lastUpdated={new Date().toLocaleTimeString()}
@@ -690,7 +691,7 @@ export default function DigitalTwin() {
                           aria-pressed={playing}
                           title="Play"
                         >
-                          {playing ? "■" : "���"}
+                          {playing ? "■" : "▶"}
                         </button>
                         <div className="text-sm">
                           Hour <span className="font-semibold">+{hour}</span>
