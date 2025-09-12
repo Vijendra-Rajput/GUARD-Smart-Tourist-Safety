@@ -623,6 +623,112 @@ export default function DigitalTwin() {
   return (
     <div className="w-full">
       <div className="container mx-auto">
+        {/* Hero Section: The Twin's Core */}
+        <section className="w-full mb-6">
+          <div className="glass rounded-xl p-6 flex flex-col items-center text-center">
+            <h1 className="text-3xl md:text-4xl font-extrabold">Meet Your Digital Twin</h1>
+            <p className="text-sm text-muted-foreground mt-2 max-w-2xl">Your personal safety co-pilot, analyzing millions of data points to predict and prevent risks in real-time.</p>
+
+            <div className="mt-6 relative flex items-center justify-center">
+              {/* stylized neural brain SVG with avatar at core */}
+              <div className="relative">
+                <svg width="260" height="180" viewBox="0 0 260 180" className="mx-auto">
+                  <defs>
+                    <linearGradient id="gcore" x1="0" x2="1"><stop offset="0%" stopColor="#60a5fa" /><stop offset="100%" stopColor="#4f46e5" /></linearGradient>
+                  </defs>
+                  <g className="brain-lines">
+                    <path d="M30 90 C60 10, 200 10, 230 90" stroke="url(#gcore)" strokeWidth="2" fill="none" strokeOpacity="0.9" />
+                    <path d="M30 100 C60 170, 200 170, 230 100" stroke="url(#gcore)" strokeWidth="2" fill="none" strokeOpacity="0.7" />
+                    <circle cx="130" cy="90" r="36" fill="url(#gcore)" opacity="0.08" />
+                  </g>
+                </svg>
+                <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+                  <div className="h-20 w-20 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white text-lg shadow-lg">
+                    <div className="font-bold">MT</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How Your Twin Learns - Data Sources */}
+        <section className="w-full mb-6">
+          <div className="glass rounded-xl p-6">
+            <div className="flex items-center gap-6">
+              <div className="w-1/3">
+                <h3 className="text-lg font-semibold">How Your Twin Learns</h3>
+                <p className="text-sm text-muted-foreground mt-1">A live network of data sources powers the Twin's intelligence. Hover any orb to learn more.</p>
+              </div>
+              <div className="flex-1 relative">
+                <div className="mx-auto w-full" style={{height: 220}}>
+                  {/* central brain small */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div className="h-16 w-16 rounded-full bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-white text-sm shadow-lg">MT</div>
+                  </div>
+
+                  {/* data orbs positioned around */}
+                  <div className="absolute inset-0">
+                    {[
+                      ['Police & NCRB','🛡️','10%','police'],
+                      ['Local News','📰','15%','news'],
+                      ['Weather Alerts','⛅','12%','weather'],
+                      ['Community Reviews','⭐','18%','reviews'],
+                      ['Social Trends','🐦','9%','social'],
+                      ['Telecom Data','📶','11%','telecom'],
+                      ['Geospatial','📍','14%','map'],
+                      ['On-device','📱','11%','device'],
+                    ].map((o,i)=>{
+                      const angle = (i/8) * Math.PI * 2;
+                      const cx = 50 + Math.cos(angle) * 36;
+                      const cy = 50 + Math.sin(angle) * 36;
+                      return (
+                        <div key={o[0] as string} className="absolute" style={{left: `${cx}%`, top: `${cy}%`, transform: 'translate(-50%,-50%)'}}>
+                          <div className="data-orb glass p-3 flex flex-col items-center justify-center w-20 h-20 transition-transform" title={o[0] as string}>
+                            <div className="text-xl">{o[1] as string}</div>
+                            <div className="text-xs mt-1 text-center">{o[0] as string}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Capabilities Carousel */}
+        <section className="w-full mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-semibold">Your Twin's Superpowers</h3>
+            <div className="text-xs text-muted-foreground">Scroll to explore</div>
+          </div>
+          <div className="overflow-x-auto -mx-2 py-2">
+            <div className="flex gap-3 px-2">
+              {[
+                {t:'Behavior Mirror Engine', txt:'Aapke travel style ko samajhkar, aapka personal risk DNA banata hai.', icon:'🪞'},
+                {t:'Future Risk Simulation', txt:'Kisi jagah unsafe hone se pehle hi aapko forecast dekar batata hai.', icon:'🔮'},
+                {t:'Emotion Sync Mode', txt:'Aapke stress ko sense karke, emergency mode ko standby pe rakhta hai.', icon:'💓'},
+                {t:'Parallel World Safety View', txt:'Aapke jaane se pehle, virtually route explore karke safety check karta hai.', icon:'🧭'},
+                {t:"Learning Memory Brain", txt:'Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.', icon:'🧠'},
+                {t:'Risk Score Personality', txt:'Avatar ke rang se hi aap apni real-time safety samajh sakte hain.', icon:'🏁'},
+              ].map((c,idx)=> (
+                <Card key={idx} className="min-w-[260px] p-4 glass card-hover">
+                  <div className="flex flex-col gap-3">
+                    <div className="h-14 w-14 icon-badge text-2xl flex items-center justify-center">{c.icon}</div>
+                    <div>
+                      <div className="font-semibold">{c.t}</div>
+                      <div className="text-sm text-muted-foreground mt-1">{c.txt}</div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* main content */}
         <div className="flex flex-col gap-3">
           {/* Left / avatar & tabs */}
           <div className="md:col-span-1 flex flex-col">
