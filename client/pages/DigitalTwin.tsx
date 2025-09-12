@@ -1218,8 +1218,29 @@ export default function DigitalTwin() {
         </div>
       </div>
 
+      {/* Privacy & Trust Section */}
+      <section className="container mx-auto mt-6">
+        <div className="glass rounded-xl p-6 flex gap-6 items-center">
+          <div className="w-1/3 flex items-center justify-center">
+            <div className="h-28 w-28 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white text-3xl shadow-lg">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 6v5c0 5 3 9 9 11 6-2 9-6 9-11V6l-9-4z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 11c1.5 2 3 3 6 2" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold">Your Privacy, Our Priority</h3>
+            <p className="text-sm text-muted-foreground mt-1">We design for safety and trust. Below are our core commitments.</p>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li>✔ <span className="font-medium">Your Consent is Key:</span> We only process data after you give clear consent.</li>
+              <li>✔ <span className="font-medium">Anonymized & Hashed:</span> Sensitive KYC data like Aadhaar is never stored directly; it is securely hashed.</li>
+              <li>✔ <span className="font-medium">You Are In Control:</span> The AI provides suggestions, not commands. You always make the final decision.</li>
+              <li>✔ <span className="font-medium">Data with a Purpose:</span> Your data is used for one reason only: to enhance your safety.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <FeatureModal
-        open={consentOpen}
+      open={consentOpen}
         title="Consent"
         onClose={() => setConsentOpen(false)}
       >
