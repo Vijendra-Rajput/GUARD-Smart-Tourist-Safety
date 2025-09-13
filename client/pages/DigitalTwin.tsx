@@ -1544,6 +1544,14 @@ export default function DigitalTwin() {
                 ✔ <span className="font-medium">Data with a Purpose:</span>{" "}
                 Your data is used for one reason only: to enhance your safety.
               </li>
+              <li>
+                ✔ <span className="font-medium">Automated Alerts & Evidence:</span>{" "}
+                We support automated alert dispatch and secure evidence logging to accelerate response.
+              </li>
+              <li>
+                ✔ <span className="font-medium">Hospital Tie-ups:</span>{" "}
+                Partnerships with local hospitals and ambulance services for emergency medical alerts and rapid assistance.
+              </li>
             </ul>
           </div>
         </div>
