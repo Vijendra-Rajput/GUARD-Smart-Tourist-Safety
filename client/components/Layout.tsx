@@ -202,7 +202,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                   isActive ? "bg-primary text-white" : "hover:bg-muted",
                 )
               }
-              title="Open Digital Twin"
+              title="Open Saarthi"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -225,7 +225,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>Digital Twin</span>
+              <span>Saarthi</span>
             </NavLink>
 
             <button
@@ -247,7 +247,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                 )
               }
             >
-              {t("adminDashboard")}
+              Police Dashboard
             </NavLink>
             {/* AI Guide next to nav (desktop) */}
             <div className="ml-2 hidden md:block">
@@ -262,7 +262,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
               <PanicButton placement="header" />
               <Link
                 to="/digital-twin"
-                aria-label="Open Digital Twin"
+                aria-label="Open Saarthi"
                 className="inline-flex items-center justify-center rounded-md border bg-background px-3 py-2 text-sm hover:bg-muted"
               >
                 <svg
@@ -286,6 +286,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                     strokeLinejoin="round"
                   />
                 </svg>
+                <span className="sr-only">Saarthi</span>
               </Link>
             </div>
             {/* hide AI Guide and LanguageSelect on header for mobile; they'll be in hamburger menu */}
