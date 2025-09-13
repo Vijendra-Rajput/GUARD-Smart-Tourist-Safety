@@ -708,7 +708,11 @@ export default function DigitalTwin() {
             </p>
 
             <div className="mt-4">
-              <img src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F5a273a3f0aa549459891fcc69da2ae4b?format=webp&width=800" alt="AI Avatar" className="mx-auto w-36 h-36 rounded-full shadow-lg object-cover" />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F5a273a3f0aa549459891fcc69da2ae4b?format=webp&width=800"
+                alt="AI Avatar"
+                className="mx-auto w-36 h-36 rounded-full shadow-lg object-cover"
+              />
             </div>
 
             <div className="mt-6 relative flex items-center justify-center">
@@ -1412,39 +1416,79 @@ export default function DigitalTwin() {
                 <div>
                   <Card className="card-hover relative">
                     <CardHeader className="flex items-center gap-3">
-                      <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#60a5fa,#4f46e5)'}}>🧑‍🤝‍🧑</div>
+                      <div
+                        className="h-10 w-10 icon-badge"
+                        style={{
+                          background: "linear-gradient(135deg,#60a5fa,#4f46e5)",
+                        }}
+                      >
+                        🧑‍🤝‍🧑
+                      </div>
                       <div>
-                        <CardTitle className="text-sm">Local Guide Connect</CardTitle>
-                        <div className="text-xs text-muted-foreground">Verified local guide marketplace.</div>
+                        <CardTitle className="text-sm">
+                          Local Guide Connect
+                        </CardTitle>
+                        <div className="text-xs text-muted-foreground">
+                          Verified local guide marketplace.
+                        </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-2">Connect with verified local guides, view ratings and book trusted assistance.</CardContent>
+                    <CardContent className="pt-2">
+                      Connect with verified local guides, view ratings and book
+                      trusted assistance.
+                    </CardContent>
                   </Card>
                 </div>
 
                 <div>
                   <Card className="card-hover relative">
                     <CardHeader className="flex items-center gap-3">
-                      <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#f59e0b,#eab308)'}}>⛅</div>
+                      <div
+                        className="h-10 w-10 icon-badge"
+                        style={{
+                          background: "linear-gradient(135deg,#f59e0b,#eab308)",
+                        }}
+                      >
+                        ⛅
+                      </div>
                       <div>
-                        <CardTitle className="text-sm">Weather & Terrain Advisories</CardTitle>
-                        <div className="text-xs text-muted-foreground">Real-time weather & terrain alerts.</div>
+                        <CardTitle className="text-sm">
+                          Weather & Terrain Advisories
+                        </CardTitle>
+                        <div className="text-xs text-muted-foreground">
+                          Real-time weather & terrain alerts.
+                        </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-2">Live alerts for weather, terrain and travel-impacting conditions tailored to your route.</CardContent>
+                    <CardContent className="pt-2">
+                      Live alerts for weather, terrain and travel-impacting
+                      conditions tailored to your route.
+                    </CardContent>
                   </Card>
                 </div>
 
                 <div>
                   <Card className="card-hover relative">
                     <CardHeader className="flex items-center gap-3">
-                      <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#10b981,#059669)'}}>🤝</div>
+                      <div
+                        className="h-10 w-10 icon-badge"
+                        style={{
+                          background: "linear-gradient(135deg,#10b981,#059669)",
+                        }}
+                      >
+                        🤝
+                      </div>
                       <div>
                         <CardTitle className="text-sm">Partnerships</CardTitle>
-                        <div className="text-xs text-muted-foreground">Hotels, tour operators & telecom tie-ups.</div>
+                        <div className="text-xs text-muted-foreground">
+                          Hotels, tour operators & telecom tie-ups.
+                        </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-2">Partner benefits and integrations (hotels, tour operators, telecom) to enhance on-ground support.</CardContent>
+                    <CardContent className="pt-2">
+                      Partner benefits and integrations (hotels, tour operators,
+                      telecom) to enhance on-ground support.
+                    </CardContent>
                   </Card>
                 </div>
               </div>
@@ -1549,12 +1593,17 @@ export default function DigitalTwin() {
                 Your data is used for one reason only: to enhance your safety.
               </li>
               <li>
-                ✔ <span className="font-medium">Automated Alerts & Evidence:</span>{" "}
-                We support automated alert dispatch and secure evidence logging to accelerate response.
+                ✔{" "}
+                <span className="font-medium">
+                  Automated Alerts & Evidence:
+                </span>{" "}
+                We support automated alert dispatch and secure evidence logging
+                to accelerate response.
               </li>
               <li>
                 ✔ <span className="font-medium">Hospital Tie-ups:</span>{" "}
-                Partnerships with local hospitals and ambulance services for emergency medical alerts and rapid assistance.
+                Partnerships with local hospitals and ambulance services for
+                emergency medical alerts and rapid assistance.
               </li>
             </ul>
           </div>

@@ -44,4 +44,6 @@ export const SCENARIOS = {
   },
 };
 
-export const SCENARIO_KEYS = Object.keys(SCENARIOS) as (keyof typeof SCENARIOS)[];
+export const SCENARIO_KEYS = Object.keys(
+  SCENARIOS,
+) as (keyof typeof SCENARIOS)[];
