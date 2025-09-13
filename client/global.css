@@ -313,7 +313,7 @@
     display: flex;
     gap: 1rem;
     align-items: stretch;
-    animation: marqueeMove 18s linear infinite;
+    animation: marqueeMove 10s linear infinite;
   }
   .marquee:hover .marquee-inner {
     animation-play-state: paused;
