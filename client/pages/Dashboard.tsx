@@ -13,11 +13,17 @@ const SummaryCard = ({ title, value, meta, color, icon }: any) => (
       <div className="flex items-start justify-between">
         <div>
           <div className="text-xs text-muted-foreground">{title}</div>
-          <div className={`text-2xl font-bold ${color || "text-slate-900"}`}>{value}</div>
-          {meta && <div className="text-sm text-muted-foreground mt-1">{meta}</div>}
+          <div className={`text-2xl font-bold ${color || "text-slate-900"}`}>
+            {value}
+          </div>
+          {meta && (
+            <div className="text-sm text-muted-foreground mt-1">{meta}</div>
+          )}
         </div>
         <div className="opacity-80">
-          <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-xl">{icon}</div>
+          <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-xl">
+            {icon}
+          </div>
         </div>
       </div>
     </CardContent>
@@ -29,7 +35,9 @@ function AreaChart({ data = [800, 1200, 1600, 2200, 1800, 1400, 1600] }) {
   const h = 200;
   const max = Math.max(...data) * 1.1;
   const step = w / (data.length - 1);
-  const points = data.map((v, i) => `${i * step},${h - (v / max) * h}`).join(" ");
+  const points = data
+    .map((v, i) => `${i * step},${h - (v / max) * h}`)
+    .join(" ");
   const path = `M0,${h} L ${points} L ${w},${h} Z`;
   const linePath = `M ${data.map((v, i) => `${i * step} ${h - (v / max) * h}`).join(" L ")}`;
   return (
@@ -41,9 +49,22 @@ function AreaChart({ data = [800, 1200, 1600, 2200, 1800, 1400, 1600] }) {
         </linearGradient>
       </defs>
       <path d={path} fill="url(#areaGrad)" />
-      <path d={linePath} fill="none" stroke="#6366f1" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d={linePath}
+        fill="none"
+        stroke="#6366f1"
+        strokeWidth={2.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       {data.map((v, i) => (
-        <circle key={i} cx={i * step} cy={h - (v / max) * h} r={3.5} fill="#4f46e5" />
+        <circle
+          key={i}
+          cx={i * step}
+          cy={h - (v / max) * h}
+          r={3.5}
+          fill="#4f46e5"
+        />
       ))}
     </svg>
   );
@@ -84,10 +105,23 @@ function DonutChart() {
             <path key={i} d={a.d} fill={a.color} opacity={0.95} />
           ))}
           <circle cx={cx} cy={cy} r={36} fill="#fff" />
-          <text x={cx} y={cy} textAnchor="middle" dominantBaseline="middle" className="font-bold" style={{ fontSize: 18 }}>
+          <text
+            x={cx}
+            y={cy}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className="font-bold"
+            style={{ fontSize: 18 }}
+          >
             78
           </text>
-          <text x={cx} y={cy + 20} textAnchor="middle" dominantBaseline="middle" className="text-xs text-muted-foreground">
+          <text
+            x={cx}
+            y={cy + 20}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className="text-xs text-muted-foreground"
+          >
             Safety
           </text>
         </g>
@@ -96,7 +130,10 @@ function DonutChart() {
       <div className="flex-1">
         <div className="grid grid-cols-2 gap-2">
           <div className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-full" style={{ background: colors[0] }} />
+            <span
+              className="inline-block w-3 h-3 rounded-full"
+              style={{ background: colors[0] }}
+            />
             <div>
               <div className="text-sm font-medium">Excellent</div>
               <div className="text-xs text-muted-foreground">55%</div>
@@ -104,7 +141,10 @@ function DonutChart() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-full" style={{ background: colors[1] }} />
+            <span
+              className="inline-block w-3 h-3 rounded-full"
+              style={{ background: colors[1] }}
+            />
             <div>
               <div className="text-sm font-medium">Good</div>
               <div className="text-xs text-muted-foreground">20%</div>
@@ -112,7 +152,10 @@ function DonutChart() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-full" style={{ background: colors[2] }} />
+            <span
+              className="inline-block w-3 h-3 rounded-full"
+              style={{ background: colors[2] }}
+            />
             <div>
               <div className="text-sm font-medium">Fair</div>
               <div className="text-xs text-muted-foreground">15%</div>
@@ -120,7 +163,10 @@ function DonutChart() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-full" style={{ background: colors[3] }} />
+            <span
+              className="inline-block w-3 h-3 rounded-full"
+              style={{ background: colors[3] }}
+            />
             <div>
               <div className="text-sm font-medium">Poor</div>
               <div className="text-xs text-muted-foreground">10%</div>
@@ -137,15 +183,37 @@ export default function Dashboard() {
     <div className="container mx-auto py-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Operations Dashboard</h1>
-        <p className="text-sm text-muted-foreground">Overview of tourist activity, devices and system health</p>
+        <p className="text-sm text-muted-foreground">
+          Overview of tourist activity, devices and system health
+        </p>
       </div>
 
       {/* Top summary row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <SummaryCard title="Active Tourists" value="12,847" meta={<span className="text-emerald-600">+8.2% from last month</span>} icon={"👥"} />
-        <SummaryCard title="IoT Devices" value="1,234" meta={<span>12 offline</span>} icon={"📶"} />
-        <SummaryCard title="Critical Alerts" value={<span className="text-red-600">23</span>} meta={<span>5 new today</span>} icon={"⚠️"} />
-        <SummaryCard title="System Uptime" value="99.8%" meta={<span className="text-emerald-600">+0.1% improvement</span>} icon={"📈"} />
+        <SummaryCard
+          title="Active Tourists"
+          value="12,847"
+          meta={<span className="text-emerald-600">+8.2% from last month</span>}
+          icon={"👥"}
+        />
+        <SummaryCard
+          title="IoT Devices"
+          value="1,234"
+          meta={<span>12 offline</span>}
+          icon={"📶"}
+        />
+        <SummaryCard
+          title="Critical Alerts"
+          value={<span className="text-red-600">23</span>}
+          meta={<span>5 new today</span>}
+          icon={"⚠️"}
+        />
+        <SummaryCard
+          title="System Uptime"
+          value="99.8%"
+          meta={<span className="text-emerald-600">+0.1% improvement</span>}
+          icon={"📈"}
+        />
       </div>
 
       {/* Middle charts row */}
@@ -158,7 +226,9 @@ export default function Dashboard() {
             <AreaChart data={[800, 1200, 1600, 2200, 1800, 1400, 1600]} />
           </CardContent>
           <CardFooter>
-            <div className="text-xs text-muted-foreground">Y-axis: visitors — X-axis: days</div>
+            <div className="text-xs text-muted-foreground">
+              Y-axis: visitors — X-axis: days
+            </div>
           </CardFooter>
         </Card>
 
@@ -170,7 +240,9 @@ export default function Dashboard() {
             <DonutChart />
           </CardContent>
           <CardFooter>
-            <div className="text-xs text-muted-foreground">Legend shows proportion of tourist safety scores</div>
+            <div className="text-xs text-muted-foreground">
+              Legend shows proportion of tourist safety scores
+            </div>
           </CardFooter>
         </Card>
       </div>
