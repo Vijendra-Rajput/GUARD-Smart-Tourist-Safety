@@ -1404,6 +1404,47 @@ export default function DigitalTwin() {
                 </div>
               </div>
 
+              <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div>
+                  <Card className="card-hover relative">
+                    <CardHeader className="flex items-center gap-3">
+                      <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#60a5fa,#4f46e5)'}}>🧑‍🤝‍🧑</div>
+                      <div>
+                        <CardTitle className="text-sm">Local Guide Connect</CardTitle>
+                        <div className="text-xs text-muted-foreground">Verified local guide marketplace.</div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-2">Connect with verified local guides, view ratings and book trusted assistance.</CardContent>
+                  </Card>
+                </div>
+
+                <div>
+                  <Card className="card-hover relative">
+                    <CardHeader className="flex items-center gap-3">
+                      <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#f59e0b,#eab308)'}}>⛅</div>
+                      <div>
+                        <CardTitle className="text-sm">Weather & Terrain Advisories</CardTitle>
+                        <div className="text-xs text-muted-foreground">Real-time weather & terrain alerts.</div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-2">Live alerts for weather, terrain and travel-impacting conditions tailored to your route.</CardContent>
+                  </Card>
+                </div>
+
+                <div>
+                  <Card className="card-hover relative">
+                    <CardHeader className="flex items-center gap-3">
+                      <div className="h-10 w-10 icon-badge" style={{background:'linear-gradient(135deg,#10b981,#059669)'}}>🤝</div>
+                      <div>
+                        <CardTitle className="text-sm">Partnerships</CardTitle>
+                        <div className="text-xs text-muted-foreground">Hotels, tour operators & telecom tie-ups.</div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-2">Partner benefits and integrations (hotels, tour operators, telecom) to enhance on-ground support.</CardContent>
+                  </Card>
+                </div>
+              </div>
+
               <div className="mt-2 flex items-center gap-2">
                 <button
                   aria-label="emotion"
