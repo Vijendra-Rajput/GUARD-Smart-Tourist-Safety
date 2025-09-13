@@ -241,7 +241,7 @@ function AvatarCard({
   return (
     <Card className="card-hover">
       <CardHeader>
-        <CardTitle>My Safety Twin</CardTitle>
+        <CardTitle>My Saarthi</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-3">
@@ -299,7 +299,7 @@ function AvatarCard({
           </div>
 
           <div className="flex-1">
-            <div className="text-sm font-semibold">Guest Twin</div>
+            <div className="text-sm font-semibold">Guest Saarthi</div>
             <div className="text-xs text-muted-foreground">
               Last update: {lastUpdated}
             </div>
@@ -566,9 +566,9 @@ export default function DigitalTwin() {
     if (playing) {
       interval = setInterval(() => {
         setHour((h) => {
-          if (h >= 4) {
+          if (h >= 8) {
             setPlaying(false);
-            return 4;
+            return 8;
           }
           return h + 1;
         });
@@ -700,7 +700,7 @@ export default function DigitalTwin() {
         <section className="w-full mb-6">
           <div className="glass rounded-xl p-6 flex flex-col items-center text-center">
             <h1 className="text-3xl md:text-4xl font-extrabold">
-              Meet Your Digital Twin
+              Meet Saarthi
             </h1>
             <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
               Your personal safety co-pilot, analyzing millions of data points
@@ -748,7 +748,7 @@ export default function DigitalTwin() {
                 </svg>
                 <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
                   <div className="h-20 w-20 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white text-lg shadow-lg">
-                    <div className="font-bold">MT</div>
+                    <div className="font-bold">SR</div>
                   </div>
                 </div>
               </div>
@@ -761,9 +761,9 @@ export default function DigitalTwin() {
           <div className="glass rounded-xl p-6">
             <div className="flex items-center gap-6">
               <div className="w-1/3">
-                <h3 className="text-lg font-semibold">How Your Twin Learns</h3>
+                <h3 className="text-lg font-semibold">How Saarthi Learns</h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  A live network of data sources powers the Twin's intelligence.
+                  A live network of data sources powers Saarthi's intelligence.
                   Hover any orb to learn more.
                 </p>
               </div>
@@ -772,7 +772,7 @@ export default function DigitalTwin() {
                   {/* central brain small */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     <div className="h-16 w-16 rounded-full bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-white text-sm shadow-lg">
-                      MT
+                      SR
                     </div>
                   </div>
 
@@ -823,7 +823,7 @@ export default function DigitalTwin() {
         {/* Capabilities Carousel */}
         <section className="w-full mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold">Your Twin's Superpowers</h3>
+            <h3 className="text-lg font-semibold">Saarthi's Superpowers</h3>
             <div className="text-xs text-muted-foreground">
               Scroll to explore
             </div>
@@ -854,7 +854,7 @@ export default function DigitalTwin() {
                   },
                   {
                     t: "Learning Memory Brain",
-                    txt: "Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.",
+                    txt: "Har experience se seekhta hai aur baaki Saarthis ke saath milkar smarter banta hai.",
                     icon: "🧠",
                   },
                   {
@@ -886,7 +886,7 @@ export default function DigitalTwin() {
                   },
                   {
                     t: "Learning Memory Brain",
-                    txt: "Har experience se seekhta hai aur baaki twins ke saath milkar smarter banta hai.",
+                    txt: "Har experience se seekhta hai aur baaki Saarthis ke saath milkar smarter banta hai.",
                     icon: "🧠",
                   },
                   {
@@ -927,7 +927,7 @@ export default function DigitalTwin() {
             <div className="mt-3">
               <Card className="card-hover">
                 <CardHeader>
-                  <CardTitle>Twin's Memory Log</CardTitle>
+                  <CardTitle>Saarthi's Memory Log</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
@@ -994,7 +994,7 @@ export default function DigitalTwin() {
                       <input
                         type="range"
                         min={0}
-                        max={4}
+                        max={8}
                         value={hour}
                         onChange={(e) => {
                           setHour(parseInt(e.target.value));
@@ -1932,7 +1932,7 @@ export default function DigitalTwin() {
           </label>
           <div className="flex gap-2">
             <Button variant="ghost" onClick={() => window.location.reload()}>
-              Reset twin
+              Reset Saarthi
             </Button>
             <Button
               variant="outline"
