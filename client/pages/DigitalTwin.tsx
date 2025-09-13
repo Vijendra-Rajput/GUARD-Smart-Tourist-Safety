@@ -707,6 +707,10 @@ export default function DigitalTwin() {
               to predict and prevent risks in real-time.
             </p>
 
+            <div className="mt-4">
+              <img src="https://cdn.builder.io/api/v1/image/assets%2F54db72644cde408b844f73b2e4d133f1%2F5a273a3f0aa549459891fcc69da2ae4b?format=webp&width=800" alt="AI Avatar" className="mx-auto w-36 h-36 rounded-full shadow-lg object-cover" />
+            </div>
+
             <div className="mt-6 relative flex items-center justify-center">
               {/* stylized neural brain SVG with avatar at core */}
               <div className="relative">
