@@ -8,6 +8,7 @@ import { MapPlaceholder } from "@/components/MapPlaceholder";
 import { BreadcrumbTrail } from "@/components/BreadcrumbTrail";
 import { Chatbot } from "@/components/Chatbot";
 import { useI18n } from "@/context/i18n";
+import { useAuth } from "@/context/auth";
 import { DevicesPanel } from "@/components/DevicesPanel";
 import { BlockchainProof } from "@/components/BlockchainProof";
 import { KioskIssuance } from "@/components/KioskIssuance";
@@ -191,7 +192,7 @@ export default function Index() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
-  const [tourist, setTourist] = useState<Tourist | null>(null);
+  const { user: tourist, register, login, logout } = useAuth();
   const [locationPreset, setLocationPreset] = useState<string | null>(null);
   const safety = useSafetyScore();
 
@@ -353,13 +354,7 @@ export default function Index() {
                     className="h-12 w-full text-base font-semibold"
                     disabled={!name || !phone || !consent}
                     onClick={() => {
-                      const newTourist = {
-                        id: crypto.randomUUID(),
-                        name,
-                        phone,
-                        consent,
-                      };
-                      setTourist(newTourist);
+                      register({ name, phone, consent });
                       setLocationPreset(pickLocationForUser(name));
                     }}
                   >
