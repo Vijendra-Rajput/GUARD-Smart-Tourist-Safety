@@ -2,12 +2,27 @@ import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { createServer } from "./server";
+
+// Helper function for the express server plugin
+function expressPlugin(): Plugin {
+  return {
+    name: "express-plugin",
+    apply: "serve", // Only apply during development (serve mode)
+    configureServer(server) {
+      const app = createServer();
+      // Add Express app as middleware to Vite dev server
+      server.middlewares.use(app);
+    },
+  };
+}
+
 // https://vitejs.dev/config/
+// THIS IS THE ONLY DEFAULT EXPORT IN THE ENTIRE FILE
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-fs: {
+    fs: {
       allow: ["./client", "./shared"],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
@@ -23,16 +38,3 @@ fs: {
     },
   },
 }));
-
-function expressPlugin(): Plugin {
-  return {
-    name: "express-plugin",
-    apply: "serve", // Only apply during development (serve mode)
-    configureServer(server) {
-      const app = createServer();
-
-      // Add Express app as middleware to Vite dev server
-      server.middlewares.use(app);
-    },
-  };
-}
