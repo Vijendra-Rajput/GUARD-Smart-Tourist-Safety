@@ -3,7 +3,6 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/context/i18n";
-import { Chatbot } from "@/components/Chatbot";
 import { PanicButton } from "@/components/PanicButton";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { FeatureModal } from "@/components/FeatureModal";
