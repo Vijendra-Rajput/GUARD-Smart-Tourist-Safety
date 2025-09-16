@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import DigitalTwin from "./pages/DigitalTwin";
 import { I18nProvider } from "@/context/i18n";
+import { AuthProvider } from "@/context/auth";
 import { Layout } from "@/components/Layout";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <I18nProvider>
+          <AuthProvider>
           <Layout>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -31,6 +33,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
+          </AuthProvider>
         </I18nProvider>
       </BrowserRouter>
     </TooltipProvider>
