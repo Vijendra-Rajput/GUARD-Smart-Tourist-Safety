@@ -300,6 +300,50 @@ export default function Index() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">
+      <div className="lg:col-span-3">
+        <section className="relative h-[56vh] w-full overflow-hidden rounded-xl">
+          <style>{`@keyframes heroPan { 0% { background-position: center 0%; } 50% { background-position: center 6%; } 100% { background-position: center 0%; } } @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+          <div
+            className="absolute inset-0 bg-cover bg-center rounded-xl"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1950&q=80')`,
+              filter: 'saturate(1.05) brightness(0.85) contrast(1.02) ',
+              animation: 'heroPan 24s ease-in-out infinite',
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl" />
+          <div className="relative z-10 container mx-auto h-full flex items-center justify-between px-4">
+            <div className="max-w-xl text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">SafeTrip — Emergency SOS</h1>
+              <p className="mt-3 text-lg md:text-xl text-white/90">Stay protected with real-time alerts, guardian assignment and instant assistance.</p>
+              <div className="mt-6 flex items-center gap-4">
+                <Button className="px-6 py-3 rounded-md bg-[#0b2b4a] text-white hover:scale-105 transition-transform" onClick={() => window.scrollTo({ top: 400, behavior: 'smooth' })}>
+                  Generate Digital ID
+                </Button>
+                <Button variant="outline" className="px-4 py-3 rounded-md text-white border-white/30">Learn More</Button>
+              </div>
+            </div>
+            <div className="hidden md:flex items-center">
+              <div className="glass rounded-xl p-4 w-80">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-sm text-white/80">Live Location</div>
+                    <div className="text-lg font-semibold text-white">Shillong, Meghalaya</div>
+                  </div>
+                  <div className="inline-flex items-center gap-2">
+                    <div className="h-3 w-3 rounded-full bg-green-400 shadow-lg" />
+                    <div className="text-sm text-white/80">Guardian Nearby</div>
+                  </div>
+                </div>
+                <div className="mt-3 text-sm text-white/90">Nearest guardian ETA: 18 mins</div>
+              </div>
+            </div>
+          </div>
+          <div className="absolute left-6 bottom-6 z-40">
+            <PanicButton placement="header" />
+          </div>
+        </section>
+      </div>
       <div className="lg:col-span-2 grid gap-6">
         {!tourist ? (
           <>
