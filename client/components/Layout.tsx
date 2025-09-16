@@ -323,7 +323,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                 <div
                   id="signin-menu"
                   className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border z-50"
-                  style={{ animation: "fadeIn 200ms ease" }}
+                  style={{ animation: "fadeUp 200ms ease forwards" }}
                 >
                   <button
                     className="flex items-center gap-2 px-3 py-2 text-sm w-full text-gray-900 hover:bg-gray-100"
