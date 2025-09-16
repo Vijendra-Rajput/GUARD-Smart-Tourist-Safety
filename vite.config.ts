@@ -2,7 +2,22 @@ import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { createServer } from "./server";
+// vite.config.js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  // --- ADD THIS SERVER OBJECT ---
+  server: {
+    // This makes the server accessible externally
+    host: true, 
+    // This is the "guest list" setting
+    allowedHosts: ['.replit.dev'] 
+  }
+  // -----------------------------
+})
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
