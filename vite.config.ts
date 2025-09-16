@@ -2,28 +2,26 @@ import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { createServer } from "./server";
-// vite.config.js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+
+// Helper function for the express server plugin
+function expressPlugin(): Plugin {
+  return {
+    name: "express-plugin",
+    apply: "serve", // Only apply during development (serve mode)
+    configureServer(server) {
+      const app = createServer();
+      // Add Express app as middleware to Vite dev server
+      server.middlewares.use(app);
+    },
+  };
+}
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  // --- ADD THIS SERVER OBJECT ---
-  server: {
-    // This makes the server accessible externally
-    host: true, 
-    // This is the "guest list" setting
-    allowedHosts: ['.replit.dev'] 
-  }
-  // -----------------------------
-})
-// https://vitejs.dev/config/
+// THIS IS THE ONLY DEFAULT EXPORT IN THE ENTIRE FILE
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    allowedHosts: ['.replit.dev'], // <-- ADD THIS LINE RIGHT HERE
     fs: {
       allow: ["./client", "./shared"],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
@@ -40,16 +38,3 @@ export default defineConfig(({ mode }) => ({
     },
   },
 }));
-
-function expressPlugin(): Plugin {
-  return {
-    name: "express-plugin",
-    apply: "serve", // Only apply during development (serve mode)
-    configureServer(server) {
-      const app = createServer();
-
-      // Add Express app as middleware to Vite dev server
-      server.middlewares.use(app);
-    },
-  };
-}
