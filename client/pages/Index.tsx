@@ -810,7 +810,12 @@ export default function Index() {
           defaultName={name}
           onIssue={(issued) => {
             // set tourist state from issuance
-            login({ id: issued.id, name: issued.name, phone: issued.phone, consent: true });
+            login({
+              id: issued.id,
+              name: issued.name,
+              phone: issued.phone,
+              consent: true,
+            });
             setIssuedTx({ hash: issued.txHash, time: Date.now() });
             setValidUntil(issued.validUntil);
             setLocationPreset(

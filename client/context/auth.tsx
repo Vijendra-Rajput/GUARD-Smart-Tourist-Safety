@@ -10,8 +10,17 @@ export type User = {
 type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
-  register: (payload: { name: string; phone: string; consent: boolean }) => User;
-  login: (payload: { id?: string; name: string; phone: string; consent: boolean }) => User;
+  register: (payload: {
+    name: string;
+    phone: string;
+    consent: boolean;
+  }) => User;
+  login: (payload: {
+    id?: string;
+    name: string;
+    phone: string;
+    consent: boolean;
+  }) => User;
   logout: () => void;
 };
 
@@ -19,7 +28,9 @@ const STORAGE_KEY = "guard_user";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -43,7 +54,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [user]);
 
-  const register = (payload: { name: string; phone: string; consent: boolean }) => {
+  const register = (payload: {
+    name: string;
+    phone: string;
+    consent: boolean;
+  }) => {
     const created: User = {
       id: crypto.randomUUID(),
       name: payload.name,
@@ -54,7 +69,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return created;
   };
 
-  const login = (payload: { id?: string; name: string; phone: string; consent: boolean }) => {
+  const login = (payload: {
+    id?: string;
+    name: string;
+    phone: string;
+    consent: boolean;
+  }) => {
     const existing: User = {
       id: payload.id ?? crypto.randomUUID(),
       name: payload.name,
