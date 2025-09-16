@@ -8,6 +8,7 @@ import { PanicButton } from "@/components/PanicButton";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { FeatureModal } from "@/components/FeatureModal";
 import Mockups from "@/pages/Mockups";
+import { useAuth } from "@/context/auth";
 
 function Brand() {
   return (
@@ -114,6 +115,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const { t, setLang } = useI18n();
   const location = useLocation();
+  const { user, logout } = useAuth();
   const [mockupsOpen, setMockupsOpen] = useState(false);
   const [mockupsTab, setMockupsTab] = useState<string | undefined>(undefined);
 
@@ -293,6 +295,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <div className="hidden md:block">
               <LanguageSelect />
             </div>
+            {user && (
+              <div className="ml-3 flex items-center gap-2">
+                <div className="text-sm font-medium">{user.name}</div>
+                <Button variant="outline" size="sm" onClick={() => logout()}>
+                  Logout
+                </Button>
+              </div>
+            )}
             <OfflineBadge />
             {/* Mobile admin switch moved into hamburger menu; hidden in header */}
             <div className="hidden" />
