@@ -116,8 +116,21 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   const { t, setLang } = useI18n();
   const location = useLocation();
   const { user, logout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [mockupsOpen, setMockupsOpen] = useState(false);
   const [mockupsTab, setMockupsTab] = useState<string | undefined>(undefined);
+
+  // close menu on outside click
+  useEffect(() => {
+    function onDoc(e: MouseEvent) {
+      const target = e.target as HTMLElement;
+      if (!target.closest || !(document.getElementById("signin-btn")?.contains(target) || document.getElementById("signin-menu")?.contains(target))) {
+        setMenuOpen(false);
+      }
+    }
+    document.addEventListener("click", onDoc);
+    return () => document.removeEventListener("click", onDoc);
+  }, []);
 
   useEffect(() => {
     const onOpenMockups = (e: Event) => {
@@ -252,9 +265,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
               Police Dashboard
             </NavLink>
             {/* AI Guide next to nav (desktop) */}
-            <div className="ml-2 hidden md:block">
-              <Chatbot />
-            </div>
+            {/* AI Guide removed from header per redesign */}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -295,14 +306,55 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <div className="hidden md:block">
               <LanguageSelect />
             </div>
-            {user && (
-              <div className="ml-3 flex items-center gap-2">
-                <div className="text-sm font-medium">{user.name}</div>
-                <Button variant="outline" size="sm" onClick={() => logout()}>
-                  Logout
-                </Button>
-              </div>
-            )}
+            {/* Sign In dropdown */}
+            <div className="ml-3 relative">
+              <button
+                id="signin-btn"
+                onClick={() => setMenuOpen((s) => !s)}
+                className="inline-flex items-center gap-2 rounded-md px-3 py-2 bg-white text-gray-900 shadow-sm hover:bg-[#f5f5f5] focus:outline-none"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.632 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span className="text-sm font-medium">Sign In</span>
+              </button>
+
+              {menuOpen && (
+                <div
+                  id="signin-menu"
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border z-50"
+                  style={{ animation: "fadeIn 200ms ease" }}
+                >
+                  <button
+                    className="flex items-center gap-2 px-3 py-2 text-sm w-full text-gray-900 hover:bg-gray-100"
+                    onClick={() => { setMenuOpen(false); /* sign in as guest */ login({ name: 'Guest', phone: '0000000000', consent: true }); }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.632 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Sign in as Guest</span>
+                  </button>
+                  <button
+                    className="flex items-center gap-2 px-3 py-2 text-sm w-full text-gray-900 hover:bg-gray-100"
+                    onClick={() => { setMenuOpen(false); login({ name: 'Admin', phone: '0000000001', consent: true }); }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M12 11c0-1.657 1.343-3 3-3h3l-1 4h-2" />
+                    </svg>
+                    <span>Sign in as Admin</span>
+                  </button>
+                  <button
+                    className="flex items-center gap-2 px-3 py-2 text-sm w-full text-red-600 font-bold hover:bg-red-100 hover:text-white"
+                    onClick={() => { setMenuOpen(false); logout(); }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3" />
+                    </svg>
+                    <span>Logout</span>
+                  </button>
+                </div>
+              )}
+            </div>
             <OfflineBadge />
             {/* Mobile admin switch moved into hamburger menu; hidden in header */}
             <div className="hidden" />
